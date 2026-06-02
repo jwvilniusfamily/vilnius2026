@@ -681,4 +681,54 @@ function handleCommentSubmit(e) {
 
     const newComment = {
         id: Date.now(),
-        nam
+        name,
+        country,
+        original: message,
+        translations,
+        timestamp: new Date().toISOString()
+    };
+
+    comments.unshift(newComment);
+    localStorage.setItem('v2026_comments', JSON.stringify(comments));
+    
+    e.target.reset();
+    renderComments();
+}
+
+function renderComments() {
+    const list = document.getElementById('commentsList');
+    list.innerHTML = '';
+    
+    comments.forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'comment-card';
+        
+        let displayMsg = c.original;
+        let isTranslated = false;
+        
+        if (c.translations && c.translations[currentLang] && c.translations[currentLang] !== c.original) {
+            displayMsg = c.translations[currentLang];
+            isTranslated = true;
+        } else if (currentLang !== 'en' && c.original !== c.translations['en']) {
+            displayMsg = c.original;
+        }
+
+        card.innerHTML = `
+            <div class="comment-header">
+                <span class="comment-author">${c.name}</span>
+                <span class="comment-country">${c.country}</span>
+            </div>
+            <div class="comment-body">${displayMsg}</div>
+            ${isTranslated ? `<div class="ai-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 12 2.5 7.5"/></svg>
+                ${dict[currentLang].aiTranslated}
+            </div>` : ''}
+        `;
+        list.appendChild(card);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
