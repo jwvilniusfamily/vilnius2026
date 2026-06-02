@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VILNIUS 2026</title>
+    
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <meta name="googlebot" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandPink: '#EF92A4',
+                        brandGold: '#D4A373',
+                        brandNavy: '#1A2238',
+                        brandCream: '#FAF9F6',
+                        brandGreen: '#1A4D2E'
+                    },
+                    fontFamily: {
+                        serif: ['Merriweather', 'serif'],
+                        sans: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAF9F6;
+            color: #1A2238;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .font-serif {
+            font-family: 'Merriweather', serif;
+        }
+        .gallery-image-wrapper {
+            transition: transform 0.3s ease, opacity 0.5s ease;
+            animation: fadeIn 0.5s forwards;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            background-color: #e5e7eb;
+            aspect-ratio: 1;
+        }
+        .gallery-image-wrapper:hover img {
+            transform: scale(1.05);
+        }
+        .gallery-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hidden-item { display: none; }
+        .message-card { border-left: 4px solid #EF92A4; }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <nav class="w-full py-4 px-6 md:px-12 flex justify-between items-center bg-brandCream border-b border-brandGold/20 sticky top-0 z-50">
+        <div class="font-serif font-bold text-xl tracking-wide text-brandNavy">
+            VILNIUS 2026
+        </div>
+        <div class="flex items-center gap-6">
+            <span class="hidden md:inline text-sm font-medium text-brandGold" data-i18n="navSlogan"></span>
+            <select id="langSwitcher" class="bg-transparent border border-brandNavy text-brandNavy text-sm rounded px-2 py-1 focus:outline-none">
+                <option value="lt">LT</option>
+                <option value="en">EN</option>
+                <option value="ru">RU</option>
+                <option value="lv">LV</option>
+            </select>
+        </div>
+    </nav>
+
+    <header class="w-full py-20 px-6 text-center max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 text-brandNavy" data-i18n="heroTitle"></h1>
+        <p class="text-lg md:text-xl text-brandNavy/80 leading-relaxed" data-i18n="heroSub"></p>
+    </header>
+
+    <section class="w-full max-w-6xl mx-auto px-6 mb-20">
+        <div class="aspect-video w-full rounded-lg overflow-hidden shadow-xl bg-brandNavy">
+            <iframe class="w-full h-full object-cover" 
+                src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0" 
+                title="Vilnius 2026 Welcome" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </section>
+
+    <section class="w-full px-6 md:px-12 mb-20 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-serif font-bold text-center mb-8" data-i18n="galleryTitle"></h2>
+        
+        <div class="flex justify-center gap-4 mb-10 flex-wrap" id="filterContainer">
+            <button class="filter-btn active px-6 py-2 rounded-full border border-brandPink bg-brandPink text-white transition-colors hover:bg-brandPink/80" data-filter="all" data-i18n="filterAll"></button>
+            <button class="filter-btn px-6 py-2 rounded-full border border-brandPink text-brandPink bg-transparent transition-colors hover:bg-brandPink/10" data-filter="plakatai" data-i18n="filterPosters"></button>
+            <button class="filter-btn px-6 py-2 rounded-full border border-brandPink text-brandPink bg-transparent transition-colors hover:bg-brandPink/10" data-filter="molis" data-i18n="filterClay"></button>
+            <button class="filter-btn px-6 py-2 rounded-full border border-brandPink text-brandPink bg-transparent transition-colors hover:bg-brandPink/10" data-filter="atvirukai" data-i18n="filterCards"></button>
+        </div>
+
+        <div id="galleryGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <section class="w-full bg-brandNavy text-brandCream py-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-serif font-bold text-center mb-10 text-brandGold" data-i18n="guestbookTitle"></h2>
+            
+            <form id="guestForm" class="bg-brandCream/10 p-6 md:p-8 rounded-lg shadow-md mb-12 flex flex-col gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm mb-1" data-i18n="formName"></label>
+                        <input type="text" id="guestName" required class="w-full p-3 rounded bg-brandCream text-brandNavy border-none focus:ring-2 focus:ring-brandPink">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1" data-i18n="formCountry"></label>
+                        <select id="guestCountry" required class="w-full p-3 rounded bg-brandCream text-brandNavy border-none focus:ring-2 focus:ring-brandPink"></select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm mb-1" data-i18n="formMessage"></label>
+                    <textarea id="guestMessage" required rows="3" class="w-full p-3 rounded bg-brandCream text-brandNavy border-none focus:ring-2 focus:ring-brandPink"></textarea>
+                </div>
+                <button type="submit" class="self-start px-8 py-3 bg-brandGold text-brandNavy font-semibold rounded hover:bg-brandGold/90 transition-colors" data-i18n="formSubmit"></button>
+            </form>
+
+            <div id="guestMessages" class="flex flex-col gap-4 max-h-[500px] overflow-y-auto pr-2"></div>
+        </div>
+    </section>
+
+    <footer class="w-full bg-brandCream py-12 px-6 border-t border-brandGold/20 mt-auto">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex flex-col items-start gap-2 w-full md:w-1/2">
+                <span class="font-serif font-bold text-brandNavy mb-2" data-i18n="qrTitle"></span>
+                <div class="flex w-full gap-2">
+                    <input type="url" id="qrInput" class="flex-1 p-2 border border-brandNavy/20 rounded focus:outline-none focus:border-brandPink" data-i18n-ph="qrPlaceholder">
+                    <button id="qrBtn" class="bg-brandGreen text-brandCream px-4 py-2 rounded hover:bg-brandGreen/90 transition-colors whitespace-nowrap" data-i18n="qrButton"></button>
+                </div>
+                <div id="qrResult" class="mt-4 hidden bg-white p-2 rounded shadow">
+                    <img id="qrImage" src="" alt="QR Code" class="w-32 h-32">
+                </div>
+            </div>
+            <div class="text-center md:text-right w-full md:w-1/2">
+                <p class="text-brandNavy/70 text-sm mb-2" data-i18n="contactsText"></p>
+                <p class="text-brandNavy font-medium" data-i18n="footerCopy"></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* 
+         * Translation system: Data is stored in a JSON-like object 'translations'. 
+         * Allows easy addition of new languages by adding another key.
+         */
+        const translations = {
+            lt: {
+                navSlogan: "Sukurta tūkstančiams jūsų 🌍",
+                heroTitle: "Sveiki atvykę į Vilnių",
+                heroSub: "Jūsų atvykimo proga paruošėme lietuviškos šilumos. Kviečiame susipažinti su mūsų rankų darbo kūryba.",
+                galleryTitle: "Galerija",
+                filterAll: "Visi",
+                filterPosters: "Plakatai",
+                filterClay: "Molis",
+                filterCards: "Atvirukai",
+                guestbookTitle: "Svečių knyga",
+                formName: "Vardas",
+                formCountry: "Šalis",
+                formMessage: "Žinutė",
+                formSubmit: "Palikti žinutę",
+                qrTitle: "Išsisaugokite nuorodą",
+                qrPlaceholder: "https://...",
+                qrButton: "Generuoti QR",
+                contactsText: "Susisiekite: info@vilnius2026.lt",
+                footerCopy: "© 2026 Tarptautinis Kongresas Vilniuje.",
+                countries: {
+                    AM: "Armėnija", BR: "Brazilija", CL: "Čilė", DO: "Dominikos Respublika",
+                    IL: "Izraelis", JP: "Japonija", US: "JAV", NG: "Nigerija",
+                    PT: "Portugalija", SC: "Skandinavija"
+                }
+            },
+            en: {
+                navSlogan: "Made for thousands of you 🌍",
+                heroTitle: "Welcome to Vilnius",
+                heroSub: "We have prepared Lithuanian warmth for your arrival. We invite you to explore our handmade creations.",
+                galleryTitle: "Gallery",
+                filterAll: "All",
+                filterPosters: "Posters",
+                filterClay: "Clay",
+                filterCards: "Cards",
+                guestbookTitle: "Guestbook",
+                formName: "Name",
+                formCountry: "Country",
+                formMessage: "Message",
+                formSubmit: "Leave a message",
+                qrTitle: "Save the link",
+                qrPlaceholder: "https://...",
+                qrButton: "Generate QR",
+                contactsText: "Contact: info@vilnius2026.lt",
+                footerCopy: "© 2026 International Congress in Vilnius.",
+                countries: {
+                    AM: "Armenia", BR: "Brazil", CL: "Chile", DO: "Dominican Republic",
+                    IL: "Israel", JP: "Japan", US: "USA", NG: "Nigeria",
+                    PT: "Portugal", SC: "Scandinavia"
+                }
+            },
+            ru: {
+                navSlogan: "Создано для тысяч из вас 🌍",
+                heroTitle: "Добро пожаловать в Вильнюс",
+                heroSub: "В честь вашего приезда мы подготовили литовское тепло. Приглашаем познакомиться с нашим ручным творчеством.",
+                galleryTitle: "Галерея",
+                filterAll: "Все",
+                filterPosters: "Плакаты",
+                filterClay: "Глина",
+                filterCards: "Открытки",
+                guestbookTitle: "Гостевая книга",
+                formName: "Имя",
+                formCountry: "Страна",
+                formMessage: "Сообщение",
+                formSubmit: "Оставить сообщение",
+                qrTitle: "Сохраните ссылку",
+                qrPlaceholder: "https://...",
+                qrButton: "Создать QR",
+                contactsText: "Контакты: info@vilnius2026.lt",
+                footerCopy: "© 2026 Международный Конгресс в Вильнюсе.",
+                countries: {
+                    AM: "Армения", BR: "Бразилия", CL: "Чили", DO: "Доминиканская Республика",
+                    IL: "Израиль", JP: "Япония", US: "США", NG: "Нигерия",
+                    PT: "Португалия", SC: "Скандинавия"
+                }
+            },
+            lv: {
+                navSlogan: "Radīts tūkstošiem no jums 🌍",
+                heroTitle: "Laipni lūdzam Viļņā",
+                heroSub: "Jūsu ierašanās gadījumā esam sagatavojuši lietuviešu siltumu. Aicinām iepazīties ar mūsu roku darbiem.",
+                galleryTitle: "Galerija",
+                filterAll: "Visi",
+                filterPosters: "Plakāti",
+                filterClay: "Māls",
+                filterCards: "Atklātnes",
+                guestbookTitle: "Viesu grāmata",
+                formName: "Vārds",
+                formCountry: "Valsts",
+                formMessage: "Ziņojums",
+                formSubmit: "Atstāt ziņu",
+                qrTitle: "Saglabājiet saiti",
+                qrPlaceholder: "https://...",
+                qrButton: "Ģenerēt QR",
+                contactsText: "Saziņa: info@vilnius2026.lt",
+                footerCopy: "© 2026 Starptautiskais Kongress Viļņā.",
+                countries: {
+                    AM: "Armēnija", BR: "Brazīlija", CL: "Čīle", DO: "Dominikānas Republika",
+                    IL: "Izraēla", JP: "Japāna", US: "ASV", NG: "Nigērija",
+                    PT: "Portugāle", SC: "Skandināvija"
+                }
+            }
+        };
+
+        let currentLang = 'lt';
+        
+        const galleryItems = [
+            { type: 'plakatai', url: 'https://i.postimg.cc/tgKZznNy/IMG-0018-143-Edited.jpg' },
+            { type: 'plakatai', url: 'https://i.postimg.cc/mD7cpZmC/IMG-0024-1-Edited.jpg' },
+            { type: 'plakatai', url: 'https://i.postimg.cc/zfsbkHFJ/IMG-0025-2-Edited.jpg' },
+            { type: 'plakatai', url: 'https://i.postimg.cc/k506yRFH/IMG-0042-5-Edited.jpg' },
+            { type: 'plakatai', url: 'https://i.postimg.cc/1tDg7Rvz/IMG-0043-160-Edited.jpg' },
+            { type: 'plakatai', url: 'https://i.postimg.cc/B6287Zm0/IMG-0050-164-Edited.jpg' },
+            { type: 'plakatai', url: 'https://i.postimg.cc/ZR69sYw9/IMG-0062-170-Edited.jpg' },
+            { type: 'plakatai', url: 'https://i.postimg.cc/yNMgT3yz/IMG-0071-174-Edited.jpg' },
+            { type: 'plakatai', url: 'https://i.postimg.cc/TwnyN2tn/IMG-0073-175-Edited.jpg' },
+            { type: 'plakatai', url: 'https://i.postimg.cc/85LFXkZW/IMG-0081-180-Edited.jpg' },
+            
+            { type: 'molis', url: 'https://i.postimg.cc/L6YYYTpM/IMG-7135-2.jpg' },
+            { type: 'molis', url: 'https://i.postimg.cc/fTtttKhP/IMG-7139-2.jpg' },
+            { type: 'molis', url: 'https://i.postimg.cc/WbFFFnvN/IMG-7144-2.jpg' },
+            { type: 'molis', url: 'https://i.postimg.cc/9F64G7mC/IMG-7147-2.jpg' },
+            { type: 'molis', url: 'https://i.postimg.cc/N045qC1M/IMG-7154-2.jpg' },
+            { type: 'molis', url: 'https://i.postimg.cc/3rb0xqzm/IMG-7166-2.jpg' },
+            { type: 'molis', url: 'https://i.postimg.cc/XqXZgKBk/IMG-7169-2.jpg' },
+            { type: 'molis', url: 'https://i.postimg.cc/Kv6KnMGf/IMG-7173-2.jpg' },
+            { type: 'molis', url: 'https://i.postimg.cc/K8t1Q8jT/IMG-7181-2.jpg' },
+            { type: 'molis', url: 'https://i.postimg.cc/pLKmkLrC/IMG-7188-3.jpg' },
+            
+            { type: 'atvirukai', url: 'https://placehold.co/600x600/FAF9F6/EF92A4?text=Atvirukas+1' },
+            { type: 'atvirukai', url: 'https://placehold.co/600x600/FAF9F6/EF92A4?text=Atvirukas+2' },
+            { type: 'atvirukai', url: 'https://placehold.co/600x600/FAF9F6/EF92A4?text=Atvirukas+3' },
+            { type: 'atvirukai', url: 'https://placehold.co/600x600/FAF9F6/EF92A4?text=Atvirukas+4' },
+            { type: 'atvirukai', url: 'https://placehold.co/600x600/FAF9F6/EF92A4?text=Atvirukas+5' }
+        ];
+
+        function applyTranslations(lang) {
+            currentLang = lang;
+            const dict = translations[lang];
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.textContent = dict[key];
+            });
+
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.getAttribute('data-i18n-ph');
+                if (dict[key]) el.setAttribute('placeholder', dict[key]);
+            });
+
+            const countrySelect = document.getElementById('guestCountry');
+            const currentVal = countrySelect.value;
+            countrySelect.innerHTML = '';
+            for (const [code, name] of Object.entries(dict.countries)) {
+                const opt = document.createElement('option');
+                opt.value = code;
+                opt.textContent = name;
+                countrySelect.appendChild(opt);
+            }
+            if (currentVal && dict.countries[currentVal]) {
+                countrySelect.value = currentVal;
+            }
+            
+            renderMessages();
+        }
+
+        function initGallery() {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+            
+            galleryItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = `gallery-image-wrapper ${item.type}`;
+                div.innerHTML = `<img src="${item.url}" loading="lazy" alt="${item.type}">`;
+                grid.appendChild(div);
+            });
+            
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    buttons.forEach(b => {
+                        b.classList.remove('bg-brandPink', 'text-white');
+                        b.classList.add('bg-transparent', 'text-brandPink');
+                    });
+                    e.target.classList.remove('bg-transparent', 'text-brandPink');
+                    e.target.classList.add('bg-brandPink', 'text-white');
+                    
+                    const filter = e.target.getAttribute('data-filter');
+                    const items = grid.querySelectorAll('.gallery-image-wrapper');
+                    
+                    items.forEach(el => {
+                        if (filter === 'all' || el.classList.contains(filter)) {
+                            el.classList.remove('hidden-item');
+                        } else {
+                            el.classList.add('hidden-item');
+                        }
+                    });
+                });
+            });
+        }
+
+        /* 
+         * LocalStorage Architecture for Guestbook:
+         * Data is stored locally in user's browser under key 'v2026_messages'.
+         */
+        function handleGuestbook() {
+            const form = document.getElementById('guestForm');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('guestName').value.trim();
+                const countryCode = document.getElementById('guestCountry').value;
+                const message = document.getElementById('guestMessage').value.trim();
+                
+                if (!name || !message) return;
+                
+                const msgs = JSON.parse(localStorage.getItem('v2026_messages') || '[]');
+                msgs.unshift({ name, countryCode, message, date: new Date().toISOString() });
+                localStorage.setItem('v2026_messages', JSON.stringify(msgs));
+                
+                form.reset();
+                renderMessages();
+            });
+        }
+
+        function renderMessages() {
+            const container = document.getElementById('guestMessages');
+            container.innerHTML = '';
+            const msgs = JSON.parse(localStorage.getItem('v2026_messages') || '[]');
+            
+            msgs.forEach(msg => {
+                const countryName = translations[currentLang].countries[msg.countryCode] || msg.countryCode;
+                const dateObj = new Date(msg.date);
+                const dateStr = dateObj.toLocaleDateString(currentLang);
+                const timeStr = dateObj.toLocaleTimeString(currentLang, { hour: '2-digit', minute: '2-digit' });
+                
+                const div = document.createElement('div');
+                div.className = 'message-card bg-brandCream text-brandNavy p-4 rounded shadow-sm';
+                div.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <strong class="font-serif">${msg.name} <span class="text-brandGold text-sm font-sans font-normal ml-2">🌍 ${countryName}</span></strong>
+                        <span class="text-xs text-brandNavy/50">${dateStr} ${timeStr}</span>
+                    </div>
+                    <p class="text-sm leading-relaxed">${msg.message}</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function setupQR() {
+            document.getElementById('qrBtn').addEventListener('click', () => {
+                const url = document.getElementById('qrInput').value.trim();
+                if (url) {
+                    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(url)}`;
+                    document.getElementById('qrImage').src = qrUrl;
+                    document.getElementById('qrResult').classList.remove('hidden');
+                }
+            });
+        }
+
+        document.getElementById('langSwitcher').addEventListener('change', (e) => {
+            applyTranslations(e.target.value);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            applyTranslations('lt');
+            initGallery();
+            handleGuestbook();
+            renderMessages();
+            setupQR();
+        });
+    </script>
+</body>
+</html>
