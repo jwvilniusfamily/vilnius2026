@@ -6,17 +6,18 @@
 <title>Vilnius 2026</title>
 <style>
     :root {
-        --bg-main: #F4F1EB;
-        --bg-surface: #FFFFFF;
-        --text-dark: #2A2826;
-        --text-muted: #6B655E;
-        --accent-clay: #9A6A53;
-        --border-color: #E3DCD2;
-        --radius-sm: 4px;
-        --radius-lg: 12px;
-        --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        --bg-main: #F5F2EB;
+        --bg-surface: #FCFAF5;
+        --text-dark: #362511;
+        --text-muted: #5C4A3D;
+        --accent-red: #8B2626;
+        --accent-amber: #C07C41;
+        --border-color: #DCD3C6;
+        --radius-sm: 2px;
+        --radius-lg: 4px;
+        --font-sans: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         --font-serif: "Georgia", "Times New Roman", serif;
-        --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition: all 0.3s ease;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,55 +32,57 @@
         overflow-x: hidden;
     }
 
-    h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; color: var(--text-dark); }
+    h1, h2, h3 { font-family: var(--font-serif); font-weight: normal; color: var(--text-dark); }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
     .splash-screen {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(244, 241, 235, 0.95); backdrop-filter: blur(10px);
+        background: rgba(245, 242, 235, 0.98);
         z-index: 9999; display: flex; justify-content: center; align-items: center;
         transition: opacity 0.6s ease, visibility 0.6s ease;
     }
     .splash-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
     .splash-content {
-        background: var(--bg-surface); padding: 3rem; border-radius: var(--radius-lg);
-        box-shadow: 0 20px 50px rgba(0,0,0,0.08); text-align: center; max-width: 400px; width: 90%;
+        background: var(--bg-surface); padding: 3rem; border-radius: var(--radius-sm);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 15px 35px rgba(54, 37, 17, 0.1); text-align: center; max-width: 400px; width: 90%;
     }
-    .splash-content h2 { margin-bottom: 1.5rem; font-size: 2rem; }
+    .splash-content h2 { margin-bottom: 1.5rem; font-size: 2rem; color: var(--accent-red); }
     .splash-content select { width: 100%; margin-bottom: 1.5rem; padding: 0.8rem 1.2rem; }
     .splash-btn {
-        width: 100%; background: var(--accent-clay); color: white; border: none;
-        padding: 1rem; border-radius: 30px; font-size: 1rem; cursor: pointer; transition: var(--transition);
+        width: 100%; background: var(--accent-red); color: #FFF; border: none;
+        padding: 1rem; border-radius: var(--radius-sm); font-size: 1rem; cursor: pointer; transition: var(--transition);
+        font-family: var(--font-serif); letter-spacing: 1px; text-transform: uppercase;
     }
-    .splash-btn:hover { background: #7A5240; }
+    .splash-btn:hover { background: #6B1D1D; }
 
     .lightbox {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(20, 18, 17, 0.98); z-index: 10000;
+        background: rgba(26, 18, 12, 0.98); z-index: 10000;
         display: flex; justify-content: center; align-items: center;
         opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
         user-select: none;
     }
     .lightbox.active { opacity: 1; visibility: visible; }
-    .lightbox img { max-width: 90%; max-height: 90vh; border-radius: var(--radius-sm); box-shadow: 0 10px 40px rgba(0,0,0,0.3); transition: transform 0.3s ease; }
+    .lightbox img { max-width: 90%; max-height: 90vh; border-radius: var(--radius-sm); box-shadow: 0 10px 40px rgba(0,0,0,0.5); transition: transform 0.3s ease; }
     .lightbox-close {
-        position: absolute; top: 30px; right: 40px; color: white; font-size: 40px;
+        position: absolute; top: 20px; right: 30px; color: #EBE5D9; font-size: 45px;
         cursor: pointer; font-family: var(--font-sans); line-height: 1; transition: var(--transition); z-index: 10001;
     }
-    .lightbox-close:hover { color: var(--accent-clay); transform: scale(1.1); }
+    .lightbox-close:hover { color: var(--accent-amber); transform: scale(1.1); }
     
     .lightbox-nav {
         position: absolute; top: 50%; transform: translateY(-50%);
-        color: white; font-size: 3rem; cursor: pointer; padding: 2rem;
-        transition: var(--transition); z-index: 10001; opacity: 0.7;
+        color: #EBE5D9; font-size: 3.5rem; cursor: pointer; padding: 1rem 2rem;
+        transition: var(--transition); z-index: 10001; opacity: 0.6;
     }
-    .lightbox-nav:hover { opacity: 1; color: var(--accent-clay); }
-    .lightbox-prev { left: 20px; }
-    .lightbox-next { right: 20px; }
+    .lightbox-nav:hover { opacity: 1; color: var(--accent-amber); }
+    .lightbox-prev { left: 10px; }
+    .lightbox-next { right: 10px; }
 
     header {
-        position: fixed; top: 0; width: 100%; background: rgba(244, 241, 235, 0.9);
-        backdrop-filter: blur(10px); border-bottom: 1px solid rgba(227, 220, 210, 0.5); z-index: 1000;
+        position: fixed; top: 0; width: 100%; background: rgba(252, 250, 245, 0.95);
+        border-bottom: 1px solid var(--border-color); z-index: 1000;
     }
     .nav-wrapper { display: flex; justify-content: space-between; align-items: center; height: 90px; }
     .logo img { height: 65px; mix-blend-mode: multiply; transition: var(--transition); }
@@ -88,66 +91,62 @@
     
     select {
         appearance: none; background: transparent; border: 1px solid var(--border-color);
-        padding: 0.5rem 2.5rem 0.5rem 1.2rem; border-radius: 30px; font-family: var(--font-sans);
-        font-size: 0.85rem; color: var(--text-dark); cursor: pointer; transition: var(--transition);
-        background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236B655E'/%3E%3C/svg%3E");
+        padding: 0.5rem 2.5rem 0.5rem 1.2rem; border-radius: var(--radius-sm); font-family: var(--font-sans);
+        font-size: 0.9rem; color: var(--text-dark); cursor: pointer; transition: var(--transition);
+        background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238B2626'/%3E%3C/svg%3E");
         background-repeat: no-repeat; background-position: right 1rem center;
     }
-    select:hover, select:focus { outline: none; border-color: var(--accent-clay); background-color: var(--bg-surface); }
+    select:hover, select:focus { outline: none; border-color: var(--accent-red); background-color: var(--bg-surface); }
 
     .hero {
         min-height: 85vh; display: flex; flex-direction: column; justify-content: center;
         align-items: center; text-align: center; padding: 160px 2rem 4rem; position: relative;
     }
-    .hero::after { content: ''; position: absolute; bottom: 0; width: 1px; height: 80px; background: var(--accent-clay); opacity: 0.4; }
-    .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 2rem; letter-spacing: 2px; }
-    .hero p { font-size: clamp(1.05rem, 1.8vw, 1.15rem); color: var(--text-muted); max-width: 850px; margin: 0 auto 2.5rem; line-height: 1.8; }
+    .hero::after { content: ''; position: absolute; bottom: 0; width: 1px; height: 100px; background: var(--accent-red); opacity: 0.3; }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 2rem; letter-spacing: 2px; color: var(--accent-red); }
+    .hero p { font-size: clamp(1.05rem, 1.8vw, 1.15rem); color: var(--text-muted); max-width: 850px; margin: 0 auto 3rem; line-height: 1.9; font-family: var(--font-serif); font-style: italic; }
     
     .btn-outline {
-        display: inline-block; text-decoration: none; color: var(--accent-clay);
-        border: 1px solid var(--accent-clay); padding: 0.8rem 2.5rem; border-radius: 30px;
-        font-size: 1rem; transition: var(--transition);
+        display: inline-block; text-decoration: none; color: var(--accent-red);
+        border: 1px solid var(--accent-red); padding: 0.8rem 2.5rem; border-radius: var(--radius-sm);
+        font-size: 1rem; transition: var(--transition); font-family: var(--font-serif); text-transform: uppercase; letter-spacing: 1px;
     }
-    .btn-outline:hover { background: var(--accent-clay); color: var(--bg-surface); }
+    .btn-outline:hover { background: var(--accent-red); color: var(--bg-surface); }
 
     .section { padding: 6rem 0; }
     .section-header { text-align: center; margin-bottom: 4rem; }
-    .section-header h2 { font-size: 2.5rem; position: relative; display: inline-block; padding-bottom: 1rem; }
-    .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 40px; height: 1px; background: var(--accent-clay); }
+    .section-header h2 { font-size: 2.5rem; position: relative; display: inline-block; padding-bottom: 1rem; color: var(--accent-red); }
+    .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 2px; background: var(--accent-amber); }
 
-    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-sm); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-sm); border: 1px solid var(--border-color); }
     .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
     .gallery-filters { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
-    .filter-btn { background: transparent; border: 1px solid transparent; padding: 0.6rem 1.8rem; border-radius: 30px; cursor: pointer; font-size: 0.9rem; color: var(--text-muted); transition: var(--transition); }
-    .filter-btn:hover { color: var(--accent-clay); }
-    .filter-btn.active { background: var(--bg-surface); color: var(--accent-clay); border-color: var(--border-color); }
+    .filter-btn { background: transparent; border: 1px solid var(--border-color); padding: 0.6rem 2rem; border-radius: var(--radius-sm); cursor: pointer; font-size: 0.95rem; color: var(--text-muted); transition: var(--transition); font-family: var(--font-serif); }
+    .filter-btn:hover { border-color: var(--accent-red); color: var(--accent-red); }
+    .filter-btn.active { background: var(--accent-red); color: var(--bg-surface); border-color: var(--accent-red); }
 
-    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
-    .gallery-item { border-radius: var(--radius-sm); overflow: hidden; background: var(--bg-surface); transition: var(--transition); cursor: zoom-in; }
-    .gallery-item img { width: 100%; height: 400px; object-fit: cover; display: block; filter: sepia(30%) contrast(90%); transition: var(--transition); }
-    .gallery-item:hover img { filter: sepia(0%) contrast(100%); transform: scale(1.02); }
-
-    .process-images { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-    .process-images img { width: 100%; height: 300px; object-fit: cover; border-radius: var(--radius-sm); filter: sepia(20%); cursor: zoom-in; transition: var(--transition); }
-    .process-images img:hover { filter: sepia(0%); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .gallery-item { border-radius: var(--radius-sm); overflow: hidden; background: var(--bg-surface); transition: var(--transition); cursor: zoom-in; border: 1px solid var(--border-color); padding: 0.5rem; }
+    .gallery-item img { width: 100%; height: 350px; object-fit: cover; display: block; filter: sepia(20%) contrast(95%); transition: var(--transition); }
+    .gallery-item:hover img { filter: sepia(0%) contrast(100%); transform: scale(1.03); }
 
     .comments-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; }
-    .comment-form { background: var(--bg-surface); padding: 3rem; border-radius: var(--radius-sm); box-shadow: 0 10px 30px rgba(0,0,0,0.03); height: fit-content; }
+    .comment-form { background: var(--bg-surface); padding: 3rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); height: fit-content; }
     .form-group { margin-bottom: 2rem; position: relative; }
     .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.5rem 0; border: none; border-bottom: 1px solid var(--border-color); background: transparent; font-family: var(--font-sans); font-size: 1rem; color: var(--text-dark); transition: var(--transition); }
-    .form-group textarea { resize: none; min-height: 100px; line-height: 1.8; background-image: linear-gradient(transparent, transparent calc(1.8em - 1px), var(--border-color) 0px); background-size: 100% 1.8em; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-bottom-color: var(--accent-clay); }
-    .form-group input::placeholder, .form-group textarea::placeholder { color: #A8A39D; font-style: italic; }
-    .btn-submit { width: 100%; background: transparent; color: var(--accent-clay); border: 1px solid var(--accent-clay); padding: 1rem; border-radius: 30px; font-size: 1rem; cursor: pointer; transition: var(--transition); margin-top: 1rem; }
-    .btn-submit:hover { background: var(--accent-clay); color: var(--bg-surface); }
+    .form-group textarea { resize: none; min-height: 120px; line-height: 1.8; background-image: linear-gradient(transparent, transparent calc(1.8em - 1px), var(--border-color) 0px); background-size: 100% 1.8em; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-bottom-color: var(--accent-red); }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: #A8A39D; font-style: italic; font-family: var(--font-serif); }
+    .btn-submit { width: 100%; background: transparent; color: var(--accent-red); border: 1px solid var(--accent-red); padding: 1rem; border-radius: var(--radius-sm); font-size: 1rem; cursor: pointer; transition: var(--transition); margin-top: 1rem; font-family: var(--font-serif); text-transform: uppercase; letter-spacing: 1px; }
+    .btn-submit:hover { background: var(--accent-red); color: var(--bg-surface); }
 
     .comments-list { display: flex; flex-direction: column; gap: 2rem; }
     .comment-card { padding: 0 0 2rem 0; border-bottom: 1px solid var(--border-color); }
     .comment-header { display: flex; justify-content: space-between; margin-bottom: 1rem; align-items: baseline; }
-    .comment-author { font-family: var(--font-serif); font-size: 1.2rem; color: var(--text-dark); }
+    .comment-author { font-family: var(--font-serif); font-size: 1.3rem; color: var(--accent-red); }
     .comment-country { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-    .comment-body { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1rem; font-style: italic; }
+    .comment-body { color: var(--text-dark); font-size: 1.1rem; margin-bottom: 1rem; font-style: italic; font-family: var(--font-serif); }
 
     .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
@@ -157,7 +156,7 @@
         .hero { padding: 140px 1rem 3rem; }
         .comment-form { padding: 2rem; }
         .logo img { height: 50px; }
-        .lightbox-nav { font-size: 2rem; padding: 1rem; }
+        .lightbox-nav { font-size: 2.5rem; padding: 1rem; }
     }
 </style>
 </head>
@@ -165,10 +164,10 @@
 
 <div id="splashScreen" class="splash-screen">
     <div class="splash-content">
-        <h2>Welcome / Sveiki</h2>
+        <h2>Vilnius 2026</h2>
         <select id="splashLang"></select>
         <select id="splashCountry"></select>
-        <button id="splashEnter" class="splash-btn">Enter Gallery</button>
+        <button id="splashEnter" class="splash-btn">Enter</button>
     </div>
 </div>
 
@@ -220,18 +219,6 @@
         <div class="gallery-grid" id="galleryGrid"></div>
     </section>
 
-    <section class="section container fade-in">
-        <div class="section-header">
-            <h2 data-i18n="processTitle"></h2>
-        </div>
-        <div class="process-images" id="processGrid">
-            <img src="https://i.postimg.cc/1tDg7Rvz/IMG-0043-160-Edited.jpg" alt="Process 1" loading="lazy">
-            <img src="https://i.postimg.cc/3rb0xqzm/IMG-7166-2.jpg" alt="Process 2" loading="lazy">
-            <img src="https://i.postimg.cc/B6287Zm0/IMG-0050-164-Edited.jpg" alt="Process 3" loading="lazy">
-            <img src="https://i.postimg.cc/XqXZgKBk/IMG-7169-2.jpg" alt="Process 4" loading="lazy">
-        </div>
-    </section>
-
     <section class="section container fade-in" id="letter-section">
         <div class="section-header">
             <h2 data-i18n="commentsTitle"></h2>
@@ -263,79 +250,68 @@ const dict = {
     lt: {
         heroTitle: "Vilnius 2026",
         heroDesc: "Sveiki atvykę, mieli mūsų tarptautinės dvasinės šeimos broliai ir sesės! Mes be galo džiaugiamės, kad atvykote į kongresą Lietuvoje. Tai bus nepamirštamas kongresas. Mums be galo džiugu, kad galime jums parodyti Lietuvą. Šiuos plakatus su pasveikinimais įvairiomis kalbomis ir mūsų mažas molines dovanėles ruošėme specialiai jums su didele meile, norėdami supažindinti su mūsų kultūra ir tradicijomis. Šiame puslapyje norime parodyti, kaip viską kūrėme – čia rasite vaizdo įrašus iš mūsų darbo užkulisių. Mums būtų labai įdomu sužinoti jūsų įspūdžius. Prašome užeiti į skiltį „Laiškas“, pasirinkti savo šalį ir palikti mums keletą šiltų žodžių. Mes labai vertiname, kad esate kartu su mumis!",
-        btnReview: "Palikti atsiliepimą", videoTitle: "Kūrimo Procesas", galleryTitle: "Paroda", filterAll: "Visi Darbai", filterPosters: "Plakatai", filterClay: "Molis", filterPostcards: "Atvirukai", processTitle: "Darbo Užkulisiai", commentsTitle: "Laiškas", formName: "Jūsų Vardas", formMessage: "Palikite savo mintis čia...", formSubmit: "Palikti Įrašą"
+        btnReview: "Palikti atsiliepimą", videoTitle: "Kūrimo Procesas", galleryTitle: "Paroda", filterAll: "Visi Darbai", filterPosters: "Plakatai", filterClay: "Molis", filterPostcards: "Atvirukai", commentsTitle: "Laiškas", formName: "Jūsų Vardas", formMessage: "Palikite savo mintis čia...", formSubmit: "Palikti Įrašą"
     },
     en: {
         heroTitle: "Vilnius 2026",
         heroDesc: "Welcome, dear brothers and sisters of our international spiritual family! We are incredibly happy that you have come to the convention in Lithuania. This will be an unforgettable convention. We are so glad to be able to show you Lithuania. We prepared these posters with greetings in various languages and our small clay gifts especially for you with great love, wanting to introduce you to our culture and traditions. On this page, we want to show you how we created everything – here you will find videos from behind the scenes of our work. We would be very interested to hear your impressions. Please go to the \"Letter\" section, select your country, and leave us a few warm words. We deeply appreciate that you are here with us!",
-        btnReview: "Leave a Review", videoTitle: "Creation Process", galleryTitle: "Exhibition", filterAll: "All Works", filterPosters: "Posters", filterClay: "Clay", filterPostcards: "Postcards", processTitle: "Behind the Scenes", commentsTitle: "Letter", formName: "Your Name", formMessage: "Write your thoughts here...", formSubmit: "Leave a Trace"
+        btnReview: "Leave a Review", videoTitle: "Creation Process", galleryTitle: "Exhibition", filterAll: "All Works", filterPosters: "Posters", filterClay: "Clay", filterPostcards: "Postcards", commentsTitle: "Letter", formName: "Your Name", formMessage: "Write your thoughts here...", formSubmit: "Leave a Trace"
     },
     ru: {
         heroTitle: "Вильнюс 2026",
         heroDesc: "Добро пожаловать, дорогие братья и сестры нашей международной духовной семьи! Мы бесконечно рады, что вы приехали на конгресс в Литву. Это будет незабываемый конгресс. Мы очень рады возможности показать вам Литву. Эти плакаты с приветствиями на разных языках и наши маленькие глиняные подарки мы готовили специально для вас с большой любовью, желая познакомить с нашей культурой и традициями. На этой странице мы хотим показать, как всё создавалось — здесь вы найдете видео нашего рабочего процесса. Нам было бы очень интересно узнать ваши впечатления. Пожалуйста, зайдите в раздел «Письмо», выберите свою страну и оставьте нам несколько теплых слов. Мы очень ценим, что вы вместе с нами!",
-        btnReview: "Оставить отзыв", videoTitle: "Процесс Создания", galleryTitle: "Выставка", filterAll: "Все Работы", filterPosters: "Плакаты", filterClay: "Глина", filterPostcards: "Открытки", processTitle: "За Кулисами", commentsTitle: "Письмо", formName: "Ваше Имя", formMessage: "Напишите свои мысли здесь...", formSubmit: "Оставить Запись"
+        btnReview: "Оставить отзыв", videoTitle: "Процесс Создания", galleryTitle: "Выставка", filterAll: "Все Работы", filterPosters: "Плакаты", filterClay: "Глина", filterPostcards: "Открытки", commentsTitle: "Письмо", formName: "Ваше Имя", formMessage: "Напишите свои мысли здесь...", formSubmit: "Оставить Запись"
     },
     lv: {
         heroTitle: "Viļņa 2026",
         heroDesc: "Laipni lūdzam, dārgie mūsu starptautiskās garīgās ģimenes brāļi un māsas! Mēs esam bezgala priecīgi, ka esat ieradušies uz kongresu Lietuvā. Tas būs neaizmirstams kongress. Mums ir liels prieks, ka varam jums parādīt Lietuvu. Šos plakātus ar sveicieniem dažādās valodās un mūsu mazās māla dāvaniņas mēs gatavojām īpaši jums ar lielu mīlestību, vēloties iepazīstināt ar mūsu kultūru un tradīcijām. Šajā lapā mēs vēlamies parādīt, kā mēs visu radījām – šeit atradīsiet video no mūsu darba aizkulisēm. Mums būtu ļoti interesanti uzzināt jūsu iespaidus. Lūdzu, dodieties uz sadaļu \"Vēstule\", izvēlieties savu valsti un atstājiet mums dažus siltus vārdus. Mēs ļoti novērtējam, ka esat kopā ar mums!",
-        btnReview: "Atstāt atsauksmi", videoTitle: "Radīšanas Process", galleryTitle: "Izstāde", filterAll: "Visi Darbi", filterPosters: "Plakāti", filterClay: "Māls", filterPostcards: "Pastkartes", processTitle: "Aizkulisēs", commentsTitle: "Vēstule", formName: "Jūsu Vārds", formMessage: "Rakstiet savas domas šeit...", formSubmit: "Atstāt Ierakstu"
+        btnReview: "Atstāt atsauksmi", videoTitle: "Radīšanas Process", galleryTitle: "Izstāde", filterAll: "Visi Darbi", filterPosters: "Plakāti", filterClay: "Māls", filterPostcards: "Pastkartes", commentsTitle: "Vēstule", formName: "Jūsu Vārds", formMessage: "Rakstiet savas domas šeit...", formSubmit: "Atstāt Ierakstu"
     },
     hy: {
         heroTitle: "Վիլնյուս 2026",
         heroDesc: "Բարի գալուստ, մեր միջազգային հոգևոր ընտանիքի սիրելի եղբայրներ և քույրեր: Մենք անչափ ուրախ ենք, որ եկել եք Լիտվայում կայանալիք համաժողովին: Սա անմոռանալի համաժողով է լինելու: Մենք շատ ուրախ ենք, որ կարող ենք ձեզ ցույց տալ Լիտվան: Տարբեր լեզուներով ողջույններով այս պաստառները և մեր փոքրիկ կավե նվերները մենք պատրաստել ենք հատուկ ձեզ համար մեծ սիրով՝ ցանկանալով ծանոթացնել մեր մշակույթին և ավանդույթներին: Այս էջում մենք ուզում ենք ցույց տալ, թե ինչպես ենք ստեղծել ամեն ինչ. այստեղ կգտնեք տեսանյութեր մեր աշխատանքի կուլիսներից: Մեզ շատ հետաքրքիր կլինի իմանալ ձեր տպավորությունները: Խնդրում ենք գնալ «Նամակ» բաժին, ընտրել ձեր երկիրը և մի քանի ջերմ խոսք թողնել մեզ: Մենք շատ գնահատում ենք, որ դուք մեզ հետ եք:",
-        btnReview: "Թողնել կարծիք", videoTitle: "Ստեղծման Գործընթաց", galleryTitle: "Ցուցահանդես", filterAll: "Բոլորը", filterPosters: "Պաստառներ", filterClay: "Կավ", filterPostcards: "Բացիկներ", processTitle: "Կուլիսներում", commentsTitle: "Նամակ", formName: "Անուն", formMessage: "Գրեք ձեր մտքերը այստեղ...", formSubmit: "Ուղարկել"
+        btnReview: "Թողնել կարծիք", videoTitle: "Ստեղծման Գործընթաց", galleryTitle: "Ցուցահանդես", filterAll: "Բոլորը", filterPosters: "Պաստառներ", filterClay: "Կավ", filterPostcards: "Բացիկներ", commentsTitle: "Նամակ", formName: "Անուն", formMessage: "Գրեք ձեր մտքերը այստեղ...", formSubmit: "Ուղարկել"
     },
     pt: {
         heroTitle: "Vilnius 2026",
         heroDesc: "Bem-vindos, queridos irmãos e irmãs da nossa família espiritual internacional! Estamos imensamente felizes por terem vindo ao congresso na Lituânia. Este será um congresso inesquecível. Estamos muito felizes por poder mostrar-lhes a Lituânia. Preparamos estes cartazes com saudações em vários idiomas e nossos pequenos presentes de argila especialmente para vocês com muito amor, querendo apresentar nossa cultura e tradições. Nesta página, queremos mostrar como criamos tudo – aqui encontrarão vídeos dos bastidores do nosso trabalho. Gostaríamos muito de saber as vossas impressões. Por favor, vão à secção \"Carta\", escolham o vosso país e deixem-nos algumas palavras calorosas. Valorizamos muito que estejam connosco!",
-        btnReview: "Deixar uma avaliação", videoTitle: "Processo de Criação", galleryTitle: "Exposição", filterAll: "Todas as Obras", filterPosters: "Cartazes", filterClay: "Argila", filterPostcards: "Cartões", processTitle: "Bastidores", commentsTitle: "Carta", formName: "Seu Nome", formMessage: "Escreva seus pensamentos aqui...", formSubmit: "Deixar uma Marca"
+        btnReview: "Deixar uma avaliação", videoTitle: "Processo de Criação", galleryTitle: "Exposição", filterAll: "Todas as Obras", filterPosters: "Cartazes", filterClay: "Argila", filterPostcards: "Cartões", commentsTitle: "Carta", formName: "Seu Nome", formMessage: "Escreva seus pensamentos aqui...", formSubmit: "Deixar uma Marca"
     },
     es: {
         heroTitle: "Vilnius 2026",
         heroDesc: "¡Bienvenidos, queridos hermanos y hermanas de nuestra familia espiritual internacional! Estamos inmensamente felices de que hayan venido al congreso en Lituania. Este será un congreso inolvidable. Estamos muy contentos de poder mostrarles Lituania. Preparamos estos carteles con saludos en varios idiomas y nuestros pequeños regalos de arcilla especialmente para ustedes con mucho amor, queriendo presentarles nuestra cultura y tradiciones. En esta página, queremos mostrar cómo creamos todo: aquí encontrarán videos del detrás de escena de nuestro trabajo. Nos interesaría mucho conocer sus impresiones. Por favor, vayan a la sección \"Carta\", elijan su país y déjennos unas cálidas palabras. ¡Valoramos mucho que estén con nosotros!",
-        btnReview: "Dejar una reseña", videoTitle: "Proceso de Creación", galleryTitle: "Exposición", filterAll: "Todas las Obras", filterPosters: "Carteles", filterClay: "Arcilla", filterPostcards: "Postales", processTitle: "Detrás de Escena", commentsTitle: "Carta", formName: "Tu Nombre", formMessage: "Escribe tus pensamientos aquí...", formSubmit: "Dejar una Huella"
+        btnReview: "Dejar una reseña", videoTitle: "Proceso de Creación", galleryTitle: "Exposición", filterAll: "Todas las Obras", filterPosters: "Carteles", filterClay: "Arcilla", filterPostcards: "Postales", commentsTitle: "Carta", formName: "Tu Nombre", formMessage: "Escribe tus pensamientos aquí...", formSubmit: "Dejar una Huella"
     },
     he: {
         heroTitle: "וילנה 2026",
         heroDesc: "ברוכים הבאים, אחים ואחיות יקרים של משפחתנו הרוחנית הבינלאומית! אנו שמחים עד מאוד שבאתם לכינוס בליטא. זה יהיה כינוס בלתי נשכח. אנו שמחים מאוד שנוכל להראות לכם את ליטא. הכנו את הכרזות הללו עם ברכות בשפות שונות ואת מתנות החימר הקטנות שלנו במיוחד עבורכם באהבה רבה, מתוך רצון להכיר לכם את התרבות והמסורות שלנו. בעמוד זה אנו רוצים להראות כיצד יצרנו הכל – כאן תמצאו סרטונים מאחורי הקלעים של עבודתנו. נשמח מאוד לשמוע את רשמיכם. אנא היכנסו למדור \"מכתב\", בחרו את מדינתכם והשאירו לנו כמה מילים חמות. אנו מעריכים מאוד שאתם איתנו!",
-        btnReview: "השאר ביקורת", videoTitle: "תהליך יצירה", galleryTitle: "תערוכה", filterAll: "כל העבודות", filterPosters: "כרזות", filterClay: "חימר", filterPostcards: "גלויות", processTitle: "מאחורי הקלעים", commentsTitle: "מכתב", formName: "השם שלך", formMessage: "כתוב את מחשבותיך כאן...", formSubmit: "השאר חותם"
+        btnReview: "השאר ביקורת", videoTitle: "תהליך יצירה", galleryTitle: "תערוכה", filterAll: "כל העבודות", filterPosters: "כרזות", filterClay: "חימר", filterPostcards: "גלויות", commentsTitle: "מכתב", formName: "השם שלך", formMessage: "כתוב את מחשבותיך כאן...", formSubmit: "השאר חותם"
     },
     ja: {
         heroTitle: "ビリニュス 2026",
         heroDesc: "私たちの国際的な霊的家族の親愛なる兄弟姉妹の皆さん、ようこそ！リトアニアでの大会にお越しいただき、本当に嬉しく思います。これは忘れられない大会になるでしょう。リトアニアをご案内できることを大変嬉しく思います。様々な言語での挨拶が書かれたこれらのポスターと、私たちの小さな粘土の贈り物は、私たちの文化と伝統を紹介したいという思いから、大きな愛を込めて特別に準備しました。このページでは、私たちがどのようにすべてを制作したかをお見せしたいと思います。ここでは、私たちの作業の舞台裏のビデオをご覧いただけます。皆様の感想をぜひお聞きしたいです。「手紙」のセクションに行き、国を選んで、温かい言葉を残してください。皆様が私たちと一緒にいてくださることに深く感謝しています！",
-        btnReview: "レビューを残す", videoTitle: "制作プロセス", galleryTitle: "展示会", filterAll: "すべての作品", filterPosters: "ポスター", filterClay: "粘土", filterPostcards: "ポストカード", processTitle: "舞台裏", commentsTitle: "手紙", formName: "名前", formMessage: "ここにあなたの考えを書いてください...", formSubmit: "跡を残す"
+        btnReview: "レビューを残す", videoTitle: "制作プロセス", galleryTitle: "展示会", filterAll: "すべての作品", filterPosters: "ポスター", filterClay: "粘土", filterPostcards: "ポストカード", commentsTitle: "手紙", formName: "名前", formMessage: "ここにあなたの考えを書いてください...", formSubmit: "跡を残す"
     },
     sv: {
         heroTitle: "Vilnius 2026",
         heroDesc: "Välkomna, kära bröder och systrar i vår internationella andliga familj! Vi är oerhört glada att ni har kommit till sammankomsten i Litauen. Detta kommer att bli en oförglömlig sammankomst. Vi är mycket glada över att kunna visa er Litauen. Vi förberedde dessa affischer med hälsningar på olika språk och våra små lergåvor speciellt för er med stor kärlek, för att introducera er till vår kultur och våra traditioner. På den här sidan vill vi visa hur vi skapade allt – här hittar ni videor från bakom kulisserna av vårt arbete. Vi skulle vara mycket intresserade av att höra era intryck. Vänligen gå till avsnittet \"Brev\", välj ert land och lämna några varma ord till oss. Vi uppskattar verkligen att ni är här med oss!",
-        btnReview: "Lämna en recension", videoTitle: "Skapandeprocess", galleryTitle: "Utställning", filterAll: "Alla Verk", filterPosters: "Affischer", filterClay: "Lera", filterPostcards: "Vykort", processTitle: "Bakom Kulisserna", commentsTitle: "Brev", formName: "Ditt Namn", formMessage: "Skriv dina tankar här...", formSubmit: "Lämna ett Spår"
+        btnReview: "Lämna en recension", videoTitle: "Skapandeprocess", galleryTitle: "Utställning", filterAll: "Alla Verk", filterPosters: "Affischer", filterClay: "Lera", filterPostcards: "Vykort", commentsTitle: "Brev", formName: "Ditt Namn", formMessage: "Skriv dina tankar här...", formSubmit: "Lämna ett Spår"
     }
 };
 
 const countries = [
-    { id: 'lt', name: 'Lithuania', lang: 'lt' }, { id: 'lv', name: 'Latvia', lang: 'lv' },
-    { id: 'am', name: 'Armenia', lang: 'hy' }, { id: 'br', name: 'Brazil', lang: 'pt' },
-    { id: 'cl', name: 'Chile', lang: 'es' }, { id: 'do', name: 'Dominican Republic', lang: 'es' },
-    { id: 'il', name: 'Israel', lang: 'he' }, { id: 'jp', name: 'Japan', lang: 'ja' },
-    { id: 'us', name: 'USA', lang: 'en' }, { id: 'ng', name: 'Nigeria', lang: 'en' },
-    { id: 'pt', name: 'Portugal', lang: 'pt' }, { id: 'sc', name: 'Scandinavia', lang: 'sv' },
-    { id: 'ar', name: 'Argentina', lang: 'es' }, { id: 'au', name: 'Australia', lang: 'en' },
-    { id: 'at', name: 'Austria', lang: 'en' }, { id: 'be', name: 'Belgium', lang: 'en' },
-    { id: 'ca', name: 'Canada', lang: 'en' }, { id: 'co', name: 'Colombia', lang: 'es' },
-    { id: 'cz', name: 'Czech Republic', lang: 'en' }, { id: 'dk', name: 'Denmark', lang: 'sv' },
-    { id: 'ee', name: 'Estonia', lang: 'en' }, { id: 'fi', name: 'Finland', lang: 'en' },
-    { id: 'fr', name: 'France', lang: 'en' }, { id: 'de', name: 'Germany', lang: 'en' },
-    { id: 'gr', name: 'Greece', lang: 'en' }, { id: 'hu', name: 'Hungary', lang: 'en' },
-    { id: 'in', name: 'India', lang: 'en' }, { id: 'ie', name: 'Ireland', lang: 'en' },
-    { id: 'it', name: 'Italy', lang: 'en' }, { id: 'mx', name: 'Mexico', lang: 'es' },
-    { id: 'nl', name: 'Netherlands', lang: 'en' }, { id: 'nz', name: 'New Zealand', lang: 'en' },
-    { id: 'no', name: 'Norway', lang: 'sv' }, { id: 'pe', name: 'Peru', lang: 'es' },
-    { id: 'pl', name: 'Poland', lang: 'en' }, { id: 'ro', name: 'Romania', lang: 'en' },
-    { id: 'za', name: 'South Africa', lang: 'en' }, { id: 'kr', name: 'South Korea', lang: 'en' },
-    { id: 'es', name: 'Spain', lang: 'es' }, { id: 'se', name: 'Sweden', lang: 'sv' },
-    { id: 'ch', name: 'Switzerland', lang: 'en' }, { id: 'gb', name: 'United Kingdom', lang: 'en' },
-    { id: 'uy', name: 'Uruguay', lang: 'es' }, { id: 've', name: 'Venezuela', lang: 'es' },
-    { id: 'other', name: 'Other', lang: 'en' }
+    { id: 'lt', name: 'Lithuania', lang: 'lt' },
+    { id: 'lv', name: 'Latvia', lang: 'lv' },
+    { id: 'am', name: 'Armenia', lang: 'hy' },
+    { id: 'br', name: 'Brazil', lang: 'pt' },
+    { id: 'cl', name: 'Chile', lang: 'es' },
+    { id: 'do', name: 'Dominican Republic', lang: 'es' },
+    { id: 'il', name: 'Israel', lang: 'he' },
+    { id: 'jp', name: 'Japan', lang: 'ja' },
+    { id: 'us', name: 'USA', lang: 'en' },
+    { id: 'ng', name: 'Nigeria', lang: 'en' },
+    { id: 'pt', name: 'Portugal', lang: 'pt' },
+    { id: 'sc', name: 'Scandinavia', lang: 'sv' }
 ];
 
 const languages = [
@@ -352,15 +328,87 @@ const galleryData = [
     { type: 'posters', url: 'https://i.postimg.cc/k506yRFH/IMG-0042-5-Edited.jpg' },
     { type: 'posters', url: 'https://i.postimg.cc/1tDg7Rvz/IMG-0043-160-Edited.jpg' },
     { type: 'posters', url: 'https://i.postimg.cc/B6287Zm0/IMG-0050-164-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/ZR69sYw9/IMG-0062-170-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/yNMgT3yz/IMG-0071-174-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/TwnyN2tn/IMG-0073-175-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/85LFXkZW/IMG-0081-180-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/d3vhbMfr/IMG-0082-181-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/j2KDpV1W/IMG-0083-182-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/j2XDKgVZ/IMG-0088-187-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/prxmwNSJ/IMG-0094-192-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/d3vhbMf6/IMG-0095-193-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/8cH7DK8n/IMG-0105-198-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/cCmvZ9qV/IMG-0106-199-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/zvjy5tZr/IMG-0109-200-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/bNyGLhkS/IMG-0110-201-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/SNgnvvfX/IMG-9747-4-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/J4ps225t/IMG-9748-5-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/QxfFyyJd/IMG-9759-11-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/y8WD4yLF/IMG-9771-20-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/fRkVnfHN/IMG-9772-21-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/y8WD4yLn/IMG-9773-22-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/mghPfymn/IMG-9783-29-Edited.jpg' },
+    { type: 'posters', url: 'https://i.postimg.cc/DwmSkPxY/IMG-9786-30-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/13Tf9VTX/IMG-9791-33-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/6pT8JfHW/IMG-9796-35-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/JzgG1Hgm/IMG-9798-36-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/L87nHg7p/IMG-9800-37-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/FHq79k62/IMG-9802-38-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/mgqtb1qc/IMG-9803-39-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/xdzqqTD8/IMG-9805-40-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/13Tf9VTD/IMG-9811-43-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/W4kttbLk/IMG-9812-44-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/k5bDDX3j/IMG-9826-51-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/MGQXXK23/IMG-9842-58-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/SsbR9FmN/IMG-9865-65-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/NMvFXqBd/IMG-9866-66-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/Hx1nMDdP/IMG-9867-67-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/brzv6xG1/IMG-9870-69-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/SsLs7TKy/IMG-9871-70-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/x8t1BXM0/IMG-9912-85-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/rmGmCnpS/IMG-9935-93-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/Y9N9fnSf/IMG-9939-95-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/x8t1BXH7/IMG-9941-96-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/HnpLSwJ3/IMG-9949-100-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/153twK1s/IMG-9950-101-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/1XJ3b8w5/IMG-9964-110-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/PJ250CYp/IMG-9966-111-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/zDjvyc6J/IMG-9971-114-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/Dfg0SMDc/IMG-9983-122-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/RCRhWDy4/IMG-9985-123-Edited.jpg' },
+    { type: 'postcards', url: 'https://i.postimg.cc/TY3wgcv6/IMG-9991-127-Edited.jpg' },
     { type: 'clay', url: 'https://i.postimg.cc/L6YYYTpM/IMG-7135-2.jpg' },
     { type: 'clay', url: 'https://i.postimg.cc/fTtttKhP/IMG-7139-2.jpg' },
     { type: 'clay', url: 'https://i.postimg.cc/WbFFFnvN/IMG-7144-2.jpg' },
     { type: 'clay', url: 'https://i.postimg.cc/9F64G7mC/IMG-7147-2.jpg' },
     { type: 'clay', url: 'https://i.postimg.cc/N045qC1M/IMG-7154-2.jpg' },
     { type: 'clay', url: 'https://i.postimg.cc/3rb0xqzm/IMG-7166-2.jpg' },
-    { type: 'postcards', url: 'https://i.postimg.cc/yNMgT3yz/IMG-0071-174-Edited.jpg' },
-    { type: 'postcards', url: 'https://i.postimg.cc/TwnyN2tn/IMG-0073-175-Edited.jpg' },
-    { type: 'postcards', url: 'https://i.postimg.cc/85LFXkZW/IMG-0081-180-Edited.jpg' }
+    { type: 'clay', url: 'https://i.postimg.cc/XqXZgKBk/IMG-7169-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/Kv6KnMGf/IMG-7173-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/K8t1Q8jT/IMG-7181-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/pLKmkLrC/IMG-7188-3.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/Bbt8C5Pw/IMG-7202-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/59kQ2rD8/IMG-7204-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/PJcCVL19/IMG-7206-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/6qS8b7CS/IMG-7210-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/nrMs1K9K/IMG-7217-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/tRmn4c8w/IMG-7225-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/Xv3pP6Bz/IMG-7227-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/W4jhycJb/IMG-7229-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/wjD1FjMb/IMG-7232-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/8P2Fh6pr/IMG-7236-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/TYzyrDdh/IMG-7247-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/GhWBkyLh/IMG-7248-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/nhqXThMb/IMG-7255-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/C5dZ4CnD/IMG-7256-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/8P2Fh6pM/IMG-7259-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/L40g8WGJ/IMG-7263-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/Bn2jNnb5/IMG-7266-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/MKMMMD83/IMG-7269-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/4yMY2KpF/IMG-7270-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/mkhcS31Y/IMG-7278-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/W4nhLYM0/IMG-7279-2.jpg' },
+    { type: 'clay', url: 'https://i.postimg.cc/mkqPpcQB/IMG-7285-2.jpg' }
 ];
 
 let currentLang = 'en';
@@ -409,7 +457,6 @@ function init() {
     document.getElementById('guestbookForm').addEventListener('submit', handleCommentSubmit);
     
     renderGallery('all');
-    setupProcessImages();
     loadComments();
 }
 
@@ -426,7 +473,7 @@ function populateDropdowns() {
     const countrySelects = [document.getElementById('countrySelect'), document.getElementById('splashCountry')];
     const formCountrySelect = document.getElementById('cCountry');
     
-    countries.sort((a, b) => a.name.localeCompare(b.name)).forEach(c => {
+    countries.forEach(c => {
         countrySelects.forEach(select => {
             const opt = document.createElement('option');
             opt.value = c.id; opt.textContent = c.name;
@@ -525,14 +572,6 @@ function renderGallery(filter) {
         img.addEventListener('click', () => openLightbox(index, urls));
         div.appendChild(img);
         grid.appendChild(div);
-    });
-}
-
-function setupProcessImages() {
-    const processImgs = Array.from(document.querySelectorAll('#processGrid img'));
-    const urls = processImgs.map(img => img.src);
-    processImgs.forEach((img, index) => {
-        img.addEventListener('click', () => openLightbox(index, urls));
     });
 }
 
