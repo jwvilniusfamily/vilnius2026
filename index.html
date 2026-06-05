@@ -3,26 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>Vilnius 2026</title>
 <style>
     :root {
-        --bg-main: #FDF6F8;
+        --bg-main: #FCF5F7;
         --bg-surface: #FFFFFF;
-        --text-dark: #4A2533;
-        --text-muted: #8A5A6E;
-        --accent-pink: #E85D8E;
-        --accent-green: #6B904A;
-        --border-color: #F0D1DB;
+        --text-dark: #3A202A;
+        --text-muted: #8A6B76;
+        --accent-beetroot: #D81B60;
+        --accent-dill: #43A047;
+        --border-color: #F0D8E0;
         --radius-sm: 8px;
         --radius-lg: 16px;
         --font-sans: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         --font-serif: "Georgia", "Times New Roman", serif;
         --transition: all 0.3s ease;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
         font-family: var(--font-sans);
         background-color: var(--bg-main);
@@ -31,37 +30,35 @@
         -webkit-font-smoothing: antialiased;
         overflow-x: hidden;
     }
-
     h1, h2, h3 { font-family: var(--font-serif); font-weight: normal; color: var(--text-dark); }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-
     .splash-screen {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(253, 246, 248, 0.98);
+        background: rgba(252, 245, 247, 0.98);
         z-index: 9999; display: flex; justify-content: center; align-items: center;
         transition: opacity 0.6s ease, visibility 0.6s ease;
     }
     .splash-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
     .splash-content {
         background: var(--bg-surface); padding: 3rem; border-radius: var(--radius-lg);
-        border: 2px solid var(--border-color);
-        box-shadow: 0 15px 35px rgba(232, 93, 142, 0.15); text-align: center; max-width: 400px; width: 90%;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 15px 35px rgba(216, 27, 96, 0.1); text-align: center; max-width: 400px; width: 90%;
     }
-    .splash-content h2 { margin-bottom: 1.5rem; font-size: 2rem; color: var(--accent-pink); }
+    .splash-content h2 { margin-bottom: 1.5rem; font-size: 2rem; color: var(--accent-beetroot); }
     .splash-content select { 
         width: 100%; margin-bottom: 1.5rem; padding: 0.8rem 1.2rem; 
         border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+        font-size: 1rem; color: var(--text-dark);
     }
     .splash-btn {
-        width: 100%; background: var(--accent-pink); color: #FFF; border: none;
+        width: 100%; background: var(--accent-beetroot); color: #FFF; border: none;
         padding: 1rem; border-radius: 30px; font-size: 1rem; cursor: pointer; transition: var(--transition);
         font-family: var(--font-serif); letter-spacing: 1px; text-transform: uppercase; font-weight: bold;
     }
-    .splash-btn:hover { background: var(--accent-green); }
-
+    .splash-btn:hover { background: #AD144D; }
     .lightbox {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(74, 37, 51, 0.95); z-index: 10000;
+        background: rgba(36, 20, 26, 0.95); z-index: 10000;
         display: flex; justify-content: center; align-items: center;
         opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
         user-select: none;
@@ -69,84 +66,72 @@
     .lightbox.active { opacity: 1; visibility: visible; }
     .lightbox img { max-width: 90%; max-height: 90vh; border-radius: var(--radius-sm); box-shadow: 0 10px 40px rgba(0,0,0,0.5); transition: transform 0.3s ease; }
     .lightbox-close {
-        position: absolute; top: 20px; right: 30px; color: #FDF6F8; font-size: 45px;
+        position: absolute; top: 20px; right: 30px; color: #FFF; font-size: 45px;
         cursor: pointer; font-family: var(--font-sans); line-height: 1; transition: var(--transition); z-index: 10001;
     }
-    .lightbox-close:hover { color: var(--accent-pink); transform: scale(1.1); }
-    
+    .lightbox-close:hover { color: var(--accent-beetroot); transform: scale(1.1); }
     .lightbox-nav {
         position: absolute; top: 50%; transform: translateY(-50%);
-        color: #FDF6F8; font-size: 3.5rem; cursor: pointer; padding: 1rem 2rem;
+        color: #FFF; font-size: 3.5rem; cursor: pointer; padding: 1rem 2rem;
         transition: var(--transition); z-index: 10001; opacity: 0.6;
     }
-    .lightbox-nav:hover { opacity: 1; color: var(--accent-green); }
+    .lightbox-nav:hover { opacity: 1; color: var(--accent-dill); }
     .lightbox-prev { left: 10px; }
     .lightbox-next { right: 10px; }
-
     header {
         position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95);
         border-bottom: 1px solid var(--border-color); z-index: 1000;
-        box-shadow: 0 2px 10px rgba(232, 93, 142, 0.05);
+        box-shadow: 0 2px 10px rgba(216, 27, 96, 0.05);
     }
     .nav-wrapper { display: flex; justify-content: space-between; align-items: center; height: 90px; }
     .logo img { height: 65px; mix-blend-mode: multiply; transition: var(--transition); }
     .logo img:hover { opacity: 0.8; }
     .controls { display: flex; gap: 1rem; }
-    
     select {
         appearance: none; background: var(--bg-surface); border: 1px solid var(--border-color);
         padding: 0.5rem 2.5rem 0.5rem 1.2rem; border-radius: 30px; font-family: var(--font-sans);
         font-size: 0.9rem; color: var(--text-dark); cursor: pointer; transition: var(--transition);
-        background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23E85D8E'/%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23D81B60'/%3E%3C/svg%3E");
         background-repeat: no-repeat; background-position: right 1rem center;
     }
-    select:hover, select:focus { outline: none; border-color: var(--accent-pink); box-shadow: 0 0 0 3px rgba(232, 93, 142, 0.1); }
-
+    select:hover, select:focus { outline: none; border-color: var(--accent-beetroot); box-shadow: 0 0 0 3px rgba(216, 27, 96, 0.1); }
     .hero {
         min-height: 85vh; display: flex; flex-direction: column; justify-content: center;
         align-items: center; text-align: center; padding: 160px 2rem 4rem; position: relative;
     }
-    .hero::after { content: ''; position: absolute; bottom: 0; width: 2px; height: 100px; background: var(--accent-pink); opacity: 0.5; }
-    .hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 2rem; letter-spacing: 2px; color: var(--accent-pink); font-weight: bold; }
+    .hero::after { content: ''; position: absolute; bottom: 0; width: 2px; height: 100px; background: var(--accent-beetroot); opacity: 0.3; }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 2rem; letter-spacing: 2px; color: var(--accent-beetroot); font-weight: bold; }
     .hero p { font-size: clamp(1.05rem, 1.8vw, 1.15rem); color: var(--text-muted); max-width: 850px; margin: 0 auto 3rem; line-height: 1.9; font-family: var(--font-serif); font-style: italic; }
-    
     .btn-outline {
-        display: inline-block; text-decoration: none; color: var(--accent-pink);
-        border: 2px solid var(--accent-pink); padding: 0.8rem 2.5rem; border-radius: 30px;
+        display: inline-block; text-decoration: none; color: var(--accent-beetroot);
+        border: 2px solid var(--accent-beetroot); padding: 0.8rem 2.5rem; border-radius: 30px;
         font-size: 1rem; transition: var(--transition); font-family: var(--font-serif); text-transform: uppercase; letter-spacing: 1px; font-weight: bold;
     }
-    .btn-outline:hover { background: var(--accent-pink); color: var(--bg-surface); }
-
+    .btn-outline:hover { background: var(--accent-beetroot); color: var(--bg-surface); }
     .section { padding: 6rem 0; }
     .section-header { text-align: center; margin-bottom: 4rem; }
-    .section-header h2 { font-size: 2.5rem; position: relative; display: inline-block; padding-bottom: 1rem; color: var(--accent-pink); font-weight: bold; }
-    .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--accent-green); border-radius: 2px; }
-
-    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-lg); border: 4px solid var(--bg-surface); box-shadow: 0 10px 30px rgba(232, 93, 142, 0.1); }
+    .section-header h2 { font-size: 2.5rem; position: relative; display: inline-block; padding-bottom: 1rem; color: var(--accent-beetroot); font-weight: bold; }
+    .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--accent-dill); border-radius: 2px; }
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-lg); border: 4px solid var(--bg-surface); box-shadow: 0 10px 30px rgba(216, 27, 96, 0.1); }
     .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-
     .gallery-filters { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
     .filter-btn { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 0.6rem 2rem; border-radius: 30px; cursor: pointer; font-size: 0.95rem; color: var(--text-muted); transition: var(--transition); font-family: var(--font-serif); font-weight: bold; }
-    .filter-btn:hover { border-color: var(--accent-pink); color: var(--accent-pink); }
-    .filter-btn.active { background: var(--accent-pink); color: var(--bg-surface); border-color: var(--accent-pink); box-shadow: 0 4px 15px rgba(232, 93, 142, 0.3); }
-
+    .filter-btn:hover { border-color: var(--accent-beetroot); color: var(--accent-beetroot); }
+    .filter-btn.active { background: var(--accent-beetroot); color: var(--bg-surface); border-color: var(--accent-beetroot); box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3); }
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
     .gallery-item { border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-surface); transition: var(--transition); cursor: zoom-in; border: 1px solid var(--border-color); padding: 0.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
     .gallery-item img { width: 100%; height: 350px; object-fit: cover; display: block; border-radius: var(--radius-sm); transition: var(--transition); }
-    .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(232, 93, 142, 0.15); border-color: var(--accent-pink); }
-
+    .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(216, 27, 96, 0.15); border-color: var(--accent-beetroot); }
     .comments-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; }
-    
     .comment-form { 
         background: var(--bg-surface); padding: 3rem; border-radius: var(--radius-lg); 
-        border: 2px dashed var(--accent-pink); position: relative;
-        box-shadow: 0 15px 35px rgba(232, 93, 142, 0.08); height: fit-content; 
+        border: 2px dashed var(--accent-beetroot); position: relative;
+        box-shadow: 0 15px 35px rgba(216, 27, 96, 0.08); height: fit-content; 
     }
     .comment-form::before {
         content: '✉'; position: absolute; top: -24px; left: 50%; transform: translateX(-50%);
-        background: var(--bg-main); color: var(--accent-pink); font-size: 2rem; padding: 0 15px;
+        background: var(--bg-main); color: var(--accent-beetroot); font-size: 2rem; padding: 0 15px;
     }
-    
     .form-group { margin-bottom: 1.5rem; }
     .form-group input, .form-group select, .form-group textarea { 
         width: 100%; padding: 1rem; border: 1px solid var(--border-color); 
@@ -155,33 +140,29 @@
     }
     .form-group textarea { resize: none; min-height: 120px; }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus { 
-        outline: none; border-color: var(--accent-pink); box-shadow: 0 0 0 4px rgba(232, 93, 142, 0.1); 
+        outline: none; border-color: var(--accent-beetroot); box-shadow: 0 0 0 4px rgba(216, 27, 96, 0.1); 
     }
-    .form-group input::placeholder, .form-group textarea::placeholder { color: #BFA3AF; font-style: italic; font-family: var(--font-serif); }
-    
+    .form-group input::placeholder, .form-group textarea::placeholder { color: #C4A7B3; font-style: italic; font-family: var(--font-serif); }
     .btn-submit { 
-        width: 100%; background: var(--accent-pink); color: #FFF; border: none; 
+        width: 100%; background: var(--accent-beetroot); color: #FFF; border: none; 
         padding: 1.2rem; border-radius: 30px; font-size: 1.1rem; cursor: pointer; 
         transition: var(--transition); margin-top: 1rem; font-family: var(--font-serif); 
         text-transform: uppercase; letter-spacing: 1px; font-weight: bold; 
     }
-    .btn-submit:hover { background: var(--accent-green); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(107, 144, 74, 0.3); }
-
+    .btn-submit:hover { background: var(--accent-dill); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(67, 160, 71, 0.3); }
     .comments-list { display: flex; flex-direction: column; gap: 1.5rem; }
     .comment-card { 
         background: var(--bg-surface); padding: 2rem; border-radius: var(--radius-lg);
-        border: 1px solid var(--border-color); border-left: 4px solid var(--accent-green);
+        border: 1px solid var(--border-color); border-left: 4px solid var(--accent-dill);
         box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: var(--transition);
     }
-    .comment-card:hover { transform: translateX(5px); border-left-color: var(--accent-pink); box-shadow: 0 8px 20px rgba(232, 93, 142, 0.1); }
+    .comment-card:hover { transform: translateX(5px); border-left-color: var(--accent-beetroot); box-shadow: 0 8px 20px rgba(216, 27, 96, 0.1); }
     .comment-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; align-items: baseline; }
-    .comment-author { font-family: var(--font-serif); font-size: 1.3rem; color: var(--accent-pink); font-weight: bold; }
-    .comment-country { font-size: 0.85rem; color: var(--accent-green); text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+    .comment-author { font-family: var(--font-serif); font-size: 1.3rem; color: var(--accent-beetroot); font-weight: bold; }
+    .comment-country { font-size: 0.85rem; color: var(--accent-dill); text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
     .comment-body { color: var(--text-dark); font-size: 1.1rem; font-style: italic; font-family: var(--font-serif); }
-
     .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-
     @media (max-width: 900px) {
         .comments-layout { grid-template-columns: 1fr; gap: 3rem; }
         .hero { padding: 140px 1rem 3rem; }
@@ -192,7 +173,6 @@
 </style>
 </head>
 <body>
-
 <div id="splashScreen" class="splash-screen">
     <div class="splash-content">
         <h2>Vilnius 2026</h2>
@@ -201,14 +181,12 @@
         <button id="splashEnter" class="splash-btn">Enter</button>
     </div>
 </div>
-
 <div id="lightbox" class="lightbox">
     <span class="lightbox-close" id="lightboxClose">&times;</span>
     <span class="lightbox-nav lightbox-prev" id="lightboxPrev">&#10094;</span>
     <img id="lightboxImg" src="" alt="">
     <span class="lightbox-nav lightbox-next" id="lightboxNext">&#10095;</span>
 </div>
-
 <header>
     <div class="container nav-wrapper">
         <a href="#" class="logo">
@@ -220,14 +198,12 @@
         </div>
     </div>
 </header>
-
 <main>
     <section class="hero container fade-in">
         <h1 data-i18n="heroTitle"></h1>
         <p data-i18n="heroDesc"></p>
         <a href="#letter-section" class="btn-outline" data-i18n="btnReview"></a>
     </section>
-
     <section class="section container fade-in">
         <div class="section-header">
             <h2 data-i18n="videoTitle"></h2>
@@ -236,7 +212,6 @@
             <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?controls=0" title="Process Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </section>
-
     <section class="section container fade-in">
         <div class="section-header">
             <h2 data-i18n="galleryTitle"></h2>
@@ -248,7 +223,6 @@
         </div>
         <div class="gallery-grid" id="galleryGrid"></div>
     </section>
-
     <section class="section container fade-in" id="letter-section">
         <div class="section-header">
             <h2 data-i18n="commentsTitle"></h2>
@@ -272,9 +246,26 @@
         </div>
     </section>
 </main>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-<script>
-const API_URL = "";
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+let db = null;
+try {
+    if(firebaseConfig.apiKey !== "YOUR_API_KEY") {
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+    }
+} catch (e) {}
 
 const dict = {
     lt: {
@@ -450,7 +441,6 @@ function init() {
     populateDropdowns();
     setupScrollAnimations();
     setupLightbox();
-    
     const savedSetup = localStorage.getItem('v2026_setup');
     if (!savedSetup) {
         document.getElementById('splashScreen').classList.remove('hidden');
@@ -458,7 +448,6 @@ function init() {
         const setup = JSON.parse(savedSetup);
         applySetup(setup.lang, setup.country);
     }
-
     document.getElementById('splashEnter').addEventListener('click', () => {
         const lang = document.getElementById('splashLang').value;
         const country = document.getElementById('splashCountry').value;
@@ -466,7 +455,6 @@ function init() {
         document.getElementById('splashScreen').classList.add('hidden');
         applySetup(lang, country);
     });
-
     document.getElementById('langSelect').addEventListener('change', (e) => setLanguage(e.target.value));
     document.getElementById('countrySelect').addEventListener('change', (e) => {
         const c = countries.find(x => x.id === e.target.value);
@@ -475,7 +463,6 @@ function init() {
             setLanguage(c.lang);
         }
     });
-
     document.getElementById('galleryFilters').addEventListener('click', (e) => {
         if (e.target.tagName === 'BUTTON') {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -483,9 +470,7 @@ function init() {
             renderGallery(e.target.dataset.filter);
         }
     });
-
     document.getElementById('guestbookForm').addEventListener('submit', handleCommentSubmit);
-    
     renderGallery('all');
     loadComments();
 }
@@ -499,10 +484,8 @@ function populateDropdowns() {
             select.appendChild(opt);
         });
     });
-
     const countrySelects = [document.getElementById('countrySelect'), document.getElementById('splashCountry')];
     const formCountrySelect = document.getElementById('cCountry');
-    
     countries.forEach(c => {
         countrySelects.forEach(select => {
             const opt = document.createElement('option');
@@ -545,18 +528,15 @@ function setupLightbox() {
     document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('active'));
     document.getElementById('lightboxNext').addEventListener('click', nextImage);
     document.getElementById('lightboxPrev').addEventListener('click', prevImage);
-    
     lightbox.addEventListener('click', (e) => {
         if(e.target === lightbox) lightbox.classList.remove('active');
     });
-
     document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('active')) return;
         if (e.key === 'ArrowRight') nextImage();
         if (e.key === 'ArrowLeft') prevImage();
         if (e.key === 'Escape') lightbox.classList.remove('active');
     });
-
     let touchstartX = 0;
     let touchendX = 0;
     lightbox.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; });
@@ -593,7 +573,6 @@ function renderGallery(filter) {
     grid.innerHTML = '';
     const filteredData = galleryData.filter(item => filter === 'all' || item.type === filter);
     const urls = filteredData.map(item => item.url);
-    
     filteredData.forEach((item, index) => {
         const div = document.createElement('div');
         div.className = 'gallery-item';
@@ -610,17 +589,14 @@ async function handleCommentSubmit(e) {
     const name = document.getElementById('cName').value;
     const country = document.getElementById('cCountry').value;
     const message = document.getElementById('cMessage').value;
-
     const newComment = {
         name, country, original: message,
         timestamp: new Date().toLocaleDateString()
     };
-
     const btn = e.target.querySelector('.btn-submit');
     const originalText = btn.textContent;
     btn.textContent = "...";
     btn.disabled = true;
-
     if (API_URL && API_URL.trim() !== "") {
         try {
             await fetch(API_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(newComment) });
@@ -631,14 +607,11 @@ async function handleCommentSubmit(e) {
         localComments.unshift(newComment);
         localStorage.setItem('v2026_comments', JSON.stringify(localComments));
     }
-
     btn.textContent = originalText;
     btn.disabled = false;
     e.target.reset();
-    
     const savedSetup = JSON.parse(localStorage.getItem('v2026_setup'));
     if(savedSetup) applySetup(savedSetup.lang, savedSetup.country);
-    
     loadComments();
 }
 
