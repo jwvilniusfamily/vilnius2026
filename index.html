@@ -13,12 +13,13 @@
         --text-muted: #8A6B76;
         --accent-beetroot: #D81B60;
         --accent-dill: #43A047;
+        --accent-egg: #FFB703;
         --border-color: #F0D8E0;
         --radius-sm: 8px;
         --radius-lg: 16px;
         --font-sans: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         --font-serif: "Georgia", "Times New Roman", serif;
-        --transition: all 0.3s ease;
+        --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -30,69 +31,77 @@
         -webkit-font-smoothing: antialiased;
         overflow-x: hidden;
     }
+    body::-webkit-scrollbar { width: 10px; }
+    body::-webkit-scrollbar-track { background: var(--bg-main); }
+    body::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: var(--radius-sm); border: 2px solid var(--bg-main); }
+    body::-webkit-scrollbar-thumb:hover { background: var(--accent-beetroot); }
     h1, h2, h3 { font-family: var(--font-serif); font-weight: normal; color: var(--text-dark); }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
     .splash-screen {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background: rgba(252, 245, 247, 0.98);
         z-index: 9999; display: flex; justify-content: center; align-items: center;
-        transition: opacity 0.6s ease, visibility 0.6s ease;
+        transition: opacity 0.6s var(--transition), visibility 0.6s var(--transition);
     }
     .splash-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
     .splash-content {
         background: var(--bg-surface); padding: 3rem; border-radius: var(--radius-lg);
-        border: 1px solid var(--border-color);
-        box-shadow: 0 15px 35px rgba(216, 27, 96, 0.1); text-align: center; max-width: 400px; width: 90%;
+        border: 2px solid var(--border-color);
+        box-shadow: 0 25px 50px -12px rgba(216, 27, 96, 0.15); text-align: center; max-width: 440px; width: 90%;
     }
-    .splash-content h2 { margin-bottom: 1.5rem; font-size: 2rem; color: var(--accent-beetroot); }
+    .splash-content h2 { margin-bottom: 1.5rem; font-size: 2.25rem; color: var(--accent-beetroot); font-weight: bold; }
     .splash-content select { 
-        width: 100%; margin-bottom: 1.5rem; padding: 0.8rem 1.2rem; 
+        width: 100%; margin-bottom: 1.5rem; padding: 0.9rem 1.2rem; 
         border: 1px solid var(--border-color); border-radius: var(--radius-sm);
-        font-size: 1rem; color: var(--text-dark);
+        font-size: 1rem; color: var(--text-dark); background-color: var(--bg-main);
+        transition: var(--transition);
     }
+    .splash-content select:focus { outline: none; border-color: var(--accent-beetroot); box-shadow: 0 0 0 3px rgba(216, 27, 96, 0.1); }
     .splash-btn {
         width: 100%; background: var(--accent-beetroot); color: #FFF; border: none;
         padding: 1rem; border-radius: 30px; font-size: 1rem; cursor: pointer; transition: var(--transition);
         font-family: var(--font-serif); letter-spacing: 1px; text-transform: uppercase; font-weight: bold;
     }
-    .splash-btn:hover { background: #AD144D; }
+    .splash-btn:hover { background: #AD144D; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(216, 27, 96, 0.2); }
     .lightbox {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(36, 20, 26, 0.95); z-index: 10000;
+        background: rgba(36, 20, 26, 0.98); z-index: 10000;
         display: flex; justify-content: center; align-items: center;
-        opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
+        opacity: 0; visibility: hidden; transition: opacity 0.4s var(--transition);
         user-select: none;
     }
     .lightbox.active { opacity: 1; visibility: visible; }
-    .lightbox img { max-width: 90%; max-height: 90vh; border-radius: var(--radius-sm); box-shadow: 0 10px 40px rgba(0,0,0,0.5); transition: transform 0.3s ease; }
+    .lightbox img { max-width: 85%; max-height: 85vh; border-radius: var(--radius-sm); box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: transform 0.4s var(--transition); }
     .lightbox-close {
-        position: absolute; top: 20px; right: 30px; color: #FFF; font-size: 45px;
+        position: absolute; top: 25px; right: 35px; color: #FFF; font-size: 45px;
         cursor: pointer; font-family: var(--font-sans); line-height: 1; transition: var(--transition); z-index: 10001;
     }
     .lightbox-close:hover { color: var(--accent-beetroot); transform: scale(1.1); }
     .lightbox-nav {
         position: absolute; top: 50%; transform: translateY(-50%);
-        color: #FFF; font-size: 3.5rem; cursor: pointer; padding: 1rem 2rem;
-        transition: var(--transition); z-index: 10001; opacity: 0.6;
+        color: #FFF; font-size: 3.5rem; cursor: pointer; padding: 1.5rem;
+        transition: var(--transition); z-index: 10001; opacity: 0.5;
+        background: rgba(255, 255, 255, 0.05); border-radius: 50%; width: 70px; height: 70px;
+        display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px);
     }
-    .lightbox-nav:hover { opacity: 1; color: var(--accent-dill); }
-    .lightbox-prev { left: 10px; }
-    .lightbox-next { right: 10px; }
+    .lightbox-nav:hover { opacity: 1; color: var(--accent-egg); background: rgba(255, 255, 255, 0.15); }
+    .lightbox-prev { left: 25px; }
+    .lightbox-next { right: 25px; }
     header {
         position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95);
         border-bottom: 1px solid var(--border-color); z-index: 1000;
-        box-shadow: 0 2px 10px rgba(216, 27, 96, 0.05);
+        box-shadow: 0 2px 20px rgba(216, 27, 96, 0.05);
     }
     .nav-wrapper { display: flex; justify-content: space-between; align-items: center; height: 90px; }
     .logo img { height: 65px; mix-blend-mode: multiply; transition: var(--transition); }
-    .logo img:hover { opacity: 0.8; }
+    .logo img:hover { transform: scale(1.02); }
     .controls { display: flex; gap: 1rem; }
     select {
         appearance: none; background: var(--bg-surface); border: 1px solid var(--border-color);
         padding: 0.5rem 2.5rem 0.5rem 1.2rem; border-radius: 30px; font-family: var(--font-sans);
         font-size: 0.9rem; color: var(--text-dark); cursor: pointer; transition: var(--transition);
         background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23D81B60'/%3E%3C/svg%3E");
-        background-repeat: no-repeat; background-position: right 1rem center;
+        background-repeat: no-repeat; background-position: right 1.1rem center;
     }
     select:hover, select:focus { outline: none; border-color: var(--accent-beetroot); box-shadow: 0 0 0 3px rgba(216, 27, 96, 0.1); }
     .hero {
@@ -100,41 +109,41 @@
         align-items: center; text-align: center; padding: 160px 2rem 4rem; position: relative;
     }
     .hero::after { content: ''; position: absolute; bottom: 0; width: 2px; height: 100px; background: var(--accent-beetroot); opacity: 0.3; }
-    .hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 2rem; letter-spacing: 2px; color: var(--accent-beetroot); font-weight: bold; }
-    .hero p { font-size: clamp(1.05rem, 1.8vw, 1.15rem); color: var(--text-muted); max-width: 850px; margin: 0 auto 3rem; line-height: 1.9; font-family: var(--font-serif); font-style: italic; }
+    .hero h1 { font-size: clamp(2.75rem, 6vw, 4.75rem); line-height: 1.1; margin-bottom: 2rem; letter-spacing: 2px; color: var(--accent-beetroot); font-weight: bold; }
+    .hero p { font-size: clamp(1.05rem, 1.8vw, 1.2rem); color: var(--text-muted); max-width: 850px; margin: 0 auto 3rem; line-height: 1.9; font-family: var(--font-serif); font-style: italic; }
     .btn-outline {
         display: inline-block; text-decoration: none; color: var(--accent-beetroot);
-        border: 2px solid var(--accent-beetroot); padding: 0.8rem 2.5rem; border-radius: 30px;
+        border: 2px solid var(--accent-beetroot); padding: 0.9rem 2.75rem; border-radius: 30px;
         font-size: 1rem; transition: var(--transition); font-family: var(--font-serif); text-transform: uppercase; letter-spacing: 1px; font-weight: bold;
     }
-    .btn-outline:hover { background: var(--accent-beetroot); color: var(--bg-surface); }
+    .btn-outline:hover { background: var(--accent-beetroot); color: var(--bg-surface); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(216, 27, 96, 0.2); }
     .section { padding: 6rem 0; }
     .section-header { text-align: center; margin-bottom: 4rem; }
-    .section-header h2 { font-size: 2.5rem; position: relative; display: inline-block; padding-bottom: 1rem; color: var(--accent-beetroot); font-weight: bold; }
-    .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--accent-dill); border-radius: 2px; }
-    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-lg); border: 4px solid var(--bg-surface); box-shadow: 0 10px 30px rgba(216, 27, 96, 0.1); }
+    .section-header h2 { font-size: 2.75rem; position: relative; display: inline-block; padding-bottom: 1rem; color: var(--accent-beetroot); font-weight: bold; }
+    .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 70px; height: 3px; background: var(--accent-dill); border-radius: 2px; }
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-lg); border: 4px solid var(--bg-surface); box-shadow: 0 15px 35px rgba(216, 27, 96, 0.1); }
     .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
     .gallery-filters { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
-    .filter-btn { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 0.6rem 2rem; border-radius: 30px; cursor: pointer; font-size: 0.95rem; color: var(--text-muted); transition: var(--transition); font-family: var(--font-serif); font-weight: bold; }
+    .filter-btn { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 0.7rem 2.2rem; border-radius: 30px; cursor: pointer; font-size: 0.95rem; color: var(--text-muted); transition: var(--transition); font-family: var(--font-serif); font-weight: bold; }
     .filter-btn:hover { border-color: var(--accent-beetroot); color: var(--accent-beetroot); }
     .filter-btn.active { background: var(--accent-beetroot); color: var(--bg-surface); border-color: var(--accent-beetroot); box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3); }
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
     .gallery-item { border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-surface); transition: var(--transition); cursor: zoom-in; border: 1px solid var(--border-color); padding: 0.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
     .gallery-item img { width: 100%; height: 350px; object-fit: cover; display: block; border-radius: var(--radius-sm); transition: var(--transition); }
-    .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(216, 27, 96, 0.15); border-color: var(--accent-beetroot); }
+    .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(216, 27, 96, 0.15); border-color: var(--accent-beetroot); }
     .comments-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; }
     .comment-form { 
-        background: var(--bg-surface); padding: 3rem; border-radius: var(--radius-lg); 
+        background: var(--bg-surface); padding: 3.5rem 3rem; border-radius: var(--radius-lg); 
         border: 2px dashed var(--accent-beetroot); position: relative;
-        box-shadow: 0 15px 35px rgba(216, 27, 96, 0.08); height: fit-content; 
+        box-shadow: 0 20px 45px rgba(216, 27, 96, 0.08); height: fit-content; 
     }
     .comment-form::before {
         content: '✉'; position: absolute; top: -24px; left: 50%; transform: translateX(-50%);
-        background: var(--bg-main); color: var(--accent-beetroot); font-size: 2rem; padding: 0 15px;
+        background: var(--bg-main); color: var(--accent-beetroot); font-size: 2.25rem; padding: 0 15px;
     }
     .form-group { margin-bottom: 1.5rem; }
     .form-group input, .form-group select, .form-group textarea { 
-        width: 100%; padding: 1rem; border: 1px solid var(--border-color); 
+        width: 100%; padding: 1.1rem; border: 1px solid var(--border-color); 
         border-radius: var(--radius-sm); background: #FFF; font-family: var(--font-sans); 
         font-size: 1rem; color: var(--text-dark); transition: var(--transition); 
     }
@@ -149,11 +158,11 @@
         transition: var(--transition); margin-top: 1rem; font-family: var(--font-serif); 
         text-transform: uppercase; letter-spacing: 1px; font-weight: bold; 
     }
-    .btn-submit:hover { background: var(--accent-dill); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(67, 160, 71, 0.3); }
+    .btn-submit:hover { background: var(--accent-dill); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(67, 160, 71, 0.3); }
     .comments-list { display: flex; flex-direction: column; gap: 1.5rem; }
     .comment-card { 
         background: var(--bg-surface); padding: 2rem; border-radius: var(--radius-lg);
-        border: 1px solid var(--border-color); border-left: 4px solid var(--accent-dill);
+        border: 1px solid var(--border-color); border-left: 5px solid var(--accent-dill);
         box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: var(--transition);
     }
     .comment-card:hover { transform: translateX(5px); border-left-color: var(--accent-beetroot); box-shadow: 0 8px 20px rgba(216, 27, 96, 0.1); }
@@ -161,14 +170,14 @@
     .comment-author { font-family: var(--font-serif); font-size: 1.3rem; color: var(--accent-beetroot); font-weight: bold; }
     .comment-country { font-size: 0.85rem; color: var(--accent-dill); text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
     .comment-body { color: var(--text-dark); font-size: 1.1rem; font-style: italic; font-family: var(--font-serif); }
-    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s var(--transition), transform 0.8s var(--transition); }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
     @media (max-width: 900px) {
         .comments-layout { grid-template-columns: 1fr; gap: 3rem; }
         .hero { padding: 140px 1rem 3rem; }
         .comment-form { padding: 2rem; }
         .logo img { height: 50px; }
-        .lightbox-nav { font-size: 2.5rem; padding: 1rem; }
+        .lightbox-nav { font-size: 2.5rem; padding: 1rem; width: 50px; height: 50px; }
     }
 </style>
 </head>
@@ -270,7 +279,7 @@ try {
 const dict = {
     lt: {
         heroTitle: "Vilnius 2026",
-        heroDesc: "Sveiki atvykę, mieli mūsų tarptautinės dvasinės šeimos broliai ir sesės! Mes be galo džiaugiamės, kad atvykote į kongresą Lietuvoje. Tai bus nepamirštamas kongresas. Mums be galo džiugu, kad galime jums parodyti Lietuvą. Šiuos plakatus su pasveikinimais įvairiomis kalbomis ir mūsų mažas molines dovanėles ruošėme specialiai jums su didele meile, norėdami supažindinti su mūsų kultūra ir tradicijomis. Šiame puslapyje norime parodyti, kaip viską kūrėme – čia rasite vaizdo įrašus iš mūsų darbo užkulisių. Mums būtų labai įdomu sužinoti jūsų įspūdžius. Prašome užeiti į skiltį „Laiškas“, pasirinkti savo šalį ir palikti mums keletą šiltų žodžių. Mes labai vertiname, kad esate kartu su mumis!",
+        heroDesc: "Sveiki atvykę, mieli mūsų tarptautinės dvasinės šeimos broliai ir sesės! Mes be galo džiaugiamės, kad atvykote į kongresą Lietuvoje. Tai bus nepamirštamas kongresas. Mums be galo džiugu, kad galime jums parodyti Lietuvą. Šiuos plakatus su pasveikinimais įvairiomis kalbomis ir mūsų mažas molines dovanėles ruošėme specialiai jums su didele meile, norėdami supažindinti su mūsų kultūra ir tradicijomis. Šiame puslapje norime parodyti, kaip viską kūrėme – čia rasite vaizdo įrašus iš mūsų darbo užkulisių. Mums būtų labai įdomu sužinoti jūsų įspūdžius. Prašome užeiti į skiltį „Laiškas“, pasirinkti savo šalį ir palikti mums keletą šiltų žodžių. Mes labai vertiname, kad esate kartu su mumis!",
         btnReview: "Palikti atsiliepimą", videoTitle: "Kūrimo Procesas", galleryTitle: "Paroda", filterAll: "Visi Darbai", filterPosters: "Plakatai ir atvirukai", filterClay: "Molis", commentsTitle: "Laiškas", formName: "Jūsų Vardas", formMessage: "Palikite savo mintis čia...", formSubmit: "Palikti Įrašą"
     },
     en: {
@@ -301,7 +310,7 @@ const dict = {
     es: {
         heroTitle: "Vilnius 2026",
         heroDesc: "¡Bienvenidos, queridos hermanos y hermanas de nuestra familia espiritual internacional! Estamos inmensamente felices de que hayan venido al congreso en Lituania. Este será un congreso inolvidable. Estamos muy contentos de poder mostrarles Lituania. Preparamos estos carteles con saludos en varios idiomas y nuestros pequeños regalos de arcilla especialmente para ustedes con mucho amor, queriendo presentarles nuestra cultura y tradiciones. En esta página, queremos mostrar cómo creamos todo: aquí encontrarán videos del detrás de escena de nuestro trabajo. Nos interesaría mucho conocer sus impresiones. Por favor, vayan a la sección \"Carta\", elijan su país y déjennos unas cálidas palabras. ¡Valoramos mucho que estén con nosotros!",
-        btnReview: "Dejar una reseña", videoTitle: "Proceso de Creación", galleryTitle: "Exposición", filterAll: "Todas las Obras", filterPosters: "Carteles y Postales", filterClay: "Arcilla", commentsTitle: "Carta", formName: "Tu Nombre", formMessage: "Escribe tus pensamientos aquí...", formSubmit: "Dejar una Huella"
+        btnReview: "Dejar una reseña", videoTitle: "Proceso de Creación", galleryTitle: "Exposición", filterAll: "Todas as Obras", filterPosters: "Carteles y Postales", filterClay: "Arcilla", commentsTitle: "Carta", formName: "Tu Nombre", formMessage: "Escribe tus pensamientos aquí...", formSubmit: "Dejar una Huella"
     },
     he: {
         heroTitle: "וילנה 2026",
@@ -315,7 +324,7 @@ const dict = {
     },
     sv: {
         heroTitle: "Vilnius 2026",
-        heroDesc: "Välkomna, kära bröder och systrar i vår internationella andliga familj! Vi är oerhört glada att ni har kommit till sammankomsten i Litauen. Detta kommer att bli en oförglömlig sammankomst. Vi är mycket glada över att kunna visa er Litauen. Vi förberedde dessa affischer med hälsningar på olika språk och våra små lergåvor speciellt för er med stor kärlek, för att introducera er till vår kultur och våra traditioner. På den här sidan vill vi visa hur vi skapade allt – här hittar ni videor från bakom kulisserna av vårt arbete. Vi skulle vara mycket intresserade av att höra era intryck. Vänligen gå till avsnittet \"Brev\", välj ert land och lämna några varma ord till oss. Vi uppskattar verkligen att ni är här med oss!",
+        heroDesc: "Välkomna, kära bröder och systrar i vår internationella andliga familj! Vi är oerhört glada att ni har kommit till sammankomsten i Litauen. Detta kommer att bli en oförglömlig sammankomst. Vi är mycket glada över att kunna visa er Litauen. Vi förberedde dessa affischer med hälsningar på olika språk och våra små lergåvor speciellt för er med stor kärlek, för att introducera er till vår kultur och våra traditions. På den här sidan vill vi visa hur vi skapade allt – här hittar ni videor från bakom kulisserna av vårt arbete. Vi skulle vara mycket intresserade av att höra era intryck. Vänligen gå till avsnittet \"Brev\", välj ert land och lämna några varma ord till oss. Vi uppskattar verkligen att ni är här med oss!",
         btnReview: "Lämna en recension", videoTitle: "Skapandeprocess", galleryTitle: "Utställning", filterAll: "Alla Verk", filterPosters: "Affischer & Vykort", filterClay: "Lera", commentsTitle: "Brev", formName: "Ditt Namn", formMessage: "Skriv dina tankar här...", formSubmit: "Lämna ett Spår"
     }
 };
@@ -432,15 +441,11 @@ const galleryData = [
     { type: 'clay', url: 'https://i.postimg.cc/mkqPpcQB/IMG-7285-2.jpg' }
 ];
 
-let currentLang = 'en';
-let comments = [];
-let currentLightboxImages = [];
-let currentLightboxIndex = 0;
-
 function init() {
     populateDropdowns();
     setupScrollAnimations();
     setupLightbox();
+    detectDevice();
     const savedSetup = localStorage.getItem('v2026_setup');
     if (!savedSetup) {
         document.getElementById('splashScreen').classList.remove('hidden');
@@ -473,6 +478,21 @@ function init() {
     document.getElementById('guestbookForm').addEventListener('submit', handleCommentSubmit);
     renderGallery('all');
     loadComments();
+}
+
+function detectDevice() {
+    const userLang = (navigator.language || navigator.userLanguage || 'en').substring(0, 2).toLowerCase();
+    const activeLang = languages.some(l => l.code === userLang) ? userLang : 'en';
+    let matchedCountry = 'us';
+    if (userLang === 'lt') matchedCountry = 'lt';
+    else if (userLang === 'lv') matchedCountry = 'lv';
+    else if (userLang === 'hy') matchedCountry = 'am';
+    else if (userLang === 'pt') matchedCountry = 'pt';
+    else if (userLang === 'es') matchedCountry = 'cl';
+    else if (userLang === 'ja') matchedCountry = 'jp';
+    else if (userLang === 'sv') matchedCountry = 'sc';
+    document.getElementById('splashLang').value = activeLang;
+    document.getElementById('splashCountry').value = matchedCountry;
 }
 
 function populateDropdowns() {
@@ -597,10 +617,9 @@ async function handleCommentSubmit(e) {
     const originalText = btn.textContent;
     btn.textContent = "...";
     btn.disabled = true;
-    if (API_URL && API_URL.trim() !== "") {
+    if (db) {
         try {
-            await fetch(API_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(newComment) });
-            await new Promise(r => setTimeout(r, 1000));
+            await addDoc(collection(db, "comments"), newComment);
         } catch (error) {}
     } else {
         let localComments = JSON.parse(localStorage.getItem('v2026_comments')) || [];
@@ -616,10 +635,14 @@ async function handleCommentSubmit(e) {
 }
 
 async function loadComments() {
-    if (API_URL && API_URL.trim() !== "") {
+    if (db) {
         try {
-            const response = await fetch(API_URL);
-            comments = await response.json();
+            const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
+            const querySnapshot = await getDocs(q);
+            comments = [];
+            querySnapshot.forEach((doc) => {
+                comments.push(doc.data());
+            });
         } catch (error) {
             comments = JSON.parse(localStorage.getItem('v2026_comments')) || [];
         }
