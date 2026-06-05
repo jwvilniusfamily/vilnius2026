@@ -71,7 +71,7 @@
     .logo img {
         height: 65px;
         width: auto;
-        mix-blend-mode: multiply; /* Leidžia logotipui gražiai susilieti su fonu */
+        mix-blend-mode: multiply;
         transition: var(--transition);
     }
 
@@ -107,13 +107,13 @@
     }
 
     .hero {
-        min-height: 80vh;
+        min-height: 85vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
-        padding: 140px 2rem 4rem;
+        padding: 160px 2rem 4rem;
         position: relative;
     }
 
@@ -128,19 +128,19 @@
     }
 
     .hero h1 {
-        font-size: clamp(3rem, 6vw, 5rem);
+        font-size: clamp(2.5rem, 5vw, 4rem);
         line-height: 1.1;
         margin-bottom: 2rem;
         letter-spacing: 2px;
     }
 
     .hero p {
-        font-size: clamp(1.1rem, 2vw, 1.25rem);
+        font-size: clamp(1.05rem, 1.8vw, 1.15rem);
         color: var(--text-muted);
-        max-width: 700px;
+        max-width: 850px;
         margin: 0 auto;
-        font-weight: 300;
-        font-style: italic;
+        font-weight: 400;
+        line-height: 1.8;
     }
 
     .section {
@@ -245,28 +245,15 @@
         transform: scale(1.02);
     }
 
-    .process-grid {
-        display: grid;
-        grid-template-columns: 1fr 1.2fr;
-        gap: 4rem;
-        align-items: center;
-    }
-
-    .process-text p {
-        margin-bottom: 1.5rem;
-        font-size: 1.1rem;
-        color: var(--text-muted);
-    }
-
     .process-images {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1.5rem;
     }
 
     .process-images img {
         width: 100%;
-        height: 250px;
+        height: 300px;
         object-fit: cover;
         border-radius: var(--radius-sm);
         filter: sepia(20%);
@@ -404,12 +391,12 @@
     }
 
     @media (max-width: 900px) {
-        .process-grid, .comments-layout {
+        .comments-layout {
             grid-template-columns: 1fr;
             gap: 3rem;
         }
         .hero {
-            padding: 120px 1rem 3rem;
+            padding: 140px 1rem 3rem;
         }
         .comment-form {
             padding: 2rem;
@@ -466,21 +453,15 @@
         <div class="section-header">
             <h2 data-i18n="processTitle"></h2>
         </div>
-        <div class="process-grid">
-            <div class="process-text">
-                <p data-i18n="processP1"></p>
-                <p data-i18n="processP2"></p>
-            </div>
-            <div class="process-images">
-                <img src="https://i.postimg.cc/1tDg7Rvz/IMG-0043-160-Edited.jpg" alt="Process 1" loading="lazy">
-                <img src="https://i.postimg.cc/3rb0xqzm/IMG-7166-2.jpg" alt="Process 2" loading="lazy">
-                <img src="https://i.postimg.cc/B6287Zm0/IMG-0050-164-Edited.jpg" alt="Process 3" loading="lazy">
-                <img src="https://i.postimg.cc/XqXZgKBk/IMG-7169-2.jpg" alt="Process 4" loading="lazy">
-            </div>
+        <div class="process-images">
+            <img src="https://i.postimg.cc/1tDg7Rvz/IMG-0043-160-Edited.jpg" alt="Process 1" loading="lazy">
+            <img src="https://i.postimg.cc/3rb0xqzm/IMG-7166-2.jpg" alt="Process 2" loading="lazy">
+            <img src="https://i.postimg.cc/B6287Zm0/IMG-0050-164-Edited.jpg" alt="Process 3" loading="lazy">
+            <img src="https://i.postimg.cc/XqXZgKBk/IMG-7169-2.jpg" alt="Process 4" loading="lazy">
         </div>
     </section>
 
-    <section class="section container fade-in">
+    <section class="section container fade-in" id="letter-section">
         <div class="section-header">
             <h2 data-i18n="commentsTitle"></h2>
         </div>
@@ -506,55 +487,49 @@
 
 <script>
 const dict = {
-    en: {
-        heroTitle: "Vilnius 2026",
-        heroDesc: "Feel the warmth of hands and the flow of time. This exhibition is a living dialogue of cultures, intertwining traditional crafts, the serenity of clay, and the fragility of paper. Every piece holds a fragment of its creator's soul.",
-        videoTitle: "Creation Process",
-        galleryTitle: "Exhibition",
-        filterAll: "All Works",
-        filterPosters: "Posters",
-        filterClay: "Clay",
-        filterPostcards: "Postcards",
-        processTitle: "Handcraft Traditions",
-        processP1: "Every piece in this gallery represents a deep connection to cultural roots. The process of working with clay and paper requires patience, warmth, and dedication.",
-        processP2: "Delegates from around the world have contributed to this living exposition, blending their unique perspectives with traditional Baltic techniques.",
-        commentsTitle: "Guestbook",
-        formName: "Your Name",
-        formMessage: "Write your thoughts here...",
-        formSubmit: "Leave a Trace",
-        aiTranslated: "AI Translated"
-    },
     lt: {
         heroTitle: "Vilnius 2026",
-        heroDesc: "Pajuskite rankų šilumą ir laiko tėkmę. Ši paroda – tai gyvas kultūrų dialogas, kuriame susipina tradiciniai amatai, molio ramybė ir popieriaus trapumas. Kiekvienas kūrinys saugo dalelę kūrėjo sielos.",
+        heroDesc: "Sveiki atvykę, mieli mūsų tarptautinės dvasinės šeimos broliai ir sesės! Mes be galo džiaugiamės, kad atvykote į kongresą Lietuvoje. Tai bus nepamirštamas kongresas. Mums be galo džiugu, kad galime jums parodyti Lietuvą. Šiuos plakatus su pasveikinimais įvairiomis kalbomis ir mūsų mažas molines dovanėles ruošėme specialiai jums su didele meile, norėdami supažindinti su mūsų kultūra ir tradicijomis. Šiame puslapyje norime parodyti, kaip viską kūrėme – čia rasite vaizdo įrašus iš mūsų darbo užkulisių. Mums būtų labai įdomu sužinoti jūsų įspūdžius. Prašome užeiti į skiltį „Laiškas“, pasirinkti savo šalį ir palikti mums keletą šiltų žodžių. Mes labai vertiname, kad esate kartu su mumis!",
         videoTitle: "Kūrimo Procesas",
         galleryTitle: "Paroda",
         filterAll: "Visi Darbai",
         filterPosters: "Plakatai",
         filterClay: "Molis",
         filterPostcards: "Atvirukai",
-        processTitle: "Rankų Darbo Tradicijos",
-        processP1: "Kiekvienas kūrinys šioje galerijoje atspindi gilų ryšį su kultūrinėmis šaknimis. Darbas su moliu ir popieriumi reikalauja kantrybės ir šilumos.",
-        processP2: "Delegatai iš viso pasaulio prisidėjo prie šios gyvos ekspozicijos, sujungdami savo unikalias perspektyvas su tradicinėmis baltų technikomis.",
-        commentsTitle: "Svečių Knyga",
+        processTitle: "Darbo Užkulisiai",
+        commentsTitle: "Laiškas",
         formName: "Jūsų Vardas",
         formMessage: "Palikite savo mintis čia...",
         formSubmit: "Palikti Įrašą",
         aiTranslated: "AI Išversta"
     },
+    en: {
+        heroTitle: "Vilnius 2026",
+        heroDesc: "Welcome, dear brothers and sisters of our international spiritual family! We are incredibly happy that you have come to the convention in Lithuania. This will be an unforgettable convention. We are so glad to be able to show you Lithuania. We prepared these posters with greetings in various languages and our small clay gifts especially for you with great love, wanting to introduce you to our culture and traditions. On this page, we want to show you how we created everything – here you will find videos from behind the scenes of our work. We would be very interested to hear your impressions. Please go to the \"Letter\" section, select your country, and leave us a few warm words. We deeply appreciate that you are here with us!",
+        videoTitle: "Creation Process",
+        galleryTitle: "Exhibition",
+        filterAll: "All Works",
+        filterPosters: "Posters",
+        filterClay: "Clay",
+        filterPostcards: "Postcards",
+        processTitle: "Behind the Scenes",
+        commentsTitle: "Letter",
+        formName: "Your Name",
+        formMessage: "Write your thoughts here...",
+        formSubmit: "Leave a Trace",
+        aiTranslated: "AI Translated"
+    },
     ru: {
         heroTitle: "Вильнюс 2026",
-        heroDesc: "Почувствуйте тепло рук и течение времени. Эта выставка — живой диалог культур, в котором переплетаются традиционные ремесла, спокойствие глины и хрупкость бумаги. Каждое произведение хранит частицу души своего создателя.",
+        heroDesc: "Добро пожаловать, дорогие братья и сестры нашей международной духовной семьи! Мы бесконечно рады, что вы приехали на конгресс в Литву. Это будет незабываемый конгресс. Мы очень рады возможности показать вам Литву. Эти плакаты с приветствиями на разных языках и наши маленькие глиняные подарки мы готовили специально для вас с большой любовью, желая познакомить с нашей культурой и традициями. На этой странице мы хотим показать, как всё создавалось — здесь вы найдете видео нашего рабочего процесса. Нам было бы очень интересно узнать ваши впечатления. Пожалуйста, зайдите в раздел «Письмо», выберите свою страну и оставьте нам несколько теплых слов. Мы очень ценим, что вы вместе с нами!",
         videoTitle: "Процесс Создания",
         galleryTitle: "Выставка",
         filterAll: "Все Работы",
         filterPosters: "Плакаты",
         filterClay: "Глина",
         filterPostcards: "Открытки",
-        processTitle: "Традиции Ремесла",
-        processP1: "Каждое произведение в этой галерее отражает глубокую связь с культурными корнями. Работа с глиной и бумагой требует терпения и тепла.",
-        processP2: "Делегаты со всего мира внесли свой вклад в эту живую экспозицию, объединив свои уникальные взгляды с традиционными балтийскими техниками.",
-        commentsTitle: "Гостевая Книга",
+        processTitle: "За Кулисами",
+        commentsTitle: "Письмо",
         formName: "Ваше Имя",
         formMessage: "Напишите свои мысли здесь...",
         formSubmit: "Оставить Запись",
@@ -562,39 +537,115 @@ const dict = {
     },
     lv: {
         heroTitle: "Viļņa 2026",
-        heroDesc: "Sajūtiet roku siltumu un laika ritējumu. Šī izstāde ir dzīvs kultūru dialogs, kurā savijas tradicionālie amati, māla miers un papīra trauslums. Katrs darbs glabā daļiņu no radītāja dvēseles.",
+        heroDesc: "Laipni lūdzam, dārgie mūsu starptautiskās garīgās ģimenes brāļi un māsas! Mēs esam bezgala priecīgi, ka esat ieradušies uz kongresu Lietuvā. Tas būs neaizmirstams kongress. Mums ir liels prieks, ka varam jums parādīt Lietuvu. Šos plakātus ar sveicieniem dažādās valodās un mūsu mazās māla dāvaniņas mēs gatavojām īpaši jums ar lielu mīlestību, vēloties iepazīstināt ar mūsu kultūru un tradīcijām. Šajā lapā mēs vēlamies parādīt, kā mēs visu radījām – šeit atradīsiet video no mūsu darba aizkulisēm. Mums būtu ļoti interesanti uzzināt jūsu iespaidus. Lūdzu, dodieties uz sadaļu \"Vēstule\", izvēlieties savu valsti un atstājiet mums dažus siltus vārdus. Mēs ļoti novērtējam, ka esat kopā ar mums!",
         videoTitle: "Radīšanas Process",
         galleryTitle: "Izstāde",
         filterAll: "Visi Darbi",
         filterPosters: "Plakāti",
         filterClay: "Māls",
         filterPostcards: "Pastkartes",
-        processTitle: "Rokdarbu Tradīcijas",
-        processP1: "Katrs darbs šajā galerijā atspoguļo dziļu saikni ar kultūras saknēm. Darbs ar mālu un papīru prasa pacietību un siltumu.",
-        processP2: "Delegāti no visas pasaules ir devuši savu ieguldījumu šajā dzīvajā ekspozīcijā, apvienojot savas unikālās perspektīvas ar tradicionālajām baltu tehnikām.",
-        commentsTitle: "Viesu Grāmata",
+        processTitle: "Aizkulisēs",
+        commentsTitle: "Vēstule",
         formName: "Jūsu Vārds",
         formMessage: "Rakstiet savas domas šeit...",
         formSubmit: "Atstāt Ierakstu",
         aiTranslated: "AI Tulkots"
     },
     hy: {
-        heroTitle: "Վիլնյուս 2026", heroDesc: "Զգացեք ձեռքերի ջերմությունը և ժամանակի հոսքը: Այս ցուցահանդեսը մշակույթների կենդանի երկխոսություն է, որտեղ միահյուսվում են ավանդական արհեստները, կավի հանգստությունը և թղթի փխրունությունը:", videoTitle: "Ստեղծման Գործընթաց", galleryTitle: "Ցուցահանդես", filterAll: "Բոլորը", filterPosters: "Պաստառներ", filterClay: "Կավ", filterPostcards: "Բացիկներ", processTitle: "Ավանդույթներ", processP1: "Այս պատկերասրահի յուրաքանչյուր կտոր ներկայացնում է խորը կապ մշակութային արմատների հետ:", processP2: "Պատվիրակներն ամբողջ աշխարհից իրենց ներդրումն են ունեցել այս կենդանի ցուցադրության մեջ:", commentsTitle: "Հյուրերի Գիրք", formName: "Անուն", formMessage: "Գրեք ձեր մտքերը այստեղ...", formSubmit: "Ուղարկել", aiTranslated: "AI Թարգմանություն"
+        heroTitle: "Վիլնյուս 2026", 
+        heroDesc: "Բարի գալուստ, մեր միջազգային հոգևոր ընտանիքի սիրելի եղբայրներ և քույրեր: Մենք անչափ ուրախ ենք, որ եկել եք Լիտվայում կայանալիք համաժողովին: Սա անմոռանալի համաժողով է լինելու: Մենք շատ ուրախ ենք, որ կարող ենք ձեզ ցույց տալ Լիտվան: Տարբեր լեզուներով ողջույններով այս պաստառները և մեր փոքրիկ կավե նվերները մենք պատրաստել ենք հատուկ ձեզ համար մեծ սիրով՝ ցանկանալով ծանոթացնել մեր մշակույթին և ավանդույթներին: Այս էջում մենք ուզում ենք ցույց տալ, թե ինչպես ենք ստեղծել ամեն ինչ. այստեղ կգտնեք տեսանյութեր մեր աշխատանքի կուլիսներից: Մեզ շատ հետաքրքիր կլինի իմանալ ձեր տպավորությունները: Խնդրում ենք գնալ «Նամակ» բաժին, ընտրել ձեր երկիրը և մի քանի ջերմ խոսք թողնել մեզ: Մենք շատ գնահատում ենք, որ դուք մեզ հետ եք:", 
+        videoTitle: "Ստեղծման Գործընթաց", 
+        galleryTitle: "Ցուցահանդես", 
+        filterAll: "Բոլորը", 
+        filterPosters: "Պաստառներ", 
+        filterClay: "Կավ", 
+        filterPostcards: "Բացիկներ", 
+        processTitle: "Կուլիսներում", 
+        commentsTitle: "Նամակ", 
+        formName: "Անուն", 
+        formMessage: "Գրեք ձեր մտքերը այստեղ...", 
+        formSubmit: "Ուղարկել", 
+        aiTranslated: "AI Թարգմանություն"
     },
     pt: {
-        heroTitle: "Vilnius 2026", heroDesc: "Sinta o calor das mãos e o fluxo do tempo. Esta exposição é um diálogo vivo de culturas, entrelaçando ofícios tradicionais, a serenidade da argila e a fragilidade do papel.", videoTitle: "Processo de Criação", galleryTitle: "Exposição", filterAll: "Todas as Obras", filterPosters: "Cartazes", filterClay: "Argila", filterPostcards: "Cartões", processTitle: "Tradições Artesanais", processP1: "Cada peça nesta galeria representa uma conexão profunda com as raízes culturais.", processP2: "Delegados de todo o mundo contribuíram para esta exposição viva.", commentsTitle: "Livro de Visitas", formName: "Seu Nome", formMessage: "Escreva seus pensamentos aqui...", formSubmit: "Deixar uma Marca", aiTranslated: "AI Tradução"
+        heroTitle: "Vilnius 2026", 
+        heroDesc: "Bem-vindos, queridos irmãos e irmãs da nossa família espiritual internacional! Estamos imensamente felizes por terem vindo ao congresso na Lituânia. Este será um congresso inesquecível. Estamos muito felizes por poder mostrar-lhes a Lituânia. Preparamos estes cartazes com saudações em vários idiomas e nossos pequenos presentes de argila especialmente para vocês com muito amor, querendo apresentar nossa cultura e tradições. Nesta página, queremos mostrar como criamos tudo – aqui encontrarão vídeos dos bastidores do nosso trabalho. Gostaríamos muito de saber as vossas impressões. Por favor, vão à secção \"Carta\", escolham o vosso país e deixem-nos algumas palavras calorosas. Valorizamos muito que estejam connosco!", 
+        videoTitle: "Processo de Criação", 
+        galleryTitle: "Exposição", 
+        filterAll: "Todas as Obras", 
+        filterPosters: "Cartazes", 
+        filterClay: "Argila", 
+        filterPostcards: "Cartões", 
+        processTitle: "Bastidores", 
+        commentsTitle: "Carta", 
+        formName: "Seu Nome", 
+        formMessage: "Escreva seus pensamentos aqui...", 
+        formSubmit: "Deixar uma Marca", 
+        aiTranslated: "AI Tradução"
     },
     es: {
-        heroTitle: "Vilnius 2026", heroDesc: "Siente el calor de las manos y el fluir del tiempo. Esta exposición es un diálogo vivo de culturas, entrelazando oficios tradicionales, la serenidad de la arcilla y la fragilidad del papel.", videoTitle: "Proceso de Creación", galleryTitle: "Exposición", filterAll: "Todas las Obras", filterPosters: "Carteles", filterClay: "Arcilla", filterPostcards: "Postales", processTitle: "Tradiciones Artesanales", processP1: "Cada pieza en esta galería representa una profunda conexión con las raíces culturales.", processP2: "Delegados de todo el mundo han contribuido a esta exposición viva.", commentsTitle: "Libro de Visitas", formName: "Tu Nombre", formMessage: "Escribe tus pensamientos aquí...", formSubmit: "Dejar una Huella", aiTranslated: "AI Traducción"
+        heroTitle: "Vilnius 2026", 
+        heroDesc: "¡Bienvenidos, queridos hermanos y hermanas de nuestra familia espiritual internacional! Estamos inmensamente felices de que hayan venido al congreso en Lituania. Este será un congreso inolvidable. Estamos muy contentos de poder mostrarles Lituania. Preparamos estos carteles con saludos en varios idiomas y nuestros pequeños regalos de arcilla especialmente para ustedes con mucho amor, queriendo presentarles nuestra cultura y tradiciones. En esta página, queremos mostrar cómo creamos todo: aquí encontrarán videos del detrás de escena de nuestro trabajo. Nos interesaría mucho conocer sus impresiones. Por favor, vayan a la sección \"Carta\", elijan su país y déjennos unas cálidas palabras. ¡Valoramos mucho que estén con nosotros!", 
+        videoTitle: "Proceso de Creación", 
+        galleryTitle: "Exposición", 
+        filterAll: "Todas las Obras", 
+        filterPosters: "Carteles", 
+        filterClay: "Arcilla", 
+        filterPostcards: "Postales", 
+        processTitle: "Detrás de Escena", 
+        commentsTitle: "Carta", 
+        formName: "Tu Nombre", 
+        formMessage: "Escribe tus pensamientos aquí...", 
+        formSubmit: "Dejar una Huella", 
+        aiTranslated: "AI Traducción"
     },
     he: {
-        heroTitle: "וילנה 2026", heroDesc: "הרגישו את חום הידיים וזרימת הזמן. תערוכה זו היא שיח תרבויות חי, השוזר יחד מלאכות מסורתיות, שלוות החימר ושבריריות הנייר.", videoTitle: "תהליך יצירה", galleryTitle: "תערוכה", filterAll: "כל העבודות", filterPosters: "כרזות", filterClay: "חימר", filterPostcards: "גלויות", processTitle: "מסורות מלאכה", processP1: "כל יצירה בגלריה זו מייצגת חיבור עמוק לשורשים תרבותיים.", processP2: "נציגים מכל רחבי העולם תרמו לתערוכה חיה זו.", commentsTitle: "ספר אורחים", formName: "השם שלך", formMessage: "כתוב את מחשבותיך כאן...", formSubmit: "השאר חותם", aiTranslated: "AI תרגום"
+        heroTitle: "וילנה 2026", 
+        heroDesc: "ברוכים הבאים, אחים ואחיות יקרים של משפחתנו הרוחנית הבינלאומית! אנו שמחים עד מאוד שבאתם לכינוס בליטא. זה יהיה כינוס בלתי נשכח. אנו שמחים מאוד שנוכל להראות לכם את ליטא. הכנו את הכרזות הללו עם ברכות בשפות שונות ואת מתנות החימר הקטנות שלנו במיוחד עבורכם באהבה רבה, מתוך רצון להכיר לכם את התרבות והמסורות שלנו. בעמוד זה אנו רוצים להראות כיצד יצרנו הכל – כאן תמצאו סרטונים מאחורי הקלעים של עבודתנו. נשמח מאוד לשמוע את רשמיכם. אנא היכנסו למדור \"מכתב\", בחרו את מדינתכם והשאירו לנו כמה מילים חמות. אנו מעריכים מאוד שאתם איתנו!", 
+        videoTitle: "תהליך יצירה", 
+        galleryTitle: "תערוכה", 
+        filterAll: "כל העבודות", 
+        filterPosters: "כרזות", 
+        filterClay: "חימר", 
+        filterPostcards: "גלויות", 
+        processTitle: "מאחורי הקלעים", 
+        commentsTitle: "מכתב", 
+        formName: "השם שלך", 
+        formMessage: "כתוב את מחשבותיך כאן...", 
+        formSubmit: "השאר חותם", 
+        aiTranslated: "AI תרגום"
     },
     ja: {
-        heroTitle: "ビリニュス 2026", heroDesc: "手の温もりと時の流れを感じてください。この展示会は、伝統的な工芸品、粘土の静けさ、紙の儚さが交差する生きた文化の対話です。", videoTitle: "制作プロセス", galleryTitle: "展示会", filterAll: "すべての作品", filterPosters: "ポスター", filterClay: "粘土", filterPostcards: "ポストカード", processTitle: "手作りの伝統", processP1: "このギャラリーの各作品は、文化的なルーツとの深いつながりを表しています。", processP2: "世界中の代表者がこの生きた展示に貢献しました。", commentsTitle: "ゲストブック", formName: "名前", formMessage: "ここにあなたの考えを書いてください...", formSubmit: "跡を残す", aiTranslated: "AI 翻訳"
+        heroTitle: "ビリニュス 2026", 
+        heroDesc: "私たちの国際的な霊的家族の親愛なる兄弟姉妹の皆さん、ようこそ！リトアニアでの大会にお越しいただき、本当に嬉しく思います。これは忘れられない大会になるでしょう。リトアニアをご案内できることを大変嬉しく思います。様々な言語での挨拶が書かれたこれらのポスターと、私たちの小さな粘土の贈り物は、私たちの文化と伝統を紹介したいという思いから、大きな愛を込めて特別に準備しました。このページでは、私たちがどのようにすべてを制作したかをお見せしたいと思います。ここでは、私たちの作業の舞台裏のビデオをご覧いただけます。皆様の感想をぜひお聞きしたいです。「手紙」のセクションに行き、国を選んで、温かい言葉を残してください。皆様が私たちと一緒にいてくださることに深く感謝しています！", 
+        videoTitle: "制作プロセス", 
+        galleryTitle: "展示会", 
+        filterAll: "すべての作品", 
+        filterPosters: "ポスター", 
+        filterClay: "粘土", 
+        filterPostcards: "ポストカード", 
+        processTitle: "舞台裏", 
+        commentsTitle: "手紙", 
+        formName: "名前", 
+        formMessage: "ここにあなたの考えを書いてください...", 
+        formSubmit: "跡を残す", 
+        aiTranslated: "AI 翻訳"
     },
     sv: {
-        heroTitle: "Vilnius 2026", heroDesc: "Känn värmen från händerna och tidens gång. Denna utställning är en levande dialog mellan kulturer, som flätar samman traditionellt hantverk, lerans lugn och papperets skörhet.", videoTitle: "Skapandeprocess", galleryTitle: "Utställning", filterAll: "Alla Verk", filterPosters: "Affischer", filterClay: "Lera", filterPostcards: "Vykort", processTitle: "Hantverkstraditioner", processP1: "Varje verk i detta galleri representerar en djup koppling till kulturella rötter.", processP2: "Delegater från hela världen har bidragit till denna levande utställning.", commentsTitle: "Gästbok", formName: "Ditt Namn", formMessage: "Skriv dina tankar här...", formSubmit: "Lämna ett Spår", aiTranslated: "AI Översättning"
+        heroTitle: "Vilnius 2026", 
+        heroDesc: "Välkomna, kära bröder och systrar i vår internationella andliga familj! Vi är oerhört glada att ni har kommit till sammankomsten i Litauen. Detta kommer att bli en oförglömlig sammankomst. Vi är mycket glada över att kunna visa er Litauen. Vi förberedde dessa affischer med hälsningar på olika språk och våra små lergåvor speciellt för er med stor kärlek, för att introducera er till vår kultur och våra traditioner. På den här sidan vill vi visa hur vi skapade allt – här hittar ni videor från bakom kulisserna av vårt arbete. Vi skulle vara mycket intresserade av att höra era intryck. Vänligen gå till avsnittet \"Brev\", välj ert land och lämna några varma ord till oss. Vi uppskattar verkligen att ni är här med oss!", 
+        videoTitle: "Skapandeprocess", 
+        galleryTitle: "Utställning", 
+        filterAll: "Alla Verk", 
+        filterPosters: "Affischer", 
+        filterClay: "Lera", 
+        filterPostcards: "Vykort", 
+        processTitle: "Bakom Kulisserna", 
+        commentsTitle: "Brev", 
+        formName: "Ditt Namn", 
+        formMessage: "Skriv dina tankar här...", 
+        formSubmit: "Lämna ett Spår", 
+        aiTranslated: "AI Översättning"
     }
 };
 
@@ -614,8 +665,8 @@ const countries = [
 ];
 
 const languages = [
-    { code: 'en', name: 'English' },
     { code: 'lt', name: 'Lietuvių' },
+    { code: 'en', name: 'English' },
     { code: 'ru', name: 'Русский' },
     { code: 'lv', name: 'Latviešu' },
     { code: 'hy', name: 'Հայերեն' },
@@ -644,7 +695,7 @@ const galleryData = [
     { type: 'postcards', url: 'https://i.postimg.cc/85LFXkZW/IMG-0081-180-Edited.jpg' }
 ];
 
-let currentLang = 'en';
+let currentLang = 'lt';
 let comments = JSON.parse(localStorage.getItem('v2026_comments')) || [];
 
 const mockTranslationDict = {
@@ -707,7 +758,7 @@ function init() {
     document.getElementById('guestbookForm').addEventListener('submit', handleCommentSubmit);
 
     setupScrollAnimations();
-    setLanguage('en');
+    setLanguage('lt');
     renderGallery('all');
     renderComments();
 }
@@ -728,6 +779,7 @@ function setLanguage(lang) {
     currentLang = lang;
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
+    document.getElementById('langSelect').value = lang;
     
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
