@@ -9,6 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    html {
+      font-size: 100%; /* Šis nustatymas leis dinamiškai keisti mastelį */
+      transition: font-size 0.2s ease-in-out;
+    }
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #faf9f6;
@@ -25,12 +29,15 @@
       background: #c5b39a;
       border-radius: 2px;
     }
+    .reaction-btn:active {
+      transform: scale(0.9);
+    }
   </style>
 </head>
 <body class="min-h-screen selection:bg-[#b2533e] selection:text-white antialiased">
 
   <nav class="sticky top-0 z-40 bg-[#faf9f6]/95 backdrop-blur-md border-b border-[#ebdcd0] py-4 px-4 md:px-8">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
       <div class="flex items-center gap-3">
         <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="VILNIUS FAMILY 2026" class="h-10 w-10 rounded-full object-cover border border-[#b2533e] shadow-sm" onerror="this.src='https://placehold.co/100x100?text=VF+2026'">
         <div>
@@ -39,16 +46,19 @@
         </div>
       </div>
       
-      <div class="flex flex-wrap items-center gap-2">
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <div class="flex items-center bg-[#f5efe6] border border-[#c7b198] rounded-full px-2 py-1 gap-1">
+          <span class="text-[10px] uppercase tracking-wider font-bold text-[#8e7a68] px-2 select-none">Šriftas:</span>
+          <button onclick="changeTextSize('minus')" class="w-6 h-6 rounded-full hover:bg-[#ebdcd0] text-xs font-bold transition-colors flex items-center justify-center" title="Sumažinti tekstą">A-</button>
+          <button onclick="changeTextSize('reset')" class="w-6 h-6 rounded-full hover:bg-[#ebdcd0] text-xs font-bold transition-colors flex items-center justify-center" title="Pradinis dydis">A</button>
+          <button onclick="changeTextSize('plus')" class="w-6 h-6 rounded-full hover:bg-[#ebdcd0] text-xs font-bold transition-colors flex items-center justify-center" title="Padidinti tekstą">A+</button>
+        </div>
+
         <div class="relative">
           <select id="countrySelect" class="appearance-none bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-1.5 px-8 pr-8 rounded-full text-xs font-medium focus:outline-none focus:ring-1 focus:ring-[#b2533e] cursor-pointer">
           </select>
-          <div class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-xs text-[#8e7a68]">
-            🌍
-          </div>
-          <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-[#8e7a68]">
-            ↓
-          </div>
+          <div class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-xs text-[#8e7a68]">🌍</div>
+          <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-[#8e7a68]">↓</div>
         </div>
 
         <div class="relative">
@@ -68,12 +78,8 @@
             <option value="PT">Português</option>
             <option value="SC">Svenska/Norsk</option>
           </select>
-          <div class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-xs text-[#8e7a68]">
-            💬
-          </div>
-          <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-[#8e7a68]">
-            ↓
-          </div>
+          <div class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-xs text-[#8e7a68]">💬</div>
+          <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-[#8e7a68]">↓</div>
         </div>
       </div>
     </div>
@@ -81,30 +87,24 @@
 
   <header class="relative overflow-hidden py-12 md:py-20 px-4 border-b border-[#ebdcd0] bg-[#fcfaf7]">
     <div class="max-w-4xl mx-auto text-center space-y-6">
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-[#2c2520] leading-tight" id="heroTitle">
-        VILNIUS FAMILY 2026
-      </h1>
-      
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-[#2c2520] leading-tight" id="heroTitle">VILNIUS FAMILY 2026</h1>
       <p class="text-sm md:text-base text-[#5c524a] leading-relaxed max-w-3xl mx-auto font-normal" id="heroDesc">
-        Sveiki atvykę, mieli mūsų tarptautinės dvasinės šeimos broliai ir sesės! Mes be galo džiaugiamės, kad atvykote į kongresą Lietuvoje. Tai bus nepamirštamas kongresas. Mums be galo džiugu, kad galime jums parodyti Lietuvą. Šiuos plakatus su pasveikinimais įvairiomis kalbomis ir mūsų mažas molines dovanėles ruošėme specialiai jums su didele meile, norėdami supažindinti su mūsų kultūra ir tradicijomis. Šiame puslapyje norime parodyti, kaip viską kūrėme – čia rasite vaizdo įrašus iš mūsų darbo užkulisių. Mums būtų labai įdomu sužinoti jūsų įspūdžius. Prašome užeiti į skiltį „Laiškas“, pasirinkti savo šalį ir palikti mums keletą šiltų žodžių. Mes labai vertiname, kad esate kartu su mumis!
+        Sveiki atvykę, mieli mūsų tarptautinės dvasinės šeimos broliai ir sesės! Mes be galo džiaugiamės, kad atvykote į kongresą Lietuvoje...
       </p>
-
       <div class="pt-4 flex flex-wrap justify-center gap-3">
-        <a href="#gallery" class="bg-[#2c2520] text-white text-xs uppercase tracking-widest font-bold px-8 py-3.5 rounded-full hover:bg-[#1f1a16] transition-colors shadow-sm" id="btnExplore">
-          Nuotraukos
-        </a>
-        <a href="#comments" class="bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] text-xs uppercase tracking-widest font-bold px-8 py-3.5 rounded-full hover:bg-[#ebdcd0] transition-colors" id="btnLeaveMessage">
-          Laiškas
-        </a>
+        <a href="#gallery" class="bg-[#2c2520] text-white text-xs uppercase tracking-widest font-bold px-8 py-3.5 rounded-full hover:bg-[#1f1a16] transition-colors shadow-sm" id="btnExplore">Nuotraukos</a>
+        <a href="#comments" class="bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] text-xs uppercase tracking-widest font-bold px-8 py-3.5 rounded-full hover:bg-[#ebdcd0] transition-colors" id="btnLeaveMessage">Laiškas</a>
       </div>
     </div>
   </header>
 
   <main class="max-w-7xl mx-auto px-4 md:px-8 py-12 space-y-16">
-
-    <section id="process-video">
+    <section id="process-video" class="space-y-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-xl md:text-2xl font-bold text-[#2c2520]">Behind the Scenes (Darbo užkulisiai)</h2>
+      </div>
       <div class="max-w-4xl mx-auto bg-[#f5efe6] border border-[#ebdcd0] rounded-2xl p-4 md:p-6 shadow-sm">
-        <div class="aspect-video w-full rounded-xl overflow-hidden shadow-inner bg-stone-200">
+        <div class="aspect-video w-full rounded-xl overflow-hidden shadow-inner bg-black">
           <iframe id="videoIframe" class="w-full h-full" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       </div>
@@ -113,31 +113,22 @@
     <section id="gallery" class="space-y-6">
       <div class="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-[#ebdcd0] pb-4">
         <h2 class="text-xl md:text-2xl font-bold text-[#2c2520]" id="galleryTitle">Darbo užkulisiai</h2>
-
         <div class="flex gap-1 overflow-x-auto custom-scrollbar w-full md:w-auto pb-1 md:pb-0">
-          <button onclick="switchCategory('all')" id="catBtnAll" class="px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#b2533e] border-b-2 border-transparent active-cat">
-            Viskas
-          </button>
-          <button onclick="switchCategory('posters')" id="catBtnPosters" class="px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#8e7a68] border-b-2 border-transparent">
-            Plakatai
-          </button>
-          <button onclick="switchCategory('clay')" id="catBtnClay" class="px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#8e7a68] border-b-2 border-transparent">
-            Glimos darbai
-          </button>
+          <button onclick="switchCategory('all')" id="catBtnAll" class="px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#b2533e] border-b-2 border-[#b2533e]">Viskas</button>
+          <button onclick="switchCategory('posters')" id="catBtnPosters" class="px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#8e7a68] border-b-2 border-transparent">Plakatai</button>
+          <button onclick="switchCategory('clay')" id="catBtnClay" class="px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#8e7a68] border-b-2 border-transparent">Molio darbai</button>
         </div>
       </div>
-
-      <div id="galleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
-      </div>
+      <div id="galleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4"></div>
     </section>
 
     <section id="comments" class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 pt-12 border-t border-[#ebdcd0]">
       <div class="lg:col-span-5 space-y-6">
-        <div class="space-y-2">
+        <div>
           <h2 class="text-2xl font-bold text-[#2c2520]" id="commentsTitle">Laiškas</h2>
         </div>
         <p class="text-sm text-[#5c524a] leading-relaxed font-light" id="commentsDesc">
-          Mums būtų labai įdomu sužinoti jūsų įspūdžius. Prašome užeiti į skiltį „Laiškas“, pasirinkti savo šalį ir palikti mums keletą šiltų žodžių. Mes labai vertiname, kad esate kartu su mumis!
+          Prašome pasirinkti savo šalį ir palikti mums keletą šiltų žodžių, o jei norite – pridėkite nuotraukos ar vaizdo įrašo nuorodą!
         </p>
 
         <form id="commentForm" onsubmit="handleCommentSubmit(event)" class="space-y-4 bg-[#f5efe6] p-6 rounded-2xl border border-[#ebdcd0] shadow-sm">
@@ -145,9 +136,10 @@
             <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5" id="labelName">Jūsų Vardas</label>
             <input type="text" id="formName" required class="w-full bg-white border border-[#c7b198] text-sm py-2.5 px-4 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#b2533e] text-[#2c2520]" placeholder="Name">
           </div>
+          
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5" id="labelCountry">Šalis</label>
+              <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5" id="labelCountry">Šalis / Filialas</label>
               <select id="formCountry" required class="w-full bg-white border border-[#c7b198] text-sm py-2.5 px-3 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#b2533e] text-[#2c2520] cursor-pointer">
               </select>
             </div>
@@ -170,11 +162,24 @@
               </select>
             </div>
           </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5">Nuotraukos nuoroda (nebūtina)</label>
+              <input type="url" id="formImage" class="w-full bg-white border border-[#c7b198] text-sm py-2 px-3 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#b2533e] text-[#2c2520]" placeholder="https://pvz.com/foto.jpg">
+            </div>
+            <div>
+              <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5">Video nuoroda (nebūtina)</label>
+              <input type="url" id="formVideo" class="w-full bg-white border border-[#c7b198] text-sm py-2 px-3 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#b2533e] text-[#2c2520]" placeholder="YouTube arba MP4">
+            </div>
+          </div>
+
           <div>
             <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5" id="labelMsg">Žinutė</label>
             <textarea id="formText" rows="4" required class="w-full bg-white border border-[#c7b198] text-sm py-2.5 px-4 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#b2533e] text-[#2c2520]" placeholder="..."></textarea>
           </div>
-          <button type="submit" class="w-full bg-[#2c2520] text-white py-3 rounded-xl text-xs uppercase tracking-widest font-bold hover:bg-[#1f1a16] transition-colors" id="btnSubmitComment">
+
+          <button type="submit" id="submitBtn" class="w-full bg-[#2c2520] text-white py-3 rounded-xl text-xs uppercase tracking-widest font-bold hover:bg-[#1f1a16] transition-colors">
             Siųsti
           </button>
         </form>
@@ -185,580 +190,277 @@
           <h3 class="font-bold text-lg text-[#2c2520]" id="commentsSub">Atsiliepimai ir linkėjimai</h3>
           <span class="text-[10px] text-[#b2533e] bg-[#b2533e]/10 px-2.5 py-1 rounded-full flex items-center gap-1 font-semibold">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
-            <span id="labelTranslateOn">AI vertimas įjungtas</span>
+            <span id="labelTranslateOn">Tiesiogiai (Live)</span>
           </span>
         </div>
 
-        <div id="commentsWrapper" class="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+        <div id="commentsWrapper" class="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+          <div class="text-center py-12 text-[#8e7a68]">Kraunami komentarai...</div>
         </div>
       </div>
     </section>
-
   </main>
 
   <footer class="mt-20 border-t border-[#ebdcd0] py-10 px-4 bg-[#f5efe6]">
     <div class="max-w-4xl mx-auto text-center space-y-4">
       <div class="flex justify-center items-center gap-2 mb-1">
-        <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="VILNIUS FAMILY 2026" class="h-8 w-8 rounded-full object-cover border border-[#b2533e]" onerror="this.src='https://placehold.co/100x100?text=VF+2026'">
+        <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="VILNIUS FAMILY 2026" class="h-8 w-8 rounded-full object-cover border border-[#b2533e]">
         <span class="font-bold text-[#2c2520] text-base tracking-wider">VILNIUS FAMILY 2026</span>
       </div>
-      <div class="text-[10px] text-[#8e7a68]">
-        &copy; 2026 Vilnius, Lithuania.
-      </div>
+      <div class="text-[10px] text-[#8e7a68]">&copy; 2026 Vilnius, Lithuania.</div>
     </div>
   </footer>
 
-  <div id="imageModal" class="fixed inset-0 z-50 bg-black/95 hidden flex-col justify-center items-center p-4" onclick="closeImageModal()">
-    <button class="absolute top-4 right-4 text-white text-4xl font-light hover:text-[#b2533e] transition-colors" onclick="closeImageModal()">&times;</button>
+  <div id="imageModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden flex-col justify-center items-center p-4 transition-all duration-300" onclick="closeImageModal()">
+    <button class="absolute top-4 right-4 text-white/80 text-4xl font-light hover:text-white transition-colors z-50" onclick="closeImageModal()">&times;</button>
     
-    <button class="absolute left-2 md:left-8 text-white text-5xl p-4 hover:text-[#b2533e] transition-colors focus:outline-none select-none" onclick="navigateModal(-1); event.stopPropagation();">&lsaquo;</button>
+    <button class="absolute left-4 md:left-8 text-white/70 hover:text-white p-4 transition-all focus:outline-none select-none z-50 bg-black/20 hover:bg-black/40 rounded-full" onclick="navigateModal(-1); event.stopPropagation();">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+    </button>
     
-    <div class="max-w-4xl max-h-[85vh] overflow-hidden flex items-center justify-center" onclick="event.stopPropagation()">
-      <img id="modalImg" src="" alt="Behind the scenes image" class="max-w-full max-h-[80vh] object-contain rounded-lg">
+    <div class="max-w-4xl max-h-[80vh] flex flex-col items-center justify-center relative" onclick="event.stopPropagation()">
+      <img id="modalImg" src="" alt="Svetainės galerijos nuotrauka" class="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl border border-white/10">
     </div>
-
-    <button class="absolute right-2 md:right-8 text-white text-5xl p-4 hover:text-[#b2533e] transition-colors focus:outline-none select-none" onclick="navigateModal(1); event.stopPropagation();">&rsaquo;</button>
     
-    <div class="absolute bottom-6 text-center select-none" onclick="event.stopPropagation()">
-      <span id="modalIndexIndicator" class="text-xs text-white/70 tracking-widest bg-black/50 px-3 py-1 rounded-full"></span>
+    <button class="absolute right-4 md:right-8 text-white/70 hover:text-white p-4 transition-all focus:outline-none select-none z-50 bg-black/20 hover:bg-black/40 rounded-full" onclick="navigateModal(1); event.stopPropagation();">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+    </button>
+    
+    <div class="absolute bottom-6 flex flex-col items-center gap-1 text-center select-none w-full px-4" onclick="event.stopPropagation()">
+      <span id="modalImageTitle" class="text-white text-base font-bold tracking-wide drop-shadow-md">Plakatų Gamyba</span>
+      <span id="modalIndexIndicator" class="text-[11px] text-white/60 tracking-widest bg-white/10 px-3 py-1 rounded-full mt-1"></span>
     </div>
   </div>
 
-  <script>
-    const IMAGES = [
-      { url: 'https://i.postimg.cc/tgKZznNy/IMG-0018-143-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/mD7cpZmC/IMG-0024-1-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/zfsbkHFJ/IMG-0025-2-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/k506yRFH/IMG-0042-5-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/1tDg7Rvz/IMG-0043-160-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/B6287Zm0/IMG-0050-164-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/ZR69sYw9/IMG-0062-170-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/yNMgT3yz/IMG-0071-174-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/TwnyN2tn/IMG-0073-175-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/85LFXkZW/IMG-0081-180-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/d3vhbMfr/IMG-0082-181-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/j2KDpV1W/IMG-0083-182-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/j2XDKgVZ/IMG-0088-187-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/prxmwNSJ/IMG-0094-192-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/d3vhbMf6/IMG-0095-193-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/8cH7DK8n/IMG-0105-198-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/cCmvZ9qV/IMG-0106-199-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/zvjy5tZr/IMG-0109-200-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/bNyGLhkS/IMG-0110-201-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/SNgnvvfX/IMG-9747-4-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/J4ps225t/IMG-9748-5-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/QxfFyyJd/IMG-9759-11-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/y8WD4yLF/IMG-9771-20-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/fRkVnfHN/IMG-9772-21-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/y8WD4yLn/IMG-9773-22-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/mghPfymn/IMG-9783-29-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/DwmSkPxY/IMG-9786-30-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/13Tf9VTX/IMG-9791-33-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/6pT8JfHW/IMG-9796-35-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/JzgG1Hgm/IMG-9798-36-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/L87nHg7p/IMG-9800-37-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/FHq79k62/IMG-9802-38-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/mgqtb1qc/IMG-9803-39-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/xdzqqTD8/IMG-9805-40-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/13Tf9VTD/IMG-9811-43-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/W4kttbLk/IMG-9812-44-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/k5bDDX3j/IMG-9826-51-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/MGQXXK23/IMG-9842-58-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/SsbR9FmN/IMG-9865-65-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/NMvFXqBd/IMG-9866-66-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/Hx1nMDdP/IMG-9867-67-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/brzv6xG1/IMG-9870-69-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/SsLs7TKy/IMG-9871-70-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/x8t1BXM0/IMG-9912-85-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/rmGmCnpS/IMG-9935-93-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/Y9N9fnSf/IMG-9939-95-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/x8t1BXH7/IMG-9941-96-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/HnpLSwJ3/IMG-9949-100-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/153twK1s/IMG-9950-101-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/1XJ3b8w5/IMG-9964-110-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/PJ250CYp/IMG-9966-111-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/zDjvyc6J/IMG-9971-114-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/Dfg0SMDc/IMG-9983-122-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/RCRhWDy4/IMG-9985-123-Edited.jpg', cat: 'posters' },
-      { url: 'https://i.postimg.cc/TY3wgcv6/IMG-9991-127-Edited.jpg', cat: 'posters' },
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-      { url: 'https://i.postimg.cc/L6YYYTpM/IMG-7135-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/fTtttKhP/IMG-7139-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/WbFFFnvN/IMG-7144-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/9F64G7mC/IMG-7147-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/N045qC1M/IMG-7154-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/3rb0xqzm/IMG-7166-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/XqXZgKBk/IMG-7169-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/Kv6KnMGf/IMG-7173-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/K8t1Q8jT/IMG-7181-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/pLKmkLrC/IMG-7188-3.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/Bbt8C5Pw/IMG-7202-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/59kQ2rD8/IMG-7204-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/PJcCVL19/IMG-7206-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/6qS8b7CS/IMG-7210-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/nrMs1K9K/IMG-7217-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/tRmn4c8w/IMG-7225-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/Xv3pP6Bz/IMG-7227-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/W4jhycJb/IMG-7229-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/wjD1FjMb/IMG-7232-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/8P2Fh6pr/IMG-7236-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/TYzyrDdh/IMG-7247-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/GhWBkyLh/IMG-7248-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/nhqXThMb/IMG-7255-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/C5dZ4CnD/IMG-7256-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/8P2Fh6pM/IMG-7259-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/L40g8WGJ/IMG-7263-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/Bn2jNnb5/IMG-7266-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/MKMMMD83/IMG-7269-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/4yMY2KpF/IMG-7270-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/mkhcS31Y/IMG-7278-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/W4nhLYM0/IMG-7279-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/mkqPpcQB/IMG-7285-2.jpg', cat: 'clay' }
-    ];
+    const firebaseConfig = {
+      apiKey: "AIzaSyAvjMc8Y5IlLSY4ig2NuqGs563n3adgrJg",
+      authDomain: "jwvilniusfamily.firebaseapp.com",
+      projectId: "jwvilniusfamily",
+      storageBucket: "jwvilniusfamily.firebasestorage.app",
+      messagingSenderId: "683496207114",
+      appId: "1:683496207114:web:3abe849a576bfa399700f3",
+      measurementId: "G-WYT5LCK1SK"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
     const COUNTRIES = {
-      "Armenia": { native: "Հայաստան", lang: "AM" },
-      "Brazil": { native: "Brasil", lang: "BR" },
-      "Chile": { native: "Chile", lang: "CL" },
-      "Dominican Republic": { native: "República Dominicana", lang: "DO" },
-      "Israel": { native: "יִשְׂרָאֵל", lang: "IL" },
-      "Japan": { native: "日本", lang: "JP" },
-      "USA": { native: "United States", lang: "US" },
-      "Nigeria": { native: "Nigeria", lang: "NG" },
-      "Portugal": { native: "Portugal", lang: "PT" },
-      "Scandinavia": { native: "Scandinavia", lang: "SC" }
+      "Lithuania": { native: "Lietuva", flag: "🇱🇹" },
+      "Armenia": { native: "Հայաստան", flag: "🇦🇲" },
+      "Brazil": { native: "Brasil", flag: "🇧🇷" },
+      "Chile": { native: "Chile", flag: "🇨🇱" },
+      "Dominican Republic": { native: "República Dominicana", flag: "🇩🇴" },
+      "Israel": { native: "יִשְׂרָאֵل", flag: "🇮🇱" },
+      "Japan": { native: "日本", flag: "🇯🇵" },
+      "USA": { native: "United States", flag: "🇺🇸" },
+      "Nigeria": { native: "Nigeria", flag: "🇳🇬" },
+      "Portugal": { native: "Portugal", flag: "🇵🇹" },
+      "Scandinavia": { native: "Scandinavia", flag: "🇸🇪" }
     };
 
-    const TRANSLATIONS = {
-      LT: {
-        heroTitle: "VILNIUS FAMILY 2026",
-        heroDesc: "Sveiki atvykę, mieli mūsų tarptautinės dvasinės šeimos broliai ir sesės! Mes be galo džiaugiamės, kad atvykote į kongresą Lietuvoje. Tai bus nepamirštamas kongresas. Mums be galo džiugu, kad galime jums parodyti Lietuvą. Šiuos plakatus su pasveikinimais įvairiomis kalbomis ir mūsų mažas molines dovanėles ruošėme specialiai jums su didele meile, norėdami supažindinti su mūsų kultūra ir tradicijomis. Šiame puslapyje norime parodyti, kaip viską kūrėme – čia rasite vaizdo įrašus iš mūsų darbo užkulisių. Mums būtų labai įdomu sužinoti jūsų įspūdžius. Prašome užeiti į skiltį „Laiškas“, pasirinkti savo šalį ir palikti mums keletą šiltų žodžių. Mes labai vertiname, kad esate kartu su mumis!",
-        btnExplore: "Nuotraukos",
-        btnLeaveMessage: "Laiškas",
-        sectionIntroBadge: "Kūrybos procesas",
-        introTitle: "Širdies darbai iš Lietuvos",
-        introFullText: "Mūsų dvasinės šeimos kūryba atspindi svetingumą. Šalia pasveikinimo plakatų, paruošėme unikalias molines dovanėles: tradicinius indus, kuriuose patiekiami mūsų garsieji šaltibarščiai ir kiti nacionaliniai patiekalai, o vizualiniuose darbuose sklando mūsų laisvę nešantis paukštis gandras. Šiame puslapyje surinktos visos akimirkos, kaip viskas gimė iš dvasinio artumo.",
-        galleryTitle: "Darbo užkulisiai",
-        catBtnAll: "Viskas",
-        catBtnPosters: "Plakatai",
-        catBtnClay: "Molio darbai",
-        commentsTitle: "Laiškas",
-        commentsDesc: "Mums būtų labai įdomu sužinoti jūsų įspūdžius. Prašome užeiti į skiltį „Laiškas“, pasirinkti savo šalį ir palikti mums keletą šiltų žodžių. Mes labai vertiname, kad esate kartu su mumis!",
-        labelName: "Jūsų Vardas",
-        labelCountry: "Šalis",
-        labelLang: "Parašyta kalba",
-        labelMsg: "Žinutė",
-        btnSubmitComment: "Siųsti",
-        commentsSub: "Atsiliepimai ir linkėjimai",
-        labelTranslateOn: "AI vertimas įjungtas"
-      },
-      EN: {
-        heroTitle: "VILNIUS FAMILY 2026",
-        heroDesc: "Welcome, dear brothers and sisters of our international spiritual family! We are absolutely thrilled that you came to the congress in Lithuania. This will be an unforgettable congress. We are extremely happy to show you Lithuania. We prepared these posters with greetings in various languages and our small clay gifts especially for you with great love, wanting to introduce you to our culture and traditions. On this page we want to show you how we created everything - here you will find videos from behind the scenes of our work. We would be very interested to hear your impressions. Please go to the 'Letter' section, select your country and leave us a few warm words. We highly appreciate that you are with us!",
-        btnExplore: "Photos",
-        btnLeaveMessage: "Letter",
-        sectionIntroBadge: "Creative Process",
-        introTitle: "Behind the Scenes of Lithuanian Gifts",
-        introFullText: "The creation of our spiritual family reflects deep hospitality. Alongside welcoming posters, we prepared unique clay gifts: traditional dishes cozy enough to serve our famous cold beet soup (šaltibarščiai) and other national food, while our national bird, the stork (gandras), graces our visual arts. This page gathers every moment of how everything was born out of spiritual closeness.",
-        galleryTitle: "Behind the Scenes",
-        catBtnAll: "All",
-        catBtnPosters: "Posters",
-        catBtnClay: "Clay Works",
-        commentsTitle: "Letter",
-        commentsDesc: "We would be very interested to hear your impressions. Please go to the 'Letter' section, select your country and leave us a few warm words. We highly appreciate that you are with us!",
-        labelName: "Your Name",
-        labelCountry: "Country",
-        labelLang: "Written Language",
-        labelMsg: "Message",
-        btnSubmitComment: "Send",
-        commentsSub: "Wishes & Feedback",
-        labelTranslateOn: "AI Translation Active"
-      },
-      RU: {
-        heroTitle: "VILNIUS FAMILY 2026",
-        heroDesc: "Добро пожаловать, дорогие братья и сестры нашей международной духовной семьи! Мы бесконечно рады, что вы приехали на конгресс в Литву. Это будет незабываемый конгресс. Нам безумно приятно показать вам Литву. Эти плакаты с приветствиями на разных языках и наши маленькие глиняные подарки мы готовили специально для вас с огромной любовью, желая познакомить вас с нашей культурой и традициями. На этой странице мы хотим показать вам процесс творчества — здесь вы найдете видео закулисья нашей работы. Нам было бы очень интересно узнать ваши впечатления. Пожалуйста, зайдите в раздел «Письмо», выберите свою страну и оставьте несколько теплых слов. Мы очень ценим, что вы вместе с нами!",
-        btnExplore: "Фотографии",
-        btnLeaveMessage: "Письмо",
-        sectionIntroBadge: "Процесс создания",
-        introTitle: "Закулисье литовских сувениров",
-        introFullText: "Творчество нашей духовной семьи отражает глубокое гостеприимство. Наряду с приветственными плакатами, мы подготовили уникальные глиняные подарки: традиционную посуду, в которой подается наш знаменитый литовский холодный борщ (šaltibarščiai) и другие национальные блюда, а на плакатах парит аист (gandras) — символ нашей природы. На этой странице собраны все моменты создания этих подарков с духовным теплом.",
-        galleryTitle: "Закулисье работы",
-        catBtnAll: "Все",
-        catBtnPosters: "Плакаты",
-        catBtnClay: "Глина",
-        commentsTitle: "Письмо",
-        commentsDesc: "Нам было бы очень интересно узнать ваши впечатления. Пожалуйста, зайдите в раздел «Письмо», выберите свою страну и оставьте несколько теплых слов. Мы очень ценим, что вы вместе с нами!",
-        labelName: "Ваше имя",
-        labelCountry: "Страна",
-        labelLang: "Язык написания",
-        labelMsg: "Сообщение",
-        btnSubmitComment: "Отправить",
-        commentsSub: "Отзывы и пожелания",
-        labelTranslateOn: "AI-перевод активен"
-      },
-      LV: {
-        heroTitle: "VILNIUS FAMILY 2026",
-        heroDesc: "Esiet sveicināti, dārgie brāļi un māsas no mūsu starptautiskās garīgās ģimenes! Mēs esam bezgala priecīgi, ka esat ieradušies uz kongresu Lietuvā. Šis būs neaizmirstams kongress. Mums ir milzīgs prieks rādīt jums Lietuvu. Šos plakātus ar sveicieniem dažādās valodās un mūsu mazās māla dāvaniņas mēs gatavojām īpaši jums ar lielu mīlestību, vēloties iepazīstināt ar mūsu kultūru un tradīcijām. Šajā lapā mēs vēlamies parādīt, kā mēs visu radījām — šeit atradīsiet video no mūsu darba aizkulišu. Mums būtu ļoti interesanti uzzināt jūsu iespaidus. Lūdzu, dodieties uz sadaļu 'Vēstule', izvēlieties savu valsti un atstājiet mums dažus siltus vārdus. Mēs ļoti novērtējam, ka esat kopā ar mums!",
-        btnExplore: "Fotogrāfijas",
-        btnLeaveMessage: "Vēstule",
-        sectionIntroBadge: "Radošais process",
-        introTitle: "Aizkulises dāvanām no Lietuvas",
-        introFullText: "Mūsu garīgās ģimenes radošums atspoguļo mūsu viesmīlību. Līdzās sveiciena plakātiem sagatavojām unikālas māla dāvaniņas: tradicionālos traukus, kuros mājīgi tiek pasniegta mūsu slavenā aukstā biešu zupa (šaltibarščiai) un citi nacionālie ēdieni, savukārt vizuālajos darbos virmo mūsu nacionālais putns stārķis (gandras). Šajā lapā apkopoti visi mirkļi, kā viss dzima no garīga tuvuma.",
-        galleryTitle: "Aizkulises",
-        catBtnAll: "Viss",
-        catBtnPosters: "Plakāti",
-        catBtnClay: "Māla darbi",
-        commentsTitle: "Vēstule",
-        commentsDesc: "Mums būtu ļoti interesanti uzzināt jūsu iespaidus. Lūdzu, dodieties uz sadaļu 'Vēstule', izvēlieties savu valsti un atstājiet mums dažus siltus vārdus. Mēs ļoti novērtējam, ka esat kopā ar mums!",
-        labelName: "Jūsu Vārds",
-        labelCountry: "Valsts",
-        labelLang: "Sarakstītā valoda",
-        labelMsg: "Ziņojums",
-        btnSubmitComment: "Nosūtīt",
-        commentsSub: "Atsauksmes un vēlējumi",
-        labelTranslateOn: "AI tulkojums ieslēgts"
-      }
-    };
+    // ČIA PRIDĖTI NUOTRAUKAS SU JŲ TIKRAISIAIS PAVADINIMAIS
+    const IMAGES = [
+      { url: 'https://i.postimg.cc/tgKZznNy/IMG-0018-143-Edited.jpg', cat: 'posters', title: 'Plakatų Gamyba' },
+      { url: 'https://i.postimg.cc/L6YYYTpM/IMG-7135-2.jpg', cat: 'clay', title: 'Molio Darbų Užsiėmimai' },
+      // Galite lengvai pridėti daugiau nuotraukų žemiau pagal pavyzdį:
+      // { url: 'nuoroda', cat: 'posters', title: 'Kitas plakatas...' }
+    ];
 
-    const COUNTRY_LANGUAGES = {
-      "Armenia": "AM",
-      "Brazil": "BR",
-      "Chile": "CL",
-      "Dominican Republic": "DO",
-      "Israel": "IL",
-      "Japan": "JP",
-      "USA": "US",
-      "Nigeria": "NG",
-      "Portugal": "PT",
-      "Scandinavia": "SC"
-    };
-
-    const DICTIONARY_MOCK_TRANSLATION = {
-      "hello": { LT: "Sveiki, mieli broliai!", EN: "Hello, dear brothers!", RU: "Привет, дорогие братья!", LV: "Sveiki, dārgie brāļi!", AM: "Բարև, սիրելի եղբայրներ:", BR: "Olá, queridos irmãos!", CL: "¡Hola, queridos hermanos!", DO: "¡Hola, queridos hermanos!", IL: "שלום, אחים יקרים!", JP: "こんにちは、親愛なる兄弟たち！", US: "Hello, dear brothers!", NG: "Hello, dear brothers!", PT: "Olá, queridos irmãos!", SC: "Hei, kjære brødre!" },
-      "love": { LT: "Mes jaučiame jūsų dvasinę meilę ir rūpestį.", EN: "We feel your spiritual love and care.", RU: "Мы чувствуем вашу духовную любовь и заботу.", LV: "Mēs jūtam jūsu garīgo mīlestību un rūpes.", AM: "Մենք զգում ենք ձեր հոգևոր սերն ու հոգատարությունը:", BR: "Sentimos o seu amor espiritual e carinho.", CL: "Sentimos su amor espiritual y cuidado.", DO: "Sentimos su amor espiritual y cuidado.", IL: "אנחנו מרגישים את האהבה והדאגה הרוחנית שלכם.", JP: "私たちはあなた方の霊的な愛と気遣いを感じています。", US: "We feel your spiritual love and care.", NG: "We feel your spiritual love and care.", PT: "Sentimos o vosso amor espiritual e carinho.", SC: "Vi føler deres åndelige kjærlighet og omsorg." },
-      "thank you": { LT: "Labai ačiū už šias nuostabias dovanas!", EN: "Thank you so much for these beautiful gifts!", RU: "Большое спасибо за эти прекрасные подарки!", LV: "Liels paldies par šīm skaistajām dāvanām!", AM: "Շատ շնորհակալություն այս գեղեցիկ նվերների համար:", BR: "Muito obrigado por esses lindos presentes!", CL: "¡Muchas gracias por estos hermosos regalos!", DO: "¡Muchas gracias por estos hermosos regalos!", IL: "תודה רבה על המתנות היפות האלה!", JP: "これらの美しい贈り物を本当にありがとうございます！", US: "Thank you so much for these beautiful gifts!", NG: "Thank you so much for these beautiful gifts!", PT: "Muito obrigado por estas lindas lembranças!", SC: "Tusen takk for disse vakre gavene!" },
-      "beautiful": { LT: "Nuostabūs darbai ir tradicinis stilius.", EN: "Amazing works and traditional style.", RU: "Потрясающие работы и традиционный стиль.", LV: "Pārsteidzoši darbi un tradicionālais stils.", AM: "Զարմանալի աշխատանքներ և ավանդական ոճ:", BR: "Trabalhos incríveis e estilo tradicional.", CL: "Trabajos increíbles y estilo tradicional.", DO: "Trabajos increíbles y estilo tradicional.", IL: "עבודות מדהиמות וסגנון מסורתי.", JP: "素晴らしい作品と伝統的なスタイルです。", US: "Amazing works and traditional style.", NG: "Amazing works and traditional style.", PT: "Trabalhos incríveis e estilo tradicional.", SC: "Utrolige verker og tradisjonell stil!" }
-    };
-
-    let currentLang = "LT";
-    let selectedCountry = "Armenia";
     let activeCategory = "all";
     let currentModalIndex = 0;
     let activeFilteredImages = [];
+    let currentFontSizePercent = 100;
 
-    function initApp() {
-      const countrySelect = document.getElementById("countrySelect");
-      const formCountry = document.getElementById("formCountry");
-      countrySelect.innerHTML = "";
-      formCountry.innerHTML = "";
-
-      Object.keys(COUNTRIES).forEach(country => {
-        const option = document.createElement("option");
-        option.value = country;
-        option.textContent = country;
-        countrySelect.appendChild(option);
-
-        const optionForm = document.createElement("option");
-        optionForm.value = country;
-        optionForm.textContent = country;
-        formCountry.appendChild(optionForm);
-      });
-
-      if (!localStorage.getItem("vilnius_comments_v3")) {
-        localStorage.setItem("vilnius_comments_v3", JSON.stringify([]));
+    // Teksto dydžio keitimo logika
+    window.changeTextSize = (action) => {
+      if (action === 'plus' && currentFontSizePercent < 130) {
+        currentFontSizePercent += 10;
+      } else if (action === 'minus' && currentFontSizePercent > 80) {
+        currentFontSizePercent -= 10;
+      } else if (action === 'reset') {
+        currentFontSizePercent = 100;
       }
+      document.documentElement.style.fontSize = `${currentFontSizePercent}%`;
+    };
 
-      applyLanguage("LT");
-      renderGallery();
-      renderComments();
+    // Užpildome select elementus šalimis
+    const cSelect = document.getElementById("countrySelect");
+    const fCountry = document.getElementById("formCountry");
+    Object.keys(COUNTRIES).forEach(c => {
+      const displayStr = `${COUNTRIES[c].flag} ${COUNTRIES[c].native}`;
+      cSelect.innerHTML += `<option value="${c}">${displayStr}</option>`;
+      fCountry.innerHTML += `<option value="${c}">${displayStr}</option>`;
+    });
 
-      document.getElementById("countrySelect").addEventListener("change", (e) => {
-        selectedCountry = e.target.value;
-        const mappedLang = COUNTRY_LANGUAGES[selectedCountry];
-        if (mappedLang) {
-          document.getElementById("langSelect").value = mappedLang;
-          applyLanguage(mappedLang);
-        }
-      });
-
-      document.getElementById("langSelect").addEventListener("change", (e) => {
-        applyLanguage(e.target.value);
-      });
-
-      window.addEventListener("keydown", (e) => {
-        const modal = document.getElementById("imageModal");
-        if (!modal.classList.contains("hidden")) {
-          if (e.key === "ArrowLeft") {
-            navigateModal(-1);
-          } else if (e.key === "ArrowRight") {
-            navigateModal(1);
-          } else if (e.key === "Escape") {
-            closeImageModal();
-          }
-        }
-      });
-
-      setupSwipeDetection();
-    }
-
-    function applyLanguage(lang) {
-      currentLang = lang;
-      
-      const isBaseLang = ["LT", "EN", "RU", "LV"].includes(lang);
-      const translationSource = isBaseLang ? TRANSLATIONS[lang] : (TRANSLATIONS[lang] || TRANSLATIONS["EN"]);
-      const fallbackSource = TRANSLATIONS["EN"];
-
-      const keys = [
-        "heroTitle", "heroDesc", "btnExplore", "btnLeaveMessage", "sectionIntroBadge",
-        "introTitle", "introFullText", "galleryTitle",
-        "catBtnAll", "catBtnPosters", "catBtnClay",
-        "videoTitle", "videoSubtitle", "sectionCommentsBadge", "commentsTitle", "commentsDesc",
-        "labelName", "labelCountry", "labelLang", "labelMsg", "btnSubmitComment",
-        "commentsSub", "labelTranslateOn"
-      ];
-
-      keys.forEach(key => {
-        const el = document.getElementById(key);
+    window.switchCategory = (cat) => {
+      activeCategory = cat;
+      ["all", "posters", "clay"].forEach(b => {
+        const el = document.getElementById(`catBtn${b.charAt(0).toUpperCase() + b.slice(1)}`);
         if (el) {
-          let text = (translationSource && translationSource[key]) ? translationSource[key] : fallbackSource[key];
-          el.innerHTML = text;
+          if (b === cat) el.className = "px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#b2533e] border-b-2 border-[#b2533e]";
+          else el.className = "px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#8e7a68] border-b-2 border-transparent hover:text-[#b2533e]";
         }
       });
-
-      const countrySelect = document.getElementById("countrySelect");
-      const formCountry = document.getElementById("formCountry");
-
-      Array.from(countrySelect.options).forEach(opt => {
-        const countryKey = opt.value;
-        opt.textContent = getCountryDisplayName(countryKey, lang);
-      });
-
-      Array.from(formCountry.options).forEach(opt => {
-        const countryKey = opt.value;
-        opt.textContent = getCountryDisplayName(countryKey, lang);
-      });
-
-      renderComments();
-    }
-
-    function getCountryDisplayName(countryKey, lang) {
-      const info = COUNTRIES[countryKey];
-      if (!info) return countryKey;
-
-      if (lang === "EN" && info.native) {
-        return `${countryKey} (${info.native})`;
-      }
-      return countryKey;
-    }
+      renderGallery();
+    };
 
     function renderGallery() {
       const grid = document.getElementById("galleryGrid");
       grid.innerHTML = "";
-
       activeFilteredImages = IMAGES.filter(img => activeCategory === "all" || img.cat === activeCategory);
-
       activeFilteredImages.forEach((img, index) => {
         const item = document.createElement("div");
-        item.className = "bg-white border border-[#ebdcd0] rounded-lg overflow-hidden cursor-pointer group hover:shadow-sm transition-all duration-300";
-        item.onclick = () => openImageModalAtIndex(index);
-
-        item.innerHTML = `
-          <div class="aspect-[4/5] bg-stone-100 overflow-hidden relative">
-            <img src="${img.url}" alt="Vilnius Family Work" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
-            <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <span class="text-white text-xs uppercase tracking-widest bg-[#2c2520]/80 px-3 py-1.5 rounded-full border border-white/10">Žiūrėti</span>
-            </div>
-          </div>
-        `;
+        item.className = "bg-white border border-[#ebdcd0] rounded-lg overflow-hidden cursor-pointer group hover:shadow-md transition-all duration-300";
+        item.onclick = () => { currentModalIndex = index; updateModalContent(); document.getElementById("imageModal").classList.replace("hidden", "flex"); };
+        item.innerHTML = `<div class="aspect-[4/5] bg-stone-100 overflow-hidden relative"><img src="${img.url}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy"></div>`;
         grid.appendChild(item);
       });
     }
 
-    function switchCategory(cat) {
-      activeCategory = cat;
-      const btns = ["all", "posters", "clay"];
-      btns.forEach(b => {
-        const el = document.getElementById(`catBtn${b.charAt(0).toUpperCase() + b.slice(1)}`);
-        if (el) {
-          if (b === cat) {
-            el.className = "px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#b2533e] border-b-2 border-[#b2533e]";
-          } else {
-            el.className = "px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#8e7a68] border-b-2 border-transparent hover:text-[#b2533e]";
-          }
-        }
-      });
-      renderGallery();
-    }
-
-    function openImageModalAtIndex(index) {
-      currentModalIndex = index;
-      const modal = document.getElementById("imageModal");
-      updateModalContent();
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
-    }
-
     function updateModalContent() {
       if (activeFilteredImages.length === 0) return;
+      if (currentModalIndex >= activeFilteredImages.length) currentModalIndex = 0;
+      if (currentModalIndex < 0) currentModalIndex = activeFilteredImages.length - 1;
       
-      if (currentModalIndex >= activeFilteredImages.length) {
-        currentModalIndex = 0;
-      } else if (currentModalIndex < 0) {
-        currentModalIndex = activeFilteredImages.length - 1;
-      }
-
-      const img = activeFilteredImages[currentModalIndex];
-      const modalImg = document.getElementById("modalImg");
-      const indicator = document.getElementById("modalIndexIndicator");
-
-      modalImg.src = img.url;
-      indicator.textContent = `${currentModalIndex + 1} / ${activeFilteredImages.length}`;
+      const currentImg = activeFilteredImages[currentModalIndex];
+      document.getElementById("modalImg").src = currentImg.url;
+      document.getElementById("modalImageTitle").textContent = currentImg.title || "Užkulisiai";
+      document.getElementById("modalIndexIndicator").textContent = `${currentModalIndex + 1} / ${activeFilteredImages.length}`;
     }
 
-    function navigateModal(direction) {
-      currentModalIndex += direction;
-      updateModalContent();
-    }
+    window.closeImageModal = () => document.getElementById("imageModal").classList.replace("flex", "hidden");
+    window.navigateModal = (dir) => { currentModalIndex += dir; updateModalContent(); };
 
-    function closeImageModal() {
+    // Klaviatūros palaikymas galerijai (Rodyklės kairėn/dešinėn ir Esc mygtukas)
+    document.addEventListener('keydown', (e) => {
       const modal = document.getElementById("imageModal");
-      modal.classList.remove("flex");
-      modal.classList.add("hidden");
-    }
-
-    function setupSwipeDetection() {
-      const modal = document.getElementById("imageModal");
-      let touchStartX = 0;
-      let touchEndX = 0;
-
-      modal.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-      }, { passive: true });
-
-      modal.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-      }, { passive: true });
-
-      function handleSwipe() {
-        const threshold = 50;
-        if (touchStartX - touchEndX > threshold) {
-          navigateModal(1);
-        } else if (touchEndX - touchStartX > threshold) {
-          navigateModal(-1);
-        }
+      if (!modal.classList.contains('hidden')) {
+        if (e.key === 'ArrowRight') navigateModal(1);
+        if (e.key === 'ArrowLeft') navigateModal(-1);
+        if (e.key === 'Escape') closeImageModal();
       }
-    }
+    });
 
-    function mockTranslateText(text, targetLang) {
-      let lowercaseText = text.toLowerCase().trim();
-      let detectedWord = "hello";
+    renderGallery();
 
-      if (lowercaseText.includes("love") || lowercaseText.includes("meil") || lowercaseText.includes("люб") || lowercaseText.includes("mīl")) {
-        detectedWord = "love";
-      } else if (lowercaseText.includes("beautiful") || lowercaseText.includes("graž") || lowercaseText.includes("красиво") || lowercaseText.includes("прекрас") || lowercaseText.includes("skaist")) {
-        detectedWord = "beautiful";
-      } else if (lowercaseText.includes("clay") || lowercaseText.includes("molis") || lowercaseText.includes("глин") || lowercaseText.includes("māls") || lowercaseText.includes("dovan") || lowercaseText.includes("ačiū") || lowercaseText.includes("thank")) {
-        detectedWord = "thank you";
-      }
-
-      const dictionary = DICTIONARY_MOCK_TRANSLATION[detectedWord];
-      if (dictionary && dictionary[targetLang]) {
-        return dictionary[targetLang] + " ✨ (" + text + ")";
-      }
-      return text;
-    }
-
-    function handleCommentSubmit(e) {
+    // ============================================
+    // FIRESTORE KREIPINIAI KLAUSIMAMS/KOMENTARAMS
+    // ============================================
+    window.handleCommentSubmit = async (e) => {
       e.preventDefault();
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "Siunčiama...";
+
       const name = document.getElementById("formName").value;
       const country = document.getElementById("formCountry").value;
-      const sourceLang = document.getElementById("formLang").value;
-      const message = document.getElementById("formText").value;
+      const lang = document.getElementById("formLang").value;
+      const text = document.getElementById("formText").value;
+      const imageLink = document.getElementById("formImage").value.trim();
+      const videoLink = document.getElementById("formVideo").value.trim();
 
-      const detectedLang = sourceLang === "auto" ? "EN" : sourceLang;
-      const allLanguages = ["LT", "EN", "RU", "LV", "AM", "BR", "CL", "DO", "IL", "JP", "US", "NG", "PT", "SC"];
-      
-      const translationsObj = {};
-      allLanguages.forEach(lang => {
-        translationsObj[lang] = mockTranslateText(message, lang);
-      });
+      try {
+        await addDoc(collection(db, "messages"), {
+          name,
+          country,
+          language: lang,
+          text,
+          imageUrl: imageLink || null,
+          videoUrl: videoLink || null,
+          reactions: { '❤️': 0, '👏': 0, '🔥': 0 },
+          createdAt: serverTimestamp()
+        });
+        document.getElementById("commentForm").reset();
+      } catch (error) {
+        console.error("Išsaugojimo klaida:", error);
+        alert("Įvyko klaida bandant išsiųsti.");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Siųsti";
+      }
+    };
 
-      const newComment = {
-        id: "c_" + Date.now(),
-        name: name,
-        country: country,
-        originalLang: detectedLang,
-        translations: translationsObj
-      };
+    window.addReaction = async (messageId, emoji) => {
+      const msgRef = doc(db, "messages", messageId);
+      try {
+        await updateDoc(msgRef, { [`reactions.${emoji}`]: increment(1) });
+      } catch (e) { console.error(e); }
+    };
 
-      const localComments = JSON.parse(localStorage.getItem("vilnius_comments_v3")) || [];
-      localComments.unshift(newComment);
-      localStorage.setItem("vilnius_comments_v3", JSON.stringify(localComments));
-
-      document.getElementById("commentForm").reset();
-      renderComments();
+    function formatYoutubeEmbed(url) {
+      if (!url) return null;
+      let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      let match = url.match(regExp);
+      if (match && match[2].length === 11) {
+        return `https://www.youtube-nocookie.com/embed/${match[2]}`;
+      }
+      return url;
     }
 
-    function renderComments() {
+    const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
+    onSnapshot(q, (snapshot) => {
       const wrapper = document.getElementById("commentsWrapper");
       wrapper.innerHTML = "";
 
-      const comments = JSON.parse(localStorage.getItem("vilnius_comments_v3")) || [];
-
-      if (comments.length === 0) {
-        wrapper.innerHTML = `
-          <div class="text-center py-12 text-[#8e7a68] border border-dashed border-[#ebdcd0] rounded-xl bg-[#fcfaf7]">
-            <p class="text-sm" id="emptyPlaceholder">Būkite pirmas, palikęs atsiliepimą</p>
-          </div>
-        `;
+      if(snapshot.empty) {
+        wrapper.innerHTML = `<div class="text-center py-12 text-[#8e7a68]">Būkite pirmas, palikęs atsiliepimą!</div>`;
         return;
       }
 
-      comments.forEach(comment => {
+      snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        const id = docSnap.id;
+        const cData = COUNTRIES[data.country] || { flag: "🌍", native: data.country };
+        const reacts = data.reactions || { '❤️': 0, '👏': 0, '🔥': 0 };
+
+        let mediaHtml = '';
+        if (data.imageUrl) {
+          mediaHtml += `<div class="mt-3 overflow-hidden rounded-lg border border-[#ebdcd0] max-h-60 bg-stone-100">
+            <img src="${data.imageUrl}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+          </div>`;
+        }
+
+        if (data.videoUrl) {
+          const ytEmbed = formatYoutubeEmbed(data.videoUrl);
+          if (ytEmbed && ytEmbed.includes('embed')) {
+            mediaHtml += `<div class="mt-3 aspect-video rounded-lg overflow-hidden border border-[#ebdcd0]">
+              <iframe src="${ytEmbed}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+            </div>`;
+          } else {
+            mediaHtml += `<div class="mt-3 rounded-lg overflow-hidden border border-[#ebdcd0]">
+              <video src="${data.videoUrl}" controls class="w-full max-h-60 bg-black"></video>
+            </div>`;
+          }
+        }
+
         const item = document.createElement("div");
-        item.className = "bg-white border border-[#ebdcd0] rounded-xl p-5 space-y-3 shadow-sm hover:border-[#b2533e] transition-colors relative overflow-hidden";
-
-        const textToShow = comment.translations[currentLang] || comment.translations["EN"] || Object.values(comment.translations)[0];
-        const isTranslated = comment.originalLang !== currentLang;
-
-        const langLabels = {
-          LT: "Versta iš",
-          EN: "Translated from",
-          RU: "Переведено с",
-          LV: "Tulkots no"
-        };
-        const currentLabel = langLabels[currentLang] || langLabels["EN"];
-
-        const nativeCountryDisplay = getCountryDisplayName(comment.country, currentLang);
-
+        item.className = "bg-white border border-[#ebdcd0] rounded-xl p-5 space-y-3 shadow-sm";
         item.innerHTML = `
-          <div class="flex justify-between items-start gap-2">
+          <div class="flex justify-between items-start">
             <div>
-              <h4 class="font-semibold text-sm text-[#2c2520]">${comment.name}</h4>
-              <p class="text-[10px] text-[#8e7a68] uppercase tracking-wider flex items-center gap-1 font-bold">
-                <span>📍 ${nativeCountryDisplay}</span>
-              </p>
+              <h4 class="font-semibold text-sm text-[#2c2520] msg-name"></h4>
+              <p class="text-[10px] text-[#8e7a68] font-bold mt-0.5">${cData.flag} ${cData.native}</p>
             </div>
-            <span class="text-[10px] text-[#b2533e] uppercase tracking-widest bg-[#b2533e]/10 px-2.5 py-0.5 rounded-full border border-[#ebdcd0] font-bold">
-              ${comment.originalLang}
-            </span>
+            <span class="text-[10px] text-[#b2533e] font-bold bg-[#b2533e]/10 px-2 py-0.5 rounded-full">${data.language || 'LT'}</span>
           </div>
-          <p class="text-sm text-[#5c524a] font-light leading-relaxed">${textToShow}</p>
-          ${isTranslated ? `
-            <div class="pt-2 border-t border-[#f1ede6] flex items-center justify-between text-[10px] text-[#8e7a68]">
-              <span class="font-medium">✨ ${currentLabel} ${comment.originalLang}</span>
-              <span class="opacity-60 font-bold">AI Translation</span>
-            </div>
-          ` : ""}
+          <p class="text-sm text-[#5c524a] whitespace-pre-wrap msg-text mt-2"></p>
+          ${mediaHtml}
+          <div class="pt-3 mt-3 border-t border-[#f1ede6] flex items-center gap-2">
+            <button onclick="addReaction('${id}', '❤️')" class="reaction-btn text-xs flex items-center gap-1 bg-[#fcfaf7] px-3 py-1 rounded-full border border-[#ebdcd0]">❤️ <b>${reacts['❤️'] || 0}</b></button>
+            <button onclick="addReaction('${id}', '👏')" class="reaction-btn text-xs flex items-center gap-1 bg-[#fcfaf7] px-3 py-1 rounded-full border border-[#ebdcd0]">👏 <b>${reacts['👏'] || 0}</b></button>
+            <button onclick="addReaction('${id}', '🔥')" class="reaction-btn text-xs flex items-center gap-1 bg-[#fcfaf7] px-3 py-1 rounded-full border border-[#ebdcd0]">🔥 <b>${reacts['🔥'] || 0}</b></button>
+          </div>
         `;
+        item.querySelector('.msg-name').textContent = data.name;
+        item.querySelector('.msg-text').textContent = data.text;
         wrapper.appendChild(item);
       });
-    }
-
-    window.onload = function() {
-      initApp();
-    };
+    });
   </script>
 </body>
 </html>
