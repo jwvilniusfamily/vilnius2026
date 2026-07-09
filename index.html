@@ -27,16 +27,18 @@
     .custom-scrollbar::-webkit-scrollbar-track { background: #f1ede6; border-radius: 4px; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #c5b39a; border-radius: 4px; }
     .modal-overlay {
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(12px);
       background-color: rgba(250, 249, 246, 0.95);
     }
     .hide { display: none !important; }
+    .fade-in { animation: fadeIn 0.4s ease-in-out forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
   </style>
 </head>
 <body class="min-h-screen selection:bg-[#b2533e] selection:text-white antialiased overflow-hidden" id="bodyEl">
 
   <div id="welcomeScreen" class="fixed inset-0 z-[100] modal-overlay flex flex-col items-center justify-center p-4 transition-opacity duration-500">
-    <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl border border-[#ebdcd0] p-8 space-y-6 relative overflow-hidden">
+    <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl border border-[#ebdcd0] p-8 space-y-6 relative overflow-hidden fade-in">
       <div class="text-center space-y-2">
         <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="h-16 w-16 rounded-full object-cover border-2 border-[#b2533e] mx-auto shadow-md">
         <h2 class="text-2xl font-extrabold tracking-tight text-[#2c2520]" id="wsTitle">VILNIUS FAMILY 2026</h2>
@@ -46,64 +48,65 @@
       <div class="space-y-4">
         <div>
           <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5">🌍 <span id="wsCountryLabel">Šalis</span></label>
-          <select id="wsCountry" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b2533e] cursor-pointer font-medium"></select>
+          <select id="wsCountry" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b2533e] cursor-pointer font-medium transition-colors"></select>
         </div>
         <div>
           <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5">💬 <span id="wsLangLabel">Kalba</span></label>
-          <select id="wsLang" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b2533e] cursor-pointer font-medium">
+          <select id="wsLang" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b2533e] cursor-pointer font-medium transition-colors">
             <option value="LT">Lietuvių</option>
             <option value="EN">English</option>
             <option value="RU">Русский</option>
             <option value="LV">Latviešu</option>
             <option value="KUR">Kurdî</option>
             <option value="AM">Հայերեն</option>
-            <option value="BR">Português (BR)</option>
-            <option value="CL">Español (CL)</option>
-            <option value="DO">Español (DO)</option>
-            <option value="IL">עברית</option>
-            <option value="JP">日本語</option>
-            <option value="US">English (US)</option>
-            <option value="NG">Français (NG)</option>
-            <option value="PT">Português (PT)</option>
-            <option value="SC">Svenska/Norsk</option>
+            <option value="PT">Português</option>
+            <option value="ES">Español</option>
+            <option value="HE">עברית</option>
+            <option value="JA">日本語</option>
+            <option value="FR">Français</option>
+            <option value="SV">Svenska/Norsk</option>
           </select>
         </div>
         <div>
           <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5">🔠 <span id="wsSizeLabel">Teksto dydis</span></label>
-          <select id="wsSize" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b2533e] cursor-pointer font-medium">
+          <select id="wsSize" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b2533e] cursor-pointer font-medium transition-colors">
             <option value="normal" id="wsSizeNormal">Standartinis</option>
             <option value="large" id="wsSizeLarge">Padidintas</option>
           </select>
         </div>
       </div>
 
-      <div class="pt-2 space-y-3">
-        <button id="btnContinue" class="w-full bg-[#2c2520] text-white py-3.5 rounded-xl text-sm uppercase tracking-widest font-bold hover:bg-[#1f1a16] transition-colors shadow-md">
+      <div class="pt-2 space-y-4">
+        <div class="flex items-start gap-3 bg-[#fcfaf7] p-3 rounded-xl border border-[#ebdcd0]">
+          <input type="checkbox" id="wsAccept" class="mt-0.5 w-5 h-5 text-[#b2533e] focus:ring-[#b2533e] border-[#c7b198] rounded cursor-pointer transition-colors">
+          <label for="wsAccept" class="text-xs text-[#5c524a] leading-relaxed cursor-pointer select-none">
+            <span id="wsAcceptText">Sutinku su</span>
+            <button onclick="openDoc('privacy'); event.preventDefault();" class="text-[#b2533e] hover:underline font-bold transition-all" id="wsPrivacy">Privatumo politika</button>
+            <span id="wsAnd">ir</span>
+            <button onclick="openDoc('terms'); event.preventDefault();" class="text-[#b2533e] hover:underline font-bold transition-all" id="wsTerms">Naudojimo taisyklėmis</button>
+          </label>
+        </div>
+        <button id="btnContinue" disabled class="w-full bg-[#2c2520] text-white py-3.5 rounded-xl text-sm uppercase tracking-widest font-bold hover:bg-[#1f1a16] transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed">
           Tęsti
         </button>
-        <div class="flex justify-center gap-4 text-xs font-semibold text-[#8e7a68]">
-          <button onclick="openDoc('privacy')" class="hover:text-[#b2533e] transition-colors" id="wsPrivacy">Privatumo politika</button>
-          <span>|</span>
-          <button onclick="openDoc('terms')" class="hover:text-[#b2533e] transition-colors" id="wsTerms">Naudojimo taisyklės</button>
-        </div>
       </div>
     </div>
   </div>
 
-  <div id="docModal" class="fixed inset-0 z-[110] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hide">
-    <div class="max-w-lg w-full bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+  <div id="docModal" class="fixed inset-0 z-[110] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hide transition-opacity">
+    <div class="max-w-lg w-full bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] fade-in">
       <div class="p-6 border-b border-[#ebdcd0] flex justify-between items-center bg-[#fcfaf7]">
         <h3 class="font-bold text-lg text-[#2c2520]" id="docTitle">Dokumentas</h3>
-        <button onclick="closeDoc()" class="text-[#8e7a68] hover:text-[#b2533e] text-2xl leading-none">&times;</button>
+        <button onclick="closeDoc()" class="text-[#8e7a68] hover:text-[#b2533e] text-3xl leading-none transition-colors">&times;</button>
       </div>
-      <div class="p-6 overflow-y-auto custom-scrollbar text-sm text-[#5c524a] space-y-4" id="docContent"></div>
+      <div class="p-6 overflow-y-auto custom-scrollbar text-sm text-[#5c524a] space-y-4 leading-relaxed" id="docContent"></div>
       <div class="p-4 border-t border-[#ebdcd0] bg-[#fcfaf7]">
-        <button onclick="closeDoc()" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-2.5 rounded-xl text-xs uppercase tracking-widest font-bold hover:bg-[#ebdcd0] transition-colors" id="docBtnClose">Supratau</button>
+        <button onclick="closeDoc()" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 rounded-xl text-xs uppercase tracking-widest font-bold hover:bg-[#ebdcd0] transition-colors" id="docBtnClose">Supratau</button>
       </div>
     </div>
   </div>
 
-  <nav class="sticky top-0 z-40 bg-[#faf9f6]/95 backdrop-blur-md border-b border-[#ebdcd0] py-3 px-4 md:px-8">
+  <nav class="sticky top-0 z-40 bg-[#faf9f6]/95 backdrop-blur-md border-b border-[#ebdcd0] py-3 px-4 md:px-8 transition-all">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <div class="flex items-center gap-3">
         <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="h-10 w-10 rounded-full object-cover border border-[#b2533e] shadow-sm">
@@ -112,100 +115,112 @@
           <span class="text-[10px] uppercase tracking-[0.2em] text-[#8e7a68] block">Congress 2026</span>
         </div>
       </div>
-      <button onclick="openSettings()" class="p-2 bg-[#f5efe6] border border-[#c7b198] rounded-full text-[#2c2520] hover:bg-[#ebdcd0] transition-colors shadow-sm">
+      <button onclick="openSettings()" class="p-2.5 bg-[#f5efe6] border border-[#c7b198] rounded-full text-[#2c2520] hover:bg-[#ebdcd0] transition-colors shadow-sm">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
       </button>
     </div>
   </nav>
 
-  <header class="relative overflow-hidden py-12 md:py-20 px-4 border-b border-[#ebdcd0] bg-[#fcfaf7]">
-    <div class="max-w-4xl mx-auto text-center space-y-6">
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-[#2c2520] leading-tight" id="heroTitle">VILNIUS FAMILY 2026</h1>
-      <p class="text-sm md:text-base text-[#5c524a] leading-relaxed max-w-3xl mx-auto font-normal" id="heroDesc"></p>
-      <div class="pt-4 flex flex-wrap justify-center gap-3">
-        <a href="#gallery" class="bg-[#2c2520] text-white text-xs uppercase tracking-widest font-bold px-8 py-3.5 rounded-full hover:bg-[#1f1a16] transition-colors shadow-sm" id="btnExplore">Nuotraukos</a>
-        <a href="#comments" class="bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] text-xs uppercase tracking-widest font-bold px-8 py-3.5 rounded-full hover:bg-[#ebdcd0] transition-colors" id="btnLeaveMessage">Laiškas</a>
+  <header class="relative overflow-hidden py-16 md:py-24 px-4 border-b border-[#ebdcd0] bg-[#fcfaf7]">
+    <div class="max-w-4xl mx-auto text-center space-y-8">
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-[#2c2520] leading-tight" id="heroTitle">VILNIUS FAMILY 2026</h1>
+      <p class="text-base md:text-lg text-[#5c524a] leading-relaxed max-w-3xl mx-auto font-medium" id="heroDesc"></p>
+      <div class="pt-6 flex flex-wrap justify-center gap-4">
+        <a href="#gallery" class="bg-[#2c2520] text-white text-sm uppercase tracking-widest font-bold px-10 py-4 rounded-full hover:bg-[#1f1a16] transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5" id="btnExplore">Nuotraukos</a>
+        <a href="#comments" class="bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] text-sm uppercase tracking-widest font-bold px-10 py-4 rounded-full hover:bg-[#ebdcd0] transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5" id="btnLeaveMessage">Laiškas</a>
       </div>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 md:px-8 py-12 space-y-16">
+  <main class="max-w-7xl mx-auto px-4 md:px-8 py-16 space-y-20">
     <section id="process-video">
-      <div class="max-w-4xl mx-auto bg-[#f5efe6] border border-[#ebdcd0] rounded-2xl p-4 md:p-6 shadow-sm">
-        <div class="aspect-video w-full rounded-xl overflow-hidden shadow-inner bg-stone-200">
+      <div class="max-w-5xl mx-auto bg-[#f5efe6] border border-[#ebdcd0] rounded-3xl p-4 md:p-8 shadow-sm">
+        <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-inner bg-stone-200">
           <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
       </div>
     </section>
 
-    <section id="gallery" class="space-y-6">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-[#ebdcd0] pb-4">
-        <h2 class="text-xl md:text-2xl font-bold text-[#2c2520]" id="galleryTitle">Darbo užkulisiai</h2>
-        <div class="flex gap-1 overflow-x-auto custom-scrollbar w-full md:w-auto pb-1 md:pb-0">
-          <button onclick="switchCategory('all')" id="catBtnAll" class="px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#b2533e] border-b-2 border-[#b2533e]">Viskas</button>
-          <button onclick="switchCategory('posters')" id="catBtnPosters" class="px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#8e7a68] border-b-2 border-transparent">Plakatai</button>
-          <button onclick="switchCategory('clay')" id="catBtnClay" class="px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#8e7a68] border-b-2 border-transparent">Molis</button>
-          <button onclick="switchCategory('postcards')" id="catBtnCards" class="px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#8e7a68] border-b-2 border-transparent">Atvirukai</button>
+    <section id="gallery" class="space-y-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-[#ebdcd0] pb-6">
+        <h2 class="text-2xl md:text-3xl font-bold text-[#2c2520]" id="galleryTitle">Darbo užkulisiai</h2>
+        <div class="flex gap-2 overflow-x-auto custom-scrollbar w-full md:w-auto pb-2 md:pb-0">
+          <button onclick="switchCategory('all')" id="catBtnAll" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold transition-all text-[#b2533e] border-b-2 border-[#b2533e] whitespace-nowrap">Viskas</button>
+          <button onclick="switchCategory('posters')" id="catBtnPosters" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold transition-all text-[#8e7a68] border-b-2 border-transparent hover:text-[#b2533e] whitespace-nowrap">Plakatai</button>
+          <button onclick="switchCategory('clay')" id="catBtnClay" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold transition-all text-[#8e7a68] border-b-2 border-transparent hover:text-[#b2533e] whitespace-nowrap">Molis</button>
+          <button onclick="switchCategory('postcards')" id="catBtnCards" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold transition-all text-[#8e7a68] border-b-2 border-transparent hover:text-[#b2533e] whitespace-nowrap">Atvirukai</button>
         </div>
       </div>
-      <div id="galleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4"></div>
+      <div id="galleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6"></div>
     </section>
 
-    <section id="comments" class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 pt-12 border-t border-[#ebdcd0]">
-      <div class="lg:col-span-5 space-y-6">
-        <h2 class="text-2xl font-bold text-[#2c2520]" id="commentsTitle">Laiškas</h2>
-        <p class="text-sm text-[#5c524a] leading-relaxed font-light" id="commentsDesc"></p>
+    <section id="comments" class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 pt-16 border-t border-[#ebdcd0]">
+      <div class="lg:col-span-5 space-y-8">
+        <div class="space-y-3">
+          <h2 class="text-3xl font-bold text-[#2c2520]" id="commentsTitle">Laiškas</h2>
+          <p class="text-base text-[#5c524a] leading-relaxed font-medium" id="commentsDesc"></p>
+        </div>
         
-        <form id="commentForm" class="space-y-4 bg-[#f5efe6] p-6 rounded-2xl border border-[#ebdcd0] shadow-sm">
+        <form id="commentForm" class="space-y-5 bg-[#f5efe6] p-8 rounded-3xl border border-[#ebdcd0] shadow-sm">
           <div>
-            <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5" id="labelName">Jūsų Vardas</label>
-            <input type="text" id="formName" required class="w-full bg-white border border-[#c7b198] text-sm py-2.5 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b2533e] text-[#2c2520]">
+            <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-2" id="labelName">Jūsų Vardas</label>
+            <input type="text" id="formName" required class="w-full bg-white border border-[#c7b198] text-base py-3 px-5 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b2533e] text-[#2c2520] transition-shadow">
           </div>
           <div>
-            <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5" id="labelMsg">Žinutė</label>
-            <textarea id="formText" rows="4" required class="w-full bg-white border border-[#c7b198] text-sm py-2.5 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b2533e] text-[#2c2520]"></textarea>
+            <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-2" id="labelMsg">Žinutė</label>
+            <textarea id="formText" rows="5" required class="w-full bg-white border border-[#c7b198] text-base py-3 px-5 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b2533e] text-[#2c2520] transition-shadow resize-none"></textarea>
           </div>
-          <button type="submit" class="w-full bg-[#2c2520] text-white py-3 rounded-xl text-xs uppercase tracking-widest font-bold hover:bg-[#1f1a16] transition-colors flex justify-center items-center gap-2" id="btnSubmitComment">
+          <button type="submit" class="w-full bg-[#2c2520] text-white py-4 rounded-xl text-sm uppercase tracking-widest font-bold hover:bg-[#1f1a16] transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-3" id="btnSubmitComment">
             <span>Siųsti</span>
-            <div id="loader" class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin hide"></div>
+            <div id="loader" class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin hide"></div>
           </button>
         </form>
       </div>
 
-      <div class="lg:col-span-7 space-y-6">
+      <div class="lg:col-span-7 space-y-8">
         <div class="flex justify-between items-center">
-          <h3 class="font-bold text-lg text-[#2c2520]" id="commentsSub">Atsiliepimai</h3>
-          <span class="text-[10px] text-[#b2533e] bg-[#b2533e]/10 px-2.5 py-1 rounded-full flex items-center gap-1 font-semibold">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+          <h3 class="font-bold text-xl text-[#2c2520]" id="commentsSub">Atsiliepimai</h3>
+          <span class="text-[11px] text-[#b2533e] bg-[#b2533e]/10 px-3 py-1.5 rounded-full flex items-center gap-2 font-bold border border-[#b2533e]/20">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span id="labelTranslateOn">AI vertimas įjungtas</span>
           </span>
         </div>
-        <div id="commentsWrapper" class="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
-          <div class="text-center py-10 text-[#8e7a68] animate-pulse">Kraunama...</div>
+        <div id="commentsWrapper" class="space-y-5 max-h-[700px] overflow-y-auto pr-3 custom-scrollbar">
+          <div class="text-center py-12 text-[#8e7a68] font-medium animate-pulse" id="loadingText">Kraunama...</div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="mt-20 border-t border-[#ebdcd0] py-10 px-4 bg-[#f5efe6]">
-    <div class="max-w-4xl mx-auto text-center space-y-4">
-      <div class="flex justify-center items-center gap-2 mb-1">
-        <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="h-8 w-8 rounded-full object-cover border border-[#b2533e]">
-        <span class="font-bold text-[#2c2520] text-base tracking-wider">VILNIUS FAMILY 2026</span>
+  <footer class="mt-24 border-t border-[#ebdcd0] py-12 px-4 bg-[#f5efe6]">
+    <div class="max-w-4xl mx-auto text-center space-y-5">
+      <div class="flex justify-center items-center gap-3 mb-2">
+        <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="h-10 w-10 rounded-full object-cover border-2 border-[#b2533e]">
+        <span class="font-extrabold text-[#2c2520] text-lg tracking-widest">VILNIUS FAMILY 2026</span>
       </div>
-      <div class="text-[10px] text-[#8e7a68]">&copy; 2026 Vilnius, Lithuania.</div>
+      <div class="text-xs font-medium text-[#8e7a68] tracking-wide">&copy; 2026 Vilnius, Lithuania.</div>
     </div>
   </footer>
 
-  <div id="imageModal" class="fixed inset-0 z-[120] bg-black/95 flex-col justify-center items-center p-4 hide" onclick="closeImageModal()">
-    <button class="absolute top-4 right-4 text-white text-4xl font-light hover:text-[#b2533e] transition-colors" onclick="closeImageModal()">&times;</button>
-    <button class="absolute left-2 md:left-8 text-white text-5xl p-4 hover:text-[#b2533e] transition-colors focus:outline-none select-none" onclick="navigateModal(-1); event.stopPropagation();">&lsaquo;</button>
-    <div class="max-w-5xl max-h-[85vh] overflow-hidden flex items-center justify-center" onclick="event.stopPropagation()">
-      <img id="modalImg" src="" alt="Gallery Image" class="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl transition-transform duration-300">
+  <div id="imageModal" class="fixed inset-0 z-[120] bg-black/95 flex-col justify-center items-center p-4 hide transition-opacity duration-300" onclick="closeImageModal()">
+    <button class="absolute top-6 right-6 text-white/70 hover:text-white bg-black/20 hover:bg-[#b2533e] rounded-full w-12 h-12 flex items-center justify-center backdrop-blur-md transition-all duration-300 focus:outline-none z-50" onclick="closeImageModal()">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+    
+    <button class="absolute left-4 md:left-10 text-white/80 hover:text-white bg-white/10 hover:bg-[#b2533e] rounded-full w-14 h-14 flex items-center justify-center backdrop-blur-md transition-all duration-300 focus:outline-none select-none z-50 shadow-lg" onclick="navigateModal(-1); event.stopPropagation();">
+      <svg class="w-8 h-8 pr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+    
+    <div class="max-w-6xl max-h-[85vh] w-full overflow-hidden flex items-center justify-center px-16" onclick="event.stopPropagation()">
+      <img id="modalImg" src="" alt="Gallery Image" class="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl transition-all duration-300 transform scale-95 opacity-0">
     </div>
-    <button class="absolute right-2 md:right-8 text-white text-5xl p-4 hover:text-[#b2533e] transition-colors focus:outline-none select-none" onclick="navigateModal(1); event.stopPropagation();">&rsaquo;</button>
-    <div class="absolute bottom-6 text-center select-none" onclick="event.stopPropagation()">
-      <span id="modalIndexIndicator" class="text-xs text-white/70 tracking-widest bg-black/50 px-3 py-1 rounded-full"></span>
+    
+    <button class="absolute right-4 md:right-10 text-white/80 hover:text-white bg-white/10 hover:bg-[#b2533e] rounded-full w-14 h-14 flex items-center justify-center backdrop-blur-md transition-all duration-300 focus:outline-none select-none z-50 shadow-lg" onclick="navigateModal(1); event.stopPropagation();">
+      <svg class="w-8 h-8 pl-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+    
+    <div class="absolute bottom-8 text-center select-none z-50" onclick="event.stopPropagation()">
+      <span id="modalIndexIndicator" class="text-sm font-bold text-white tracking-widest bg-black/40 backdrop-blur-md px-5 py-2 rounded-full border border-white/10 shadow-lg"></span>
     </div>
   </div>
 
@@ -319,15 +334,15 @@
 
     const COUNTRIES = {
       "Armenia": { native: "Հայաստան", lang: "AM" },
-      "Brazil": { native: "Brasil", lang: "BR" },
-      "Chile": { native: "Chile", lang: "CL" },
-      "Dominican Republic": { native: "República Dominicana", lang: "DO" },
-      "Israel": { native: "יִשְׂרָאֵל", lang: "IL" },
-      "Japan": { native: "日本", lang: "JP" },
-      "USA": { native: "United States", lang: "US" },
-      "Nigeria": { native: "Nigeria", lang: "NG" },
+      "Brazil": { native: "Brasil", lang: "PT" },
+      "Chile": { native: "Chile", lang: "ES" },
+      "Dominican Republic": { native: "República Dominicana", lang: "ES" },
+      "Israel": { native: "יִשְׂרָאֵל", lang: "HE" },
+      "Japan": { native: "日本", lang: "JA" },
+      "USA": { native: "United States", lang: "EN" },
+      "Nigeria": { native: "Nigeria", lang: "FR" },
       "Portugal": { native: "Portugal", lang: "PT" },
-      "Scandinavia": { native: "Scandinavia", lang: "SC" },
+      "Scandinavia": { native: "Scandinavia", lang: "SV" },
       "Lithuania": { native: "Lietuva", lang: "LT" },
       "Latvia": { native: "Latvija", lang: "LV" },
       "Kurdistan": { native: "Kurdistan", lang: "KUR" }
@@ -342,7 +357,7 @@
         labelName: "Jūsų Vardas", labelMsg: "Žinutė", btnSubmitComment: "Siųsti",
         commentsSub: "Atsiliepimai", labelTranslateOn: "AI vertimas įjungtas",
         wsTitle: "Sveiki atvykę!", wsDesc: "Pasirinkite nustatymus", wsCountryLabel: "Šalis", wsLangLabel: "Kalba", wsSizeLabel: "Teksto dydis", wsSizeNormal: "Standartinis", wsSizeLarge: "Padidintas", btnContinue: "Tęsti", wsPrivacy: "Privatumo politika", wsTerms: "Naudojimo taisyklės",
-        translatedFrom: "Versta iš"
+        wsAcceptText: "Sutinku su", wsAnd: "ir", translatedFrom: "Versta iš", loading: "Kraunama...", noComments: "Nėra komentarų. Būkite pirmas!", docBtnClose: "Supratau"
       },
       EN: {
         heroDesc: "Welcome, dear brothers and sisters of our international spiritual family! We are absolutely thrilled that you came to the congress in Lithuania. This will be an unforgettable congress. We prepared these posters and clay gifts especially for you with great love. On this page we want to show you how we created everything. We would be very interested to hear your impressions. Please leave us a few warm words!",
@@ -352,17 +367,7 @@
         labelName: "Your Name", labelMsg: "Message", btnSubmitComment: "Send",
         commentsSub: "Guestbook", labelTranslateOn: "AI Translation Active",
         wsTitle: "Welcome!", wsDesc: "Choose your preferences", wsCountryLabel: "Country", wsLangLabel: "Language", wsSizeLabel: "Text Size", wsSizeNormal: "Normal", wsSizeLarge: "Large", btnContinue: "Continue", wsPrivacy: "Privacy Policy", wsTerms: "Terms of Use",
-        translatedFrom: "Translated from"
-      },
-      US: {
-        heroDesc: "Welcome, dear brothers and sisters of our international spiritual family! We are absolutely thrilled that you came to the congress in Lithuania. This will be an unforgettable congress. We prepared these posters and clay gifts especially for you with great love. On this page we want to show you how we created everything. We would be very interested to hear your impressions. Please leave us a few warm words!",
-        btnExplore: "Photos", btnLeaveMessage: "Letter", galleryTitle: "Behind the Scenes",
-        catBtnAll: "All", catBtnPosters: "Posters", catBtnClay: "Clay", catBtnCards: "Postcards",
-        commentsTitle: "Letter", commentsDesc: "Please leave us a few warm words.",
-        labelName: "Your Name", labelMsg: "Message", btnSubmitComment: "Send",
-        commentsSub: "Guestbook", labelTranslateOn: "AI Translation Active",
-        wsTitle: "Welcome!", wsDesc: "Choose your preferences", wsCountryLabel: "Country", wsLangLabel: "Language", wsSizeLabel: "Text Size", wsSizeNormal: "Normal", wsSizeLarge: "Large", btnContinue: "Continue", wsPrivacy: "Privacy Policy", wsTerms: "Terms of Use",
-        translatedFrom: "Translated from"
+        wsAcceptText: "I agree to the", wsAnd: "and", translatedFrom: "Translated from", loading: "Loading...", noComments: "No comments yet. Be the first!", docBtnClose: "I understand"
       },
       RU: {
         heroDesc: "Добро пожаловать, дорогие братья и сестры нашей международной духовной семьи! Мы бесконечно рады, что вы приехали на конгресс в Литву. Это будет незабываемый конгресс. Эти плакаты и глиняные подарки мы готовили специально для вас с огромной любовью. На этой странице мы хотим показать вам процесс творчества. Нам было бы очень интересно узнать ваши впечатления. Пожалуйста, оставьте несколько теплых слов!",
@@ -372,7 +377,7 @@
         labelName: "Ваше имя", labelMsg: "Сообщение", btnSubmitComment: "Отправить",
         commentsSub: "Отзывы", labelTranslateOn: "AI-перевод активен",
         wsTitle: "Добро пожаловать!", wsDesc: "Выберите настройки", wsCountryLabel: "Страна", wsLangLabel: "Язык", wsSizeLabel: "Размер текста", wsSizeNormal: "Обычный", wsSizeLarge: "Крупный", btnContinue: "Продолжить", wsPrivacy: "Политика конфиденциальности", wsTerms: "Правила использования",
-        translatedFrom: "Переведено с"
+        wsAcceptText: "Я согласен с", wsAnd: "и", translatedFrom: "Переведено с", loading: "Загрузка...", noComments: "Пока нет комментариев. Будьте первым!", docBtnClose: "Понятно"
       },
       LV: {
         heroDesc: "Laipni lūdzam, dārgie brāļi un māsas no mūsu starptautiskās garīgās ģimenes! Mēs esam bezgala priecīgi, ka esat ieradušies uz kongresu Lietuvā. Šis būs neaizmirstams kongress. Šos plakātus un māla dāvaniņas mēs gatavojām īpaši jums ar lielu mīlestību. Šajā lapā mēs vēlamies parādīt, kā mēs visu radījām. Mums būtu ļoti interesanti uzzināt jūsu iespaidus. Lūdzu, atstājiet mums dažus siltus vārdus!",
@@ -382,7 +387,7 @@
         labelName: "Jūsu Vārds", labelMsg: "Ziņojums", btnSubmitComment: "Sūtīt",
         commentsSub: "Atsauksmes", labelTranslateOn: "AI tulkojums ieslēgts",
         wsTitle: "Laipni lūdzam!", wsDesc: "Izvēlieties iestatījumus", wsCountryLabel: "Valsts", wsLangLabel: "Valoda", wsSizeLabel: "Teksta izmērs", wsSizeNormal: "Standarta", wsSizeLarge: "Liels", btnContinue: "Turpināt", wsPrivacy: "Privātuma politika", wsTerms: "Lietošanas noteikumi",
-        translatedFrom: "Tulkots no"
+        wsAcceptText: "Es piekrītu", wsAnd: "un", translatedFrom: "Tulkots no", loading: "Notiek ielāde...", noComments: "Vēl nav komentāru. Esiet pirmais!", docBtnClose: "Sapratu"
       },
       KUR: {
         heroDesc: "Bi xêr hatin, xwişk û birayên delal ên malbata me ya giyanî ya navneteweyî! Em pir kêfxweş in ku hûn hatin kongreya Lîtvanyayê. Ev dê bibe kongreyek jibîrnekirî. Me ev poster û diyarî bi hezkirinek mezin ji bo we amade kirin. Em dixwazin nîşanî we bidin ka me çawa her tişt afirand. Ji kerema xwe çend peyvên germ ji me re bihêlin!",
@@ -392,7 +397,7 @@
         labelName: "Navê te", labelMsg: "Peyam", btnSubmitComment: "Bişîne",
         commentsSub: "Şîrove", labelTranslateOn: "Wergera AI çalak e",
         wsTitle: "Bi xêr hatin!", wsDesc: "Vebijarkên xwe hilbijêrin", wsCountryLabel: "Welat", wsLangLabel: "Ziman", wsSizeLabel: "Mezinahiya nivîsê", wsSizeNormal: "Normal", wsSizeLarge: "Mezin", btnContinue: "Berdewam bike", wsPrivacy: "Siyaseta Taybetîtiyê", wsTerms: "Mercên Bikaranînê",
-        translatedFrom: "Ji hatî wergerandin"
+        wsAcceptText: "Ez qebûl dikim", wsAnd: "û", translatedFrom: "Ji hatî wergerandin", loading: "Tê barkirin...", noComments: "Hê şîrove tune. Bibin yê yekem!", docBtnClose: "Fêm kir"
       },
       AM: {
         heroDesc: "Բարի գալուստ, մեր միջազգային հոգևոր ընտանիքի սիրելի եղբայրներ և քույրեր: Մենք անչափ ուրախ ենք, որ դուք եկել եք Լիտվա: Սա կլինի անմոռանալի կոնգրես: Այս պաստառներն ու կավե նվերները մենք պատրաստել ենք հատուկ ձեզ համար՝ մեծ սիրով: Խնդրում ենք թողնել մեզ մի քանի ջերմ խոսք:",
@@ -402,17 +407,7 @@
         labelName: "Ձեր անունը", labelMsg: "Հաղորդագրություն", btnSubmitComment: "Ուղարկել",
         commentsSub: "Մեկնաբանություններ", labelTranslateOn: "AI Թարգմանությունը միացված է",
         wsTitle: "Բարի գալուստ", wsDesc: "Ընտրեք կարգավորումները", wsCountryLabel: "Երկիր", wsLangLabel: "Լեզու", wsSizeLabel: "Տեքստի չափը", wsSizeNormal: "Ստանդարտ", wsSizeLarge: "Մեծ", btnContinue: "Շարունակել", wsPrivacy: "Գաղտնիության քաղաքականություն", wsTerms: "Օգտագործման պայմաններ",
-        translatedFrom: "Թարգմանված է"
-      },
-      BR: {
-        heroDesc: "Bem-vindos, queridos irmãos e irmãs da nossa família espiritual internacional! Estamos absolutamente emocionados por vocês terem vindo ao congresso na Lituânia. Preparamos estes presentes com muito amor. Gostaríamos muito de saber as suas impressões. Por favor, deixe-nos algumas palavras calorosas!",
-        btnExplore: "Fotos", btnLeaveMessage: "Carta", galleryTitle: "Bastidores",
-        catBtnAll: "Tudo", catBtnPosters: "Cartazes", catBtnClay: "Argila", catBtnCards: "Cartões",
-        commentsTitle: "Carta", commentsDesc: "Por favor, deixe-nos algumas palavras calorosas.",
-        labelName: "Seu Nome", labelMsg: "Mensagem", btnSubmitComment: "Enviar",
-        commentsSub: "Comentários", labelTranslateOn: "Tradução AI Ativa",
-        wsTitle: "Bem-vindo!", wsDesc: "Escolha suas preferências", wsCountryLabel: "País", wsLangLabel: "Idioma", wsSizeLabel: "Tamanho do Texto", wsSizeNormal: "Normal", wsSizeLarge: "Grande", btnContinue: "Continuar", wsPrivacy: "Política de Privacidade", wsTerms: "Termos de Uso",
-        translatedFrom: "Traduzido de"
+        wsAcceptText: "Ես համաձայն եմ", wsAnd: "և", translatedFrom: "Թարգմանված է", loading: "Բեռնվում է...", noComments: "Դեռ մեկնաբանություններ չկան: Եղեք առաջինը:", docBtnClose: "Հասկացա"
       },
       PT: {
         heroDesc: "Bem-vindos, queridos irmãos e irmãs da nossa família espiritual internacional! Estamos absolutamente emocionados por vocês terem vindo ao congresso na Lituânia. Preparamos estes presentes com muito amor. Gostaríamos muito de saber as suas impressões. Por favor, deixe-nos algumas palavras calorosas!",
@@ -422,9 +417,9 @@
         labelName: "Seu Nome", labelMsg: "Mensagem", btnSubmitComment: "Enviar",
         commentsSub: "Comentários", labelTranslateOn: "Tradução AI Ativa",
         wsTitle: "Bem-vindo!", wsDesc: "Escolha suas preferências", wsCountryLabel: "País", wsLangLabel: "Idioma", wsSizeLabel: "Tamanho do Texto", wsSizeNormal: "Normal", wsSizeLarge: "Grande", btnContinue: "Continuar", wsPrivacy: "Política de Privacidade", wsTerms: "Termos de Uso",
-        translatedFrom: "Traduzido de"
+        wsAcceptText: "Eu concordo com a", wsAnd: "e", translatedFrom: "Traduzido de", loading: "Carregando...", noComments: "Ainda não há comentários. Seja o primeiro!", docBtnClose: "Entendi"
       },
-      CL: {
+      ES: {
         heroDesc: "¡Bienvenidos, queridos hermanos y hermanas de nuestra familia espiritual internacional! Estamos absolutamente encantados de que hayan venido al congreso en Lituania. Preparamos estos regalos especialmente para ustedes con mucho amor. ¡Por favor, déjennos unas cálidas palabras!",
         btnExplore: "Fotos", btnLeaveMessage: "Carta", galleryTitle: "Detrás de escena",
         catBtnAll: "Todo", catBtnPosters: "Carteles", catBtnClay: "Arcilla", catBtnCards: "Postales",
@@ -432,19 +427,9 @@
         labelName: "Tu Nombre", labelMsg: "Mensaje", btnSubmitComment: "Enviar",
         commentsSub: "Comentarios", labelTranslateOn: "Traducción AI Activa",
         wsTitle: "¡Bienvenido!", wsDesc: "Elige tus preferencias", wsCountryLabel: "País", wsLangLabel: "Idioma", wsSizeLabel: "Tamaño del texto", wsSizeNormal: "Normal", wsSizeLarge: "Grande", btnContinue: "Continuar", wsPrivacy: "Política de Privacidad", wsTerms: "Términos de Uso",
-        translatedFrom: "Traducido de"
+        wsAcceptText: "Acepto la", wsAnd: "y", translatedFrom: "Traducido de", loading: "Cargando...", noComments: "Aún no hay comentarios. ¡Sé el primero!", docBtnClose: "Entendido"
       },
-      DO: {
-        heroDesc: "¡Bienvenidos, queridos hermanos y hermanas de nuestra familia espiritual internacional! Estamos absolutamente encantados de que hayan venido al congreso en Lituania. Preparamos estos regalos especialmente para ustedes con mucho amor. ¡Por favor, déjennos unas cálidas palabras!",
-        btnExplore: "Fotos", btnLeaveMessage: "Carta", galleryTitle: "Detrás de escena",
-        catBtnAll: "Todo", catBtnPosters: "Carteles", catBtnClay: "Arcilla", catBtnCards: "Postales",
-        commentsTitle: "Carta", commentsDesc: "Por favor, déjennos unas cálidas palabras.",
-        labelName: "Tu Nombre", labelMsg: "Mensaje", btnSubmitComment: "Enviar",
-        commentsSub: "Comentarios", labelTranslateOn: "Traducción AI Activa",
-        wsTitle: "¡Bienvenido!", wsDesc: "Elige tus preferencias", wsCountryLabel: "País", wsLangLabel: "Idioma", wsSizeLabel: "Tamaño del texto", wsSizeNormal: "Normal", wsSizeLarge: "Grande", btnContinue: "Continuar", wsPrivacy: "Política de Privacidad", wsTerms: "Términos de Uso",
-        translatedFrom: "Traducido de"
-      },
-      IL: {
+      HE: {
         heroDesc: "ברוכים הבאים, אחים ואחיות יקרים של המשפחה הרוחנית הבינלאומית שלנו! אנו נרגשים מאוד שבאתם לקונגרס בליטא. הכנו את המתנות הללו במיוחד עבורכם באהבה רבה. נשמח מאוד לשמוע את רשמיכם. אנא השאירו לנו כמה מילים חמות!",
         btnExplore: "תמונות", btnLeaveMessage: "מכתב", galleryTitle: "מאחורי הקלעים",
         catBtnAll: "הכל", catBtnPosters: "פוסטרים", catBtnClay: "חימר", catBtnCards: "גלויות",
@@ -452,9 +437,9 @@
         labelName: "השם שלך", labelMsg: "הודעה", btnSubmitComment: "לשלוח",
         commentsSub: "תגובות", labelTranslateOn: "תרגום AI פעיל",
         wsTitle: "ברוכים הבאים!", wsDesc: "בחר את ההעדפות שלך", wsCountryLabel: "מדינה", wsLangLabel: "שפה", wsSizeLabel: "גודל טקסט", wsSizeNormal: "רגיל", wsSizeLarge: "גדול", btnContinue: "המשך", wsPrivacy: "מדיניות פרטיות", wsTerms: "תנאי שימוש",
-        translatedFrom: "תורגם מ"
+        wsAcceptText: "אני מסכים ל", wsAnd: "ו", translatedFrom: "תורגם מ", loading: "טוען...", noComments: "עדיין אין תגובות. היה הראשון!", docBtnClose: "הבנתי"
       },
-      JP: {
+      JA: {
         heroDesc: "私たちの国際的な霊的家族の親愛なる兄弟姉妹の皆さん、ようこそ！リトアニアでの大会にお越しいただき、本当に嬉しく思います。これらの贈り物は、大きな愛を込めて特別に準備しました。ぜひ温かい言葉を残してください！",
         btnExplore: "写真", btnLeaveMessage: "手紙", galleryTitle: "舞台裏",
         catBtnAll: "すべて", catBtnPosters: "ポスター", catBtnClay: "粘土", catBtnCards: "ポストカード",
@@ -462,9 +447,9 @@
         labelName: "あなたの名前", labelMsg: "メッセージ", btnSubmitComment: "送信",
         commentsSub: "コメント", labelTranslateOn: "AI翻訳が有効です",
         wsTitle: "ようこそ！", wsDesc: "設定を選択してください", wsCountryLabel: "国", wsLangLabel: "言語", wsSizeLabel: "テキストサイズ", wsSizeNormal: "標準", wsSizeLarge: "大", btnContinue: "続行", wsPrivacy: "プライバシーポリシー", wsTerms: "利用規約",
-        translatedFrom: "翻訳元"
+        wsAcceptText: "同意します", wsAnd: "と", translatedFrom: "翻訳元", loading: "読み込み中...", noComments: "まだコメントはありません。最初のコメントをどうぞ！", docBtnClose: "理解しました"
       },
-      NG: {
+      FR: {
         heroDesc: "Bienvenue, chers frères et sœurs de notre famille spirituelle internationale ! Nous sommes absolument ravis que vous soyez venus au congrès en Lituanie. Nous avons préparé ces cadeaux spécialement pour vous avec beaucoup d'amour. S'il vous plaît, laissez-nous quelques mots chaleureux !",
         btnExplore: "Photos", btnLeaveMessage: "Lettre", galleryTitle: "Dans les coulisses",
         catBtnAll: "Tout", catBtnPosters: "Affiches", catBtnClay: "Argile", catBtnCards: "Cartes",
@@ -472,9 +457,9 @@
         labelName: "Votre Nom", labelMsg: "Message", btnSubmitComment: "Envoyer",
         commentsSub: "Commentaires", labelTranslateOn: "Traduction AI Active",
         wsTitle: "Bienvenue !", wsDesc: "Choisissez vos préférences", wsCountryLabel: "Pays", wsLangLabel: "Langue", wsSizeLabel: "Taille du texte", wsSizeNormal: "Normal", wsSizeLarge: "Grand", btnContinue: "Continuer", wsPrivacy: "Politique de confidentialité", wsTerms: "Conditions d'utilisation",
-        translatedFrom: "Traduit de"
+        wsAcceptText: "J'accepte la", wsAnd: "et les", translatedFrom: "Traduit de", loading: "Chargement...", noComments: "Aucun commentaire pour le moment. Soyez le premier !", docBtnClose: "J'ai compris"
       },
-      SC: {
+      SV: {
         heroDesc: "Välkomna, kära bröder och systrar i vår internationella andliga familj! Vi är oerhört glada att ni kom till kongressen i Litauen. Vi har förberett dessa gåvor speciellt för er med stor kärlek. Lämna gärna några varma ord till oss!",
         btnExplore: "Foton", btnLeaveMessage: "Brev", galleryTitle: "Bakom kulisserna",
         catBtnAll: "Allt", catBtnPosters: "Affischer", catBtnClay: "Lera", catBtnCards: "Vykort",
@@ -482,7 +467,7 @@
         labelName: "Ditt Namn", labelMsg: "Meddelande", btnSubmitComment: "Skicka",
         commentsSub: "Kommentarer", labelTranslateOn: "AI-översättning aktiv",
         wsTitle: "Välkommen!", wsDesc: "Välj dina inställningar", wsCountryLabel: "Land", wsLangLabel: "Språk", wsSizeLabel: "Textstorlek", wsSizeNormal: "Normal", wsSizeLarge: "Stor", btnContinue: "Fortsätt", wsPrivacy: "Integritetspolicy", wsTerms: "Användarvillkor",
-        translatedFrom: "Översatt från"
+        wsAcceptText: "Jag godkänner", wsAnd: "och", translatedFrom: "Översatt från", loading: "Laddar...", noComments: "Inga kommentarer ännu. Bli den första!", docBtnClose: "Jag förstår"
       }
     };
 
@@ -490,12 +475,14 @@
       privacy: {
         LT: { title: "Privatumo politika", text: "<p>Ši svetainė naudoja vietinę atmintį, kad išsaugotų jūsų pasirinktą kalbą, šalį ir teksto dydį.</p><p>Jūsų vardas, šalis ir komentarai yra saugomi saugioje duomenų bazėje (Firebase) ir rodomi kitiems lankytojams.</p><p>Duomenys nenaudojami komerciniais tikslais ir neperduodami trečiosioms šalims.</p>" },
         EN: { title: "Privacy Policy", text: "<p>This site uses local storage to save your language, country, and text size preferences.</p><p>Your name, country, and comments are stored in a secure database (Firebase) to be displayed to other visitors.</p><p>Data is not used for commercial purposes or shared with third parties.</p>" },
-        RU: { title: "Политика конфиденциальности", text: "<p>Этот сайт использует локальное хранилище для сохранения выбранного языка, страны и размера текста.</p><p>Ваше имя, страна и комментарии сохраняются в безопасной базе данных (Firebase) для отображения другим посетителям.</p><p>Данные не используются в коммерческих целях и не передаются третьим лицам.</p>" }
+        RU: { title: "Политика конфиденциальности", text: "<p>Этот сайт использует локальное хранилище для сохранения выбранного языка, страны и размера текста.</p><p>Ваше имя, страна и комментарии сохраняются в безопасной базе данных (Firebase) для отображения другим посетителям.</p><p>Данные не используются в коммерческих целях и не передаются третьим лицам.</p>" },
+        FR: { title: "Politique de confidentialité", text: "<p>Ce site utilise le stockage local pour enregistrer vos préférences de langue, de pays et de taille de texte.</p><p>Votre nom, votre pays et vos commentaires sont stockés dans une base de données sécurisée (Firebase) pour être affichés aux autres visiteurs.</p><p>Les données ne sont pas utilisées à des fins commerciales ni partagées avec des tiers.</p>" }
       },
       terms: {
         LT: { title: "Naudojimo taisyklės", text: "<p>Visos nuotraukos ir vaizdo įrašai skirti tik asmeniniam peržiūrai.</p><p>Draudžiama publikuoti medžiagą kitose svetainėse ar socialiniuose tinkluose be leidimo.</p><p>Draudžiama naudoti medžiagą komerciniais tikslais.</p>" },
         EN: { title: "Terms of Use", text: "<p>All photos and videos are for personal viewing only.</p><p>It is forbidden to publish materials on other sites or social networks without permission.</p><p>It is forbidden to use materials for commercial purposes.</p>" },
-        RU: { title: "Правила использования", text: "<p>Все фотографии и видео предназначены только для личного просмотра.</p><p>Запрещается публиковать материалы на других сайтах или в социальных сетях без разрешения.</p><p>Запрещается использовать материалы в коммерческих целях.</p>" }
+        RU: { title: "Правила использования", text: "<p>Все фотографии и видео предназначены только для личного просмотра.</p><p>Запрещается публиковать материалы на других сайтах или в социальных сетях без разрешения.</p><p>Запрещается использовать материалы в коммерческих целях.</p>" },
+        FR: { title: "Conditions d'utilisation", text: "<p>Toutes les photos et vidéos sont destinées à un visionnage personnel uniquement.</p><p>Il est interdit de publier des documents sur d'autres sites ou réseaux sociaux sans autorisation.</p><p>Il est interdit d'utiliser des documents à des fins commerciales.</p>" }
       }
     };
 
@@ -549,6 +536,10 @@
       updateWelcomeScreenLang(e.target.value);
     });
 
+    document.getElementById('wsAccept').addEventListener('change', (e) => {
+      document.getElementById('btnContinue').disabled = !e.target.checked;
+    });
+
     function updateWelcomeScreenLang(lang) {
       const t = TRANSLATIONS[lang] || TRANSLATIONS['EN'];
       document.getElementById('wsTitle').textContent = t.wsTitle;
@@ -561,6 +552,8 @@
       document.getElementById('btnContinue').textContent = t.btnContinue;
       document.getElementById('wsPrivacy').textContent = t.wsPrivacy;
       document.getElementById('wsTerms').textContent = t.wsTerms;
+      document.getElementById('wsAcceptText').textContent = t.wsAcceptText;
+      document.getElementById('wsAnd').textContent = t.wsAnd;
     }
 
     document.getElementById('btnContinue').addEventListener('click', () => {
@@ -579,6 +572,8 @@
       document.getElementById('wsCountry').value = currentCountry;
       document.getElementById('wsLang').value = currentLang;
       document.getElementById('wsSize').value = currentSize;
+      document.getElementById('wsAccept').checked = true;
+      document.getElementById('btnContinue').disabled = false;
       updateWelcomeScreenLang(currentLang);
       document.getElementById('welcomeScreen').classList.remove('hide');
       document.getElementById('bodyEl').classList.add('overflow-hidden');
@@ -589,6 +584,7 @@
       const docData = DOCS[type][lang] || DOCS[type]['EN'];
       document.getElementById('docTitle').textContent = docData.title;
       document.getElementById('docContent').innerHTML = docData.text;
+      document.getElementById('docBtnClose').textContent = (TRANSLATIONS[lang] || TRANSLATIONS['EN']).docBtnClose;
       document.getElementById('docModal').classList.remove('hide');
     };
 
@@ -620,9 +616,10 @@
       document.getElementById('btnSubmitComment').querySelector('span').textContent = t.btnSubmitComment;
       document.getElementById('commentsSub').textContent = t.commentsSub;
       document.getElementById('labelTranslateOn').textContent = t.labelTranslateOn;
+      document.getElementById('loadingText').textContent = t.loading;
       
       document.documentElement.lang = currentLang.toLowerCase();
-      document.body.style.direction = currentLang === 'IL' ? 'rtl' : 'ltr';
+      document.body.style.direction = currentLang === 'HE' ? 'rtl' : 'ltr';
       
       renderCommentsUI();
     }
@@ -633,9 +630,9 @@
         const btn = document.getElementById('catBtn' + c);
         if(btn) {
           if(c.toLowerCase() === cat || (c==='Cards' && cat==='postcards')) {
-            btn.className = "px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#b2533e] border-b-2 border-[#b2533e]";
+            btn.className = "px-5 py-2.5 text-sm uppercase tracking-wider font-bold transition-all text-[#b2533e] border-b-2 border-[#b2533e] whitespace-nowrap";
           } else {
-            btn.className = "px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all text-[#8e7a68] border-b-2 border-transparent hover:text-[#b2533e]";
+            btn.className = "px-5 py-2.5 text-sm uppercase tracking-wider font-bold transition-all text-[#8e7a68] border-b-2 border-transparent hover:text-[#b2533e] whitespace-nowrap";
           }
         }
       });
@@ -649,12 +646,12 @@
       
       activeImages.forEach((img, idx) => {
         const div = document.createElement('div');
-        div.className = "aspect-[4/5] bg-stone-100 rounded-lg overflow-hidden relative cursor-pointer group";
+        div.className = "aspect-[4/5] bg-stone-100 rounded-2xl overflow-hidden relative cursor-pointer group shadow-sm hover:shadow-md transition-all";
         div.onclick = () => openModal(idx);
         div.innerHTML = `
-          <img src="${img.url}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
-          <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <span class="text-white text-xs uppercase tracking-widest bg-[#2c2520]/80 px-3 py-1.5 rounded-full">Zoom</span>
+          <img src="${img.url}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+          <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <span class="text-white text-xs uppercase tracking-widest bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">Zoom</span>
           </div>
         `;
         grid.appendChild(div);
@@ -667,19 +664,35 @@
       document.getElementById('imageModal').classList.remove('hide');
       document.getElementById('imageModal').classList.add('flex');
       document.getElementById('bodyEl').classList.add('overflow-hidden');
+      setTimeout(() => {
+        document.getElementById('modalImg').classList.remove('scale-95', 'opacity-0');
+        document.getElementById('modalImg').classList.add('scale-100', 'opacity-100');
+      }, 10);
     };
 
     window.closeImageModal = () => {
-      document.getElementById('imageModal').classList.add('hide');
-      document.getElementById('imageModal').classList.remove('flex');
-      document.getElementById('bodyEl').classList.remove('overflow-hidden');
+      document.getElementById('modalImg').classList.remove('scale-100', 'opacity-100');
+      document.getElementById('modalImg').classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        document.getElementById('imageModal').classList.add('hide');
+        document.getElementById('imageModal').classList.remove('flex');
+        document.getElementById('bodyEl').classList.remove('overflow-hidden');
+      }, 300);
     };
 
     window.navigateModal = (dir) => {
-      modalIndex += dir;
-      if(modalIndex < 0) modalIndex = activeImages.length - 1;
-      if(modalIndex >= activeImages.length) modalIndex = 0;
-      updateModal();
+      const imgEl = document.getElementById('modalImg');
+      imgEl.classList.remove('scale-100', 'opacity-100');
+      imgEl.classList.add('scale-95', 'opacity-0');
+      
+      setTimeout(() => {
+        modalIndex += dir;
+        if(modalIndex < 0) modalIndex = activeImages.length - 1;
+        if(modalIndex >= activeImages.length) modalIndex = 0;
+        updateModal();
+        imgEl.classList.remove('scale-95', 'opacity-0');
+        imgEl.classList.add('scale-100', 'opacity-100');
+      }, 200);
     };
 
     function updateModal() {
@@ -698,24 +711,23 @@
         });
         renderCommentsUI();
       }, (error) => {
-        document.getElementById('commentsWrapper').innerHTML = `<div class="text-center text-red-500">Klaida kraunant komentarus.</div>`;
+        document.getElementById('commentsWrapper').innerHTML = `<div class="text-center text-red-500 font-bold py-10">Klaida kraunant komentarus.</div>`;
       });
     }
 
     function renderCommentsUI() {
       const wrapper = document.getElementById('commentsWrapper');
       wrapper.innerHTML = '';
+      const t = TRANSLATIONS[currentLang] || TRANSLATIONS['EN'];
       
       if(commentsData.length === 0) {
-        wrapper.innerHTML = `<div class="text-center py-10 text-[#8e7a68]">Nėra komentarų. Būkite pirmas!</div>`;
+        wrapper.innerHTML = `<div class="text-center py-12 text-[#8e7a68] font-medium border border-dashed border-[#ebdcd0] rounded-2xl">${t.noComments}</div>`;
         return;
       }
 
-      const t = TRANSLATIONS[currentLang] || TRANSLATIONS['EN'];
-
       commentsData.forEach(c => {
         const div = document.createElement('div');
-        div.className = "bg-white border border-[#ebdcd0] rounded-xl p-5 space-y-3 shadow-sm";
+        div.className = "bg-white border border-[#ebdcd0] rounded-2xl p-6 space-y-4 shadow-sm hover:shadow-md transition-shadow fade-in";
         
         const textToShow = (c.translations && c.translations[currentLang]) ? c.translations[currentLang] : c.originalText;
         const isTranslated = c.originalLang !== currentLang && c.translations && c.translations[currentLang];
@@ -726,20 +738,20 @@
         div.innerHTML = `
           <div class="flex justify-between items-start gap-2">
             <div>
-              <h4 class="font-semibold text-sm text-[#2c2520]">${c.name}</h4>
-              <p class="text-[10px] text-[#8e7a68] uppercase tracking-wider font-bold">📍 ${c.country}</p>
+              <h4 class="font-bold text-base text-[#2c2520]">${c.name}</h4>
+              <p class="text-xs text-[#8e7a68] uppercase tracking-wider font-bold mt-1">📍 ${c.country}</p>
             </div>
           </div>
-          <p class="text-sm text-[#5c524a] font-light leading-relaxed whitespace-pre-wrap">${textToShow}</p>
+          <p class="text-base text-[#5c524a] font-medium leading-relaxed whitespace-pre-wrap">${textToShow}</p>
           ${isTranslated ? `
-            <div class="pt-2 border-t border-[#f1ede6] flex items-center justify-between text-[10px] text-[#8e7a68]">
-              <span class="font-medium">✨ ${t.translatedFrom} ${c.originalLang}</span>
+            <div class="pt-3 border-t border-[#f1ede6] flex items-center justify-between text-xs text-[#8e7a68]">
+              <span class="font-bold">✨ ${t.translatedFrom} ${c.originalLang}</span>
               <span class="opacity-60 font-bold">AI Translation</span>
             </div>
           ` : ''}
           <div class="pt-2 flex items-center gap-2">
-            <button onclick="toggleLike('${c.id}', ${hasLiked})" class="flex items-center gap-1 text-xs font-bold transition-colors ${hasLiked ? 'text-[#b2533e]' : 'text-[#8e7a68] hover:text-[#b2533e]'}">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${hasLiked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
+            <button onclick="toggleLike('${c.id}', ${hasLiked})" class="flex items-center gap-1.5 text-sm font-bold transition-colors ${hasLiked ? 'text-[#b2533e]' : 'text-[#8e7a68] hover:text-[#b2533e]'}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${hasLiked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
               ${likesCount}
             </button>
           </div>
@@ -760,7 +772,7 @@
     };
 
     function generateMockTranslations(originalText, sourceLang) {
-      const langs = ["LT", "EN", "RU", "LV", "KUR", "AM", "BR", "CL", "DO", "IL", "JP", "US", "NG", "PT", "SC"];
+      const langs = ["LT", "EN", "RU", "LV", "KUR", "AM", "PT", "ES", "HE", "JA", "FR", "SV"];
       let trans = {};
       langs.forEach(l => {
         if(l === sourceLang) {
