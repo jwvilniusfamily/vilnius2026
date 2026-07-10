@@ -14,24 +14,18 @@
       --text-color: #2c2520;
       --accent-color: #b2533e;
     }
+    html {
+      font-size: 16px;
+      transition: font-size 0.3s ease;
+    }
+    html.text-large {
+      font-size: 18px;
+    }
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
-      transition: font-size 0.3s ease;
     }
-    
-    /* Фикс масштабирования текста для Tailwind утилит */
-    body.text-large .text-xs { font-size: 0.875rem; }
-    body.text-large .text-sm { font-size: 1rem; }
-    body.text-large .text-base { font-size: 1.125rem; }
-    body.text-large .text-lg { font-size: 1.25rem; }
-    body.text-large .text-xl { font-size: 1.5rem; }
-    body.text-large .text-2xl { font-size: 1.75rem; }
-    body.text-large .text-3xl { font-size: 2rem; }
-    body.text-large .text-4xl { font-size: 2.75rem; }
-    body.text-large .text-6xl { font-size: 4.25rem; }
-    
     .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #f1ede6; border-radius: 4px; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #c5b39a; border-radius: 4px; }
@@ -100,14 +94,14 @@
   </div>
 
   <div id="docModal" class="fixed inset-0 z-[110] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hide transition-opacity">
-    <div class="max-w-lg w-full bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] fade-in">
+    <div class="max-w-2xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] fade-in">
       <div class="p-6 border-b border-[#ebdcd0] flex justify-between items-center bg-[#fcfaf7]">
-        <h3 class="font-bold text-lg text-[#2c2520]" id="docTitle">Dokumentas</h3>
-        <button onclick="closeDoc()" class="text-[#8e7a68] hover:text-[#b2533e] text-3xl leading-none transition-colors">&times;</button>
+        <h3 class="font-bold text-xl text-[#2c2520]" id="docTitle">Dokumentas</h3>
+        <button onclick="closeDoc()" class="text-[#8e7a68] hover:text-[#b2533e] text-4xl leading-none transition-colors">&times;</button>
       </div>
-      <div class="p-6 overflow-y-auto custom-scrollbar text-sm text-[#5c524a] space-y-4 leading-relaxed" id="docContent"></div>
-      <div class="p-4 border-t border-[#ebdcd0] bg-[#fcfaf7]">
-        <button onclick="closeDoc()" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 rounded-xl text-xs uppercase tracking-widest font-bold hover:bg-[#ebdcd0] transition-colors" id="docBtnClose">Supratau</button>
+      <div class="p-6 overflow-y-auto custom-scrollbar text-base text-[#5c524a] space-y-5 leading-relaxed" id="docContent"></div>
+      <div class="p-5 border-t border-[#ebdcd0] bg-[#fcfaf7]">
+        <button onclick="closeDoc()" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3.5 rounded-xl text-sm uppercase tracking-widest font-bold hover:bg-[#ebdcd0] transition-colors" id="docBtnClose">Supratau</button>
       </div>
     </div>
   </div>
@@ -211,20 +205,20 @@
   <div id="imageModal" class="fixed inset-0 z-[120] bg-black/95 flex-col justify-center items-center p-2 md:p-6 hide transition-opacity duration-300" onclick="closeImageModal()">
     <button class="absolute top-4 right-4 text-white/70 hover:text-white bg-black/40 hover:bg-[#b2533e] rounded-full w-12 h-12 flex items-center justify-center backdrop-blur-md transition-all duration-300 focus:outline-none z-50 text-2xl font-bold" onclick="closeImageModal()">&times;</button>
     
-    <button class="absolute left-4 md:left-8 text-white bg-black/50 hover:bg-[#b2533e] rounded-full w-12 h-12 md:w-14 md:h-14 flex items-center justify-center backdrop-blur-md transition-all duration-300 focus:outline-none select-none z-50 shadow-2xl border border-white/10" onclick="navigateModal(-1); event.stopPropagation();">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+    <button class="absolute left-4 md:left-8 text-white bg-black/50 hover:bg-[#b2533e] rounded-full w-14 h-14 md:w-16 md:h-16 flex items-center justify-center backdrop-blur-md transition-all duration-300 focus:outline-none select-none z-50 shadow-2xl border border-white/10" onclick="navigateModal(-1); event.stopPropagation();">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
     </button>
     
     <div class="w-full h-[85vh] md:h-[90vh] flex items-center justify-center px-4 md:px-24" onclick="event.stopPropagation()">
       <img id="modalImg" src="" alt="Gallery Image" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl transition-all duration-300 transform scale-95 opacity-0">
     </div>
     
-    <button class="absolute right-4 md:right-8 text-white bg-black/50 hover:bg-[#b2533e] rounded-full w-12 h-12 md:w-14 md:h-14 flex items-center justify-center backdrop-blur-md transition-all duration-300 focus:outline-none select-none z-50 shadow-2xl border border-white/10" onclick="navigateModal(1); event.stopPropagation();">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+    <button class="absolute right-4 md:right-8 text-white bg-black/50 hover:bg-[#b2533e] rounded-full w-14 h-14 md:w-16 md:h-16 flex items-center justify-center backdrop-blur-md transition-all duration-300 focus:outline-none select-none z-50 shadow-2xl border border-white/10" onclick="navigateModal(1); event.stopPropagation();">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
     </button>
     
     <div class="absolute bottom-6 text-center select-none z-50" onclick="event.stopPropagation()">
-      <span id="modalIndexIndicator" class="text-xs font-bold text-white tracking-widest bg-black/60 backdrop-blur-md px-5 py-2 rounded-full border border-white/10 shadow-lg"></span>
+      <span id="modalIndexIndicator" class="text-sm font-bold text-white tracking-widest bg-black/60 backdrop-blur-md px-6 py-2.5 rounded-full border border-white/10 shadow-lg"></span>
     </div>
   </div>
 
@@ -352,8 +346,7 @@
       "Kurdistan": { native: "Kurdistan", lang: "KUR" }
     };
 
-    /* Эмодзи флагов всех включённых стран */
-    const ALLOWED_REACTIONS = ['❤️', '👍', '🥰', '🙏', '🇱🇹', '🇱🇻', '🇺🇸', '🇳🇬', '🇦🇲', '🇧🇷', '🇨🇱', '🇩🇴', '🇮🇱', '🇯🇵', '🇵🇹', '🇸🇪', '🇳🇴', '☀️'];
+    const ALLOWED_REACTIONS = ['❤️', '👍', '🥰', '🙏', '🕊️', '☀️', '🇱🇹', '🇱🇻', '🇺🇸', '🇳🇬', '🇦🇲', '🇧🇷', '🇨🇱', '🇩🇴', '🇮🇱', '🇯🇵', '🇵🇹', '🇸🇪', '🇳🇴', '🇩🇰'];
 
     const TRANSLATIONS = {
       LT: {
@@ -431,7 +424,7 @@
         btnExplore: "Fotos", btnLeaveMessage: "Carta", galleryTitle: "Detrás de escena",
         catBtnAll: "Todo", catBtnPosters: "Carteles", catBtnClay: "Arcilla", catBtnCards: "Postales",
         commentsTitle: "Carta", commentsDesc: "Por favor, déjennos unas cálidas palabras.",
-        labelName: "Tu Name", labelMsg: "Mensaje", btnSubmitComment: "Enviar",
+        labelName: "Tu Nombre", labelMsg: "Mensaje", btnSubmitComment: "Enviar",
         commentsSub: "Comentarios", labelTranslateOn: "Traducción AI Activa",
         wsTitle: "¡Bienvenido!", wsDesc: "Elige tus preferencias", wsCountryLabel: "País", wsLangLabel: "Idioma", wsSizeLabel: "Tamaño del texto", wsSizeNormal: "Normal", wsSizeLarge: "Grande", btnContinue: "Continuar", wsPrivacy: "Política de Privacidad", wsTerms: "Términos de Uso",
         wsAcceptText: "Acepto la", wsAnd: "y", translatedFrom: "Traducido de", loading: "Cargando...", noComments: "Aún no hay comentarios. ¡Sé el primero!", docBtnClose: "Entendido"
@@ -478,35 +471,34 @@
       }
     };
 
-    /* Полные локализованные документы для всех языков */
     const DOCS = {
       privacy: {
         LT: { title: "Privatumo politika", text: "<p>Ši svetainė naudoja vietinę atmintį, kad išsaugotų jūsų pasirinktą kalbą, šalį ir teksto dydį.</p><p>Jūsų vardas, šalis ir komentarai yra saugomi saugioje duomenų bazėje (Firebase) ir rodomi kitiems lankytojams.</p><p>Duomenys nenaudojami komerciniais tikslais ir neperduodami trečiosioms šalims.</p>" },
         EN: { title: "Privacy Policy", text: "<p>This site uses local storage to save your language, country, and text size preferences.</p><p>Your name, country, and comments are stored in a secure database (Firebase) to be displayed to other visitors.</p><p>Data is not used for commercial purposes or shared with third parties.</p>" },
         RU: { title: "Политика конфиденциальности", text: "<p>Этот сайт использует локальное хранилище для сохранения выбранного языка, страны и размера текста.</p><p>Ваше имя, страна и комментарии сохраняются в безопасной базе данных (Firebase) для отображения другим посетителям.</p><p>Данные не используются в коммерческих целях и не передаются третьим лицам.</p>" },
-        LV: { title: "Privātuma politika", text: "<p>Šī vietne izmanto lokālo krātuvi, lai saglabātu jūsu valodas, valsts un teksta izmēra preferences.</p><p>Jūsu vārds, valsts un komentāri tiek glabāti drošā datubāzē (Firebase), lai tos parādītu citiem apmeklētājiem.</p>" },
-        KUR: { title: "Siyaseta Taybetîtiyê", text: "<p>Ev malper hilanîna herêmî bikar tîne da ku tercîhên ziman, welat û mezinahiya nivîsa we hilîne.</p><p>Nav, welat û şîroveyên we di databasek ewledar (Firebase) de têne hilanîn.</p>" },
-        AM: { title: "Գաղտնիության քաղաքականություն", text: "<p>Այս կայքը օգտագործում է տեղական պահեստը ձեր լեզվի, երկրի և տեքստի չափի կարգավորումները պահպանելու համար:</p><p>Ձեր անունը, երկիրը և մեկնաբանությունները պահվում են անվտանգ տվյալների բազայում (Firebase):</p>" },
-        PT: { title: "Política de Privacidade", text: "<p>Este site usa armazenamento local para salvar suas preferências de idioma, país e tamanho do texto.</p><p>Seu nome, país e comentários são armazenados em um banco de dados seguro (Firebase).</p>" },
-        ES: { title: "Política de Privacidad", text: "<p>Este sitio utiliza el almacenamiento local para guardar sus preferencias de idioma, país y tamaño de texto.</p><p>Su nombre, país y comentarios se guardan en una base de datos segura (Firebase).</p>" },
-        HE: { title: "מדיניות פרטיות", text: "<p>אתר זה משתמש באחסון מקומי כדי לשמור את העדפות השפה, המדינה וגודל הטקסט שלך.</p><p>השם, המדינה והתגובות שלך נשמרים במסד נתונים מאובטח (Firebase).</p>" },
-        JA: { title: "プライバシーポリシー", text: "<p>当サイトでは、言語、国、テキストサイズの履歴を保存するためにローカルストレージを使用しています。</p><p>お名前、国名、コメントは安全なデータベース（Firebase）に保存されます。</p>" },
-        FR: { title: "Politique de confidentialité", text: "<p>Ce site utilise le stockage local para enregistrer vos préférences de langue, de pays et de taille de texte.</p><p>Votre nom, votre pays et vos commentaires sont stockés dans une base de données sécurisée (Firebase).</p>" },
-        SV: { title: "Integritetspolicy", text: "<p>Denna webbplats använder lokal lagring för att spara dina inställningar för språk, land och textstorlek.</p><p>Ditt namn, land och kommentarer lagras i en säker databas (Firebase).</p>" }
+        LV: { title: "Privātuma politika", text: "<p>Šī vietne izmanto lokālo krātuvi, lai saglabātu jūsu valodas, valsts un teksta izmēra preferences.</p><p>Jūsu vārds, valsts un komentāri tiek glabāti drošā datubāzē (Firebase), lai tos parādītu citiem apmeklētājiem.</p><p>Dati netiek izmantoti komerciāliem mērķiem un netiek nodoti trešajām pusēm.</p>" },
+        KUR: { title: "Siyaseta Taybetîtiyê", text: "<p>Ev malper hilanîna herêmî bikar tîne da ku tercîhên ziman, welat û mezinahiya nivîsa we hilîne.</p><p>Nav, welat û şîroveyên we di databasek ewledar (Firebase) de têne hilanîn da ku ji mêvanên din re werin nîşandan.</p><p>Daneyên ji bo armancên bazirganî nayên bikar anîn û bi aliyên sêyemîn re nayên parve kirin.</p>" },
+        AM: { title: "Գաղտնիության քաղաքականություն", text: "<p>Այս կայքը օգտագործում է տեղական պահեստը ձեր լեզվի, երկրի և տեքստի չափի կարգավորումները պահպանելու համար:</p><p>Ձեր անունը, երկիրը և մեկնաբանությունները պահվում են անվտանգ տվյալների բազայում (Firebase)՝ այլ այցելուներին ցուցադրելու համար:</p><p>Տվյալները չեն օգտագործվում առևտրային նպատակներով և չեն փոխանցվում երրորդ անձանց:</p>" },
+        PT: { title: "Política de Privacidade", text: "<p>Este site usa armazenamento local para salvar suas preferências de idioma, país e tamanho do texto.</p><p>Seu nome, país e comentários são armazenados em um banco de dados seguro (Firebase) para serem exibidos a outros visitantes.</p><p>Os dados não são usados para fins comerciais nem compartilhados com terceiros.</p>" },
+        ES: { title: "Política de Privacidad", text: "<p>Este sitio utiliza el almacenamiento local para guardar sus preferencias de idioma, país y tamaño de texto.</p><p>Su nombre, país y comentarios se guardan en una base de datos segura (Firebase) para mostrarse a otros visitantes.</p><p>Los datos no se utilizan con fines comerciales ni se comparten con terceros.</p>" },
+        HE: { title: "מדיניות פרטיות", text: "<p>אתר זה משתמש באחסון מקומי כדי לשמור את העדפות השפה, המדינה וגודל הטקסט שלך.</p><p>השם, המדינה והתגובות שלך נשמרים במסד נתונים מאובטח (Firebase) כדי להציג למבקרים אחרים.</p><p>הנתונים אינם משמשים למטרות מסחריות ואינם מועברים לצדדים שלישיים.</p>" },
+        JA: { title: "プライバシーポリシー", text: "<p>当サイトでは、言語、国、テキストサイズの履歴を保存するためにローカルストレージを使用しています。</p><p>お名前、国名、コメントは安全なデータベース（Firebase）に保存され、他の訪問者に表示されます。</p><p>データは商業目的で使用されたり、第三者と共有されたりすることはありません。</p>" },
+        FR: { title: "Politique de confidentialité", text: "<p>Ce site utilise le stockage local pour enregistrer vos préférences de langue, de pays et de taille de texte.</p><p>Votre nom, votre pays et vos commentaires sont stockés dans une base de données sécurisée (Firebase) pour être affichés aux autres visiteurs.</p><p>Les données ne sont pas utilisées à des fins commerciales ni partagées avec des tiers.</p>" },
+        SV: { title: "Integritetspolicy", text: "<p>Denna webbplats använder lokal lagring för att spara dina inställningar för språk, land och textstorlek.</p><p>Ditt namn, land och kommentarer lagras i en säker databas (Firebase) för att visas för andra besökare.</p><p>Data används inte för kommersiella ändamål och delas inte med tredje part.</p>" }
       },
       terms: {
         LT: { title: "Naudojimo taisyklės", text: "<p>Visos nuotraukos ir vaizdo įrašai skirti tik asmeniniam peržiūrai.</p><p>Draudžiama publikuoti medžiagą kitose svetainėse ar socialiniuose tinkluose be leidimo.</p><p>Draudžiama naudoti medžiagą komerciniais tikslais.</p>" },
         EN: { title: "Terms of Use", text: "<p>All photos and videos are for personal viewing only.</p><p>It is forbidden to publish materials on other sites or social networks without permission.</p><p>It is forbidden to use materials for commercial purposes.</p>" },
         RU: { title: "Правила использования", text: "<p>Все фотографии и видео предназначены только для личного просмотра.</p><p>Запрещается публиковать материалы на других сайтах или в социальных сетях без разрешения.</p><p>Запрещается использовать материалы в коммерческих целях.</p>" },
-        LV: { title: "Lietošanas noteikumi", text: "<p>Visas fotogrāfijas un video ir paredzēti tikai personīgai apskatei.</p><p>Ir aizliegts publicēt materiālus citās vietnēs bez atļaujas.</p>" },
-        KUR: { title: "Mercên Bikaranînê", text: "<p>Hemû wêne û vîdyo tenê ji bo temaşekirina kesane ne.</p><p>Qedexe ye ku materyal bêyî destûr li ser malperên din werin weşandin.</p>" },
-        AM: { title: "Օգտագործման պայմաններ", text: "<p>Բոլոր լուսանկարները և տեսանյութերը միայն անձնական դիտման համար են:</p><p>Արգելվում է նյութերը հրապարակել այլ կայքերում առանց թույլտվության:</p>" },
-        PT: { title: "Termos de Uso", text: "<p>Todas as fotos e vídeos são apenas para visualização pessoal.</p><p>É proibido publicar materiais em outros sites sem permissão.</p>" },
-        ES: { title: "Términos de Uso", text: "<p>Todas las fotos y videos son solo para visualización personal.</p><p>Está prohibido publicar materiales en otros sitios sin permiso.</p>" },
-        HE: { title: "תנai שימוש", text: "<p>כל התמונות והסרטונים מיועדים לצפייה אישית בלבד.</p><p>חל איסור לפרסם חומרים באתרים אחרים ללא אישור.</p>" },
-        JA: { title: "利用規約", text: "<p>すべての写真および動画は個人利用のみを目的としています。</p><p>許可なく他のサイトや SNS にコンテンツを転載することを禁じます。</p>" },
-        FR: { title: "Conditions d'utilisation", text: "<p>Toutes les photos et vidéos sont destinées à un visionnage personnel uniquement.</p><p>Il est interdit de publier des documents sur d'autres sites sans autorisation.</p>" },
-        SV: { title: "Användarvillkor", text: "<p>Alla foton och videor är endast för personlig visning.</p><p>Det är förbjudet att publicera material på andra webbplatser utan tillstånd.</p>" }
+        LV: { title: "Lietošanas noteikumi", text: "<p>Visas fotogrāfijas un video ir paredzēti tikai personīgai apskatei.</p><p>Ir aizliegts publicēt materiālus citās vietnēs vai sociālajos tīklos bez atļaujas.</p><p>Ir aizliegts izmantot materiālus komerciāliem mērķiem.</p>" },
+        KUR: { title: "Mercên Bikaranînê", text: "<p>Hemû wêne û vîdyo tenê ji bo temaşekirina kesane ne.</p><p>Qedexe ye ku materyal bêyî destûr li ser malperên din an torên civakî werin weşandin.</p><p>Qedexe ye ku materyal ji bo armancên bazirganî werin bikar anîn.</p>" },
+        AM: { title: "Օգտագործման պայմաններ", text: "<p>Բոլոր լուսանկարները և տեսանյութերը միայն անձնական դիտման համար են:</p><p>Արգելվում է նյութերը հրապարակել այլ կայքերում կամ սոցիալական ցանցերում առանց թույլտվության:</p><p>Արգելվում է նյութերն օգտագործել առևտրային նպատակներով:</p>" },
+        PT: { title: "Termos de Uso", text: "<p>Todas as fotos e vídeos são apenas para visualização pessoal.</p><p>É proibido publicar materiais em outros sites ou redes sociais sem permissão.</p><p>É proibido usar materiais para fins comerciais.</p>" },
+        ES: { title: "Términos de Uso", text: "<p>Todas las fotos y videos son solo para visualización personal.</p><p>Está prohibido publicar materiales en otros sitios o redes sociales sin permiso.</p><p>Está prohibido utilizar materiales con fines comerciales.</p>" },
+        HE: { title: "תנאי שימוש", text: "<p>כל התמונות והסרטונים מיועדים לצפייה אישית בלבד.</p><p>חל איסור לפרסם חומרים באתרים אחרים או ברשתות חברתיות ללא אישור.</p><p>חל איסור להשתמש בחומרים למטרות מסחריות.</p>" },
+        JA: { title: "利用規約", text: "<p>すべての写真および動画は個人利用のみを目的としています。</p><p>許可なく他のサイトや SNS にコンテンツを転載することを禁じます。</p><p>商業目的での素材の使用は禁止されています。</p>" },
+        FR: { title: "Conditions d'utilisation", text: "<p>Toutes les photos et vidéos sont destinées à un visionnage personnel uniquement.</p><p>Il est interdit de publier des documents sur d'autres sites ou réseaux sociaux sans autorisation.</p><p>Il est interdit d'utiliser des documents à des fins commerciales.</p>" },
+        SV: { title: "Användarvillkor", text: "<p>Alla foton och videor är endast för personlig visning.</p><p>Det är förbjudet att publicera material på andra webbplatser eller sociala nätverk utan tillstånd.</p><p>Det är förbjudet att använda material för kommersiella ändamål.</p>" }
       }
     };
 
@@ -558,6 +550,11 @@
 
     document.getElementById('wsLang').addEventListener('change', (e) => {
       updateWelcomeScreenLang(e.target.value);
+    });
+
+    document.getElementById('wsSize').addEventListener('change', (e) => {
+      if (e.target.value === 'large') document.documentElement.classList.add('text-large');
+      else document.documentElement.classList.remove('text-large');
     });
 
     document.getElementById('wsAccept').addEventListener('change', (e) => {
@@ -621,8 +618,8 @@
       currentCountry = prefs.country;
       currentSize = prefs.size;
 
-      if (currentSize === 'large') document.body.classList.add('text-large');
-      else document.body.classList.remove('text-large');
+      if (currentSize === 'large') document.documentElement.classList.add('text-large');
+      else document.documentElement.classList.remove('text-large');
 
       const t = TRANSLATIONS[currentLang] || TRANSLATIONS['EN'];
       document.getElementById('heroDesc').textContent = t.heroDesc;
@@ -827,7 +824,7 @@
         if(l === sourceLang) {
           trans[l] = originalText;
         } else {
-          trans[l] = `${originalText}`;
+          trans[l] = `[${l}] ${originalText}`;
         }
       });
       return trans;
