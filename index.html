@@ -33,6 +33,10 @@
     .hide { display: none !important; }
     .fade-in { animation: fadeIn 0.4s ease-in-out forwards; }
     @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+    
+    video::-webkit-media-controls-panel {
+      background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    }
   </style>
 </head>
 <body class="min-h-screen selection:bg-[#b2533e] selection:text-white antialiased overflow-hidden" id="bodyEl">
@@ -135,8 +139,15 @@
   <main class="max-w-7xl mx-auto px-4 md:px-8 py-16 space-y-20">
     <section id="process-video">
       <div class="max-w-5xl mx-auto bg-[#f5efe6] border border-[#ebdcd0] rounded-3xl p-4 md:p-8 shadow-sm">
-        <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-inner bg-stone-200">
-          <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-xl bg-black relative group">
+          <video 
+            class="w-full h-full object-contain" 
+            controls 
+            playsinline 
+            preload="metadata"
+            poster="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg">
+            <source src="https://pixeldrain.com/api/file/fGBmeT7D" type="video/mp4">
+          </video>
         </div>
       </div>
     </section>
