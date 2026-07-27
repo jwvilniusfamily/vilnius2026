@@ -865,13 +865,16 @@
         });
         document.getElementById('formText').value = '';
       } catch (error) {
+        console.error("Klaida:", error);
       } finally {
         btn.disabled = false;
         loader.classList.add('hide');
       }
     });
 
+    // Inicijuojame aplikaciją po viso kodo įkėlimo
     init();
+
   </script>
 </body>
 </html>
