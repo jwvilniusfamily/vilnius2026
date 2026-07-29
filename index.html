@@ -148,10 +148,10 @@
       <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-[#ebdcd0] pb-6">
         <h2 class="text-2xl md:text-3xl font-bold text-[#2c2520]" id="galleryTitle">Darbo užkulisiai</h2>
         <div class="flex gap-2 overflow-x-auto custom-scrollbar w-full md:w-auto pb-2">
-          <button onclick="switchCategory('all')" id="catBtnAll" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#b2533e] border-b-2 border-[#b2533e] whitespace-nowrap">Viskas</button>
-          <button onclick="switchCategory('posters')" id="catBtnPosters" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap">Plakatai</button>
-          <button onclick="switchCategory('clay')" id="catBtnClay" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap">Molis</button>
-          <button onclick="switchCategory('postcards')" id="catBtnCards" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap">Atvirukai</button>
+          <button onclick="switchCategory('all')" id="catBtnAll" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#b2533e] border-b-2 border-[#b2533e] whitespace-nowrap transition-colors">Viskas</button>
+          <button onclick="switchCategory('posters')" id="catBtnPosters" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap hover:text-[#b2533e] transition-colors">Plakatai</button>
+          <button onclick="switchCategory('clay')" id="catBtnClay" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap hover:text-[#b2533e] transition-colors">Molis</button>
+          <button onclick="switchCategory('postcards')" id="catBtnCards" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap hover:text-[#b2533e] transition-colors">Atvirukai</button>
         </div>
       </div>
       <div id="galleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6"></div>
@@ -186,7 +186,7 @@
             <span id="labelTranslateOn">AI vertimas įjungtas</span>
           </span>
         </div>
-        <div id="commentsWrapper" class="space-y-5 max-h-[700px] overflow-y-auto pr-3 custom-scrollbar">
+        <div id="commentsWrapper" class="space-y-5 max-h-[700px] overflow-y-auto pr-3 custom-scrollbar pb-20">
           <div class="text-center py-12 text-[#8e7a68] animate-pulse" id="loadingText">Kraunama...</div>
         </div>
       </div>
@@ -202,18 +202,18 @@
   </footer>
 
   <div id="imageModal" class="fixed inset-0 z-[120] bg-black/95 flex-col justify-center items-center p-2 md:p-6 hide transition-opacity duration-300" onclick="closeImageModal()">
-    <button class="absolute top-4 right-4 text-white/70 hover:text-white bg-black/40 rounded-full w-12 h-12 flex items-center justify-center text-2xl z-50" onclick="closeImageModal()">&times;</button>
-    <button class="absolute left-4 text-white bg-black/50 rounded-full w-14 h-14 flex items-center justify-center backdrop-blur-md z-50" onclick="navigateModal(-1); event.stopPropagation();">
+    <button class="absolute top-4 right-4 text-white/70 hover:text-white bg-black/40 rounded-full w-12 h-12 flex items-center justify-center text-2xl z-50 transition-colors" onclick="closeImageModal()">&times;</button>
+    <button class="absolute left-4 text-white bg-black/50 rounded-full w-14 h-14 flex items-center justify-center backdrop-blur-md z-50 transition-colors hover:bg-[#b2533e]" onclick="navigateModal(-1); event.stopPropagation();">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
     </button>
     <div class="w-full h-[85vh] flex items-center justify-center px-4 overflow-hidden" onclick="event.stopPropagation()">
-      <img id="modalImg" src="" alt="Gallery" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl transition-transform duration-200 cursor-zoom-in" title="Slinkite ratuku, kad priartintumėte">
+      <img id="modalImg" src="" alt="Gallery" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl transition-transform duration-200 cursor-zoom-in">
     </div>
-    <button class="absolute right-4 text-white bg-black/50 rounded-full w-14 h-14 flex items-center justify-center backdrop-blur-md z-50" onclick="navigateModal(1); event.stopPropagation();">
+    <button class="absolute right-4 text-white bg-black/50 rounded-full w-14 h-14 flex items-center justify-center backdrop-blur-md z-50 transition-colors hover:bg-[#b2533e]" onclick="navigateModal(1); event.stopPropagation();">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
     </button>
     <div class="absolute bottom-6 z-50">
-      <span id="modalIndexIndicator" class="text-sm font-bold text-white tracking-widest bg-black/60 px-6 py-2.5 rounded-full"></span>
+      <span id="modalIndexIndicator" class="text-sm font-bold text-white tracking-widest bg-black/60 px-6 py-2.5 rounded-full border border-white/10"></span>
     </div>
   </div>
 
@@ -324,8 +324,6 @@
       { url: 'https://i.postimg.cc/mkhcS31Y/IMG-7278-2.jpg', cat: 'clay' },
       { url: 'https://i.postimg.cc/W4nhLYM0/IMG-7279-2.jpg', cat: 'clay' },
       { url: 'https://i.postimg.cc/mkqPpcQB/IMG-7285-2.jpg', cat: 'clay' },
-      { url: 'https://i.postimg.cc/tgKZznNy/IMG-0018-143-Edited.jpg', cat: 'postcards' },
-      { url: 'https://i.postimg.cc/L6YYYTpM/IMG-7135-2.jpg', cat: 'postcards' },
       { url: 'https://i.postimg.cc/fbpmRLQW/atvirukai-01.jpg', cat: 'postcards' },
       { url: 'https://i.postimg.cc/6Qgnp3Jb/atvirukai-02.jpg', cat: 'postcards' },
       { url: 'https://i.postimg.cc/bvWkwJcg/atvirukai-03.jpg', cat: 'postcards' },
@@ -742,15 +740,17 @@
         if (target === 'PT') targetTag = 'PT-BR';
         
         try {
-          const res = await fetch('https://api-free.deepl.com/v2/translate', {
+          const url = 'https://api-free.deepl.com/v2/translate';
+          const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
+          
+          const res = await fetch(proxyUrl, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': `DeepL-Auth-Key ${DEEPL_KEY}`,
+              'Content-Type': 'application/json'
             },
-            body: new URLSearchParams({
-              auth_key: DEEPL_KEY,
-              text: text,
-              source_lang: sourceLang,
+            body: JSON.stringify({
+              text: [text],
               target_lang: targetTag
             })
           });
@@ -759,15 +759,13 @@
           if (data && data.translations && data.translations.length > 0) {
             translations[target] = data.translations[0].text;
           }
-        } catch (err) {
-          console.error(`Klaida verčiant į ${target}:`, err);
-        }
+        } catch (err) {}
       });
       
       await Promise.all(promises);
       
       ['KUR', 'AM'].forEach(lang => {
-        if (lang !== sourceLang) {
+        if (lang !== sourceLang && !translations[lang]) {
           translations[lang] = translations['EN'] || text;
         }
       });
@@ -801,7 +799,6 @@
         
         document.getElementById('formText').value = '';
       } catch (err) {
-        console.error("Klaida:", err);
       } finally {
         btn.disabled = false;
         loader.classList.add('hide');
