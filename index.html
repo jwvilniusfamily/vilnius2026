@@ -31,10 +31,13 @@
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #c5b39a; border-radius: 4px; }
     .modal-overlay { backdrop-filter: blur(12px); background-color: rgba(250, 249, 246, 0.95); }
     .hide { display: none !important; }
-    .fade-in { animation: fadeIn 0.6s ease-in-out forwards; }
+    .fade-in { animation: fadeIn 0.4s ease-out forwards; }
     @keyframes fadeIn { 
-      from { opacity: 0; transform: translateY(10px); } 
+      from { opacity: 0; transform: translateY(5px); } 
       to { opacity: 1; transform: translateY(0); } 
+    }
+    video::-webkit-media-controls-panel {
+      background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
     }
   </style>
 </head>
@@ -134,8 +137,15 @@
   <main class="max-w-7xl mx-auto px-4 md:px-8 py-16 space-y-20">
     <section id="process-video" class="fade-in">
       <div class="max-w-5xl mx-auto bg-[#f5efe6] border border-[#ebdcd0] rounded-3xl p-4 md:p-8 shadow-sm">
-        <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-xl bg-black">
-          <iframe class="w-full h-full" src="https://www.youtube.com/embed/[ВСТАВЬ_ID_ВИДЕО_ТУТ]" title="Vilnius Family 2026" frameborder="0" allowfullscreen></iframe>
+        <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-xl bg-black relative">
+          <video 
+            class="w-full h-full object-cover" 
+            controls 
+            playsinline 
+            preload="metadata"
+            poster="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg">
+            <source src="https://firebasestorage.googleapis.com/v0/b/jwvilniusfamily.firebasestorage.app/o/JW%20VILNIUS%20FAMILY%20VIDEO%20(1).mp4?alt=media&token=f4fb07b1-6cde-49b1-90cc-06e41ff32cc8" type="video/mp4">
+          </video>
         </div>
       </div>
     </section>
@@ -302,7 +312,7 @@
       LT: { heroDesc: "Sveiki atvykę, mieli mūsų tarptautinės dvasinės šeimos broliai ir sesės! Mes be galo džiaugiamės, kad atvykote į kongresą Lietuvoje. Tai bus nepamirštamas kongresas. Mums be galo džiugu, kad galime jums parodyti Lietuvą. Šiuos plakatus su pasveikinimais įvairiomis kalbomis ir mūsų mažas molines dovanėles ruošėme specialiai jums su didele meile, norėdami supažindinti su mūsų kultūra ir tradicijomis. Šiame puslapyje norime parodyti, kaip viską kūrėme – čia rasite vaizdo įrašus iš mūsų darbo užkulisių. Mums būtų labai įdomu sužinoti jūsų įspūdžius. Prašome užeiti į skiltį „Laiškas“, pasirinkti savo šalį ir palikti mums keletą šiltų žodžių. Mes labai vertiname, kad esate kartu su mumis!", btnExplore: "Nuotraukos", btnLeaveMessage: "Laiškas", galleryTitle: "Darbo užkulisiai", commentsTitle: "Laiškas", commentsDesc: "Palikite mums keletą šiltų žodžių.", labelName: "Vardas", labelMsg: "Žinutė", btnSubmitComment: "Siųsti", commentsSub: "Atsiliepimai", labelTranslateOn: "AI vertimas įjungtas", wsTitle: "Sveiki atvykę!", wsDesc: "Pasirinkite nustatymus", wsCountryLabel: "Šalis", wsLangLabel: "Kalba", wsSizeLabel: "Teksto dydis", wsSizeNormal: "Standartinis", wsSizeLarge: "Padidintas", btnContinue: "Tęsti", wsPrivacy: "Privatumo politika", wsTerms: "Naudojimo taisyklės", wsAcceptText: "Sutinku su", wsAnd: "ir", translatedFrom: "Versta iš", loading: "Kraunama...", noComments: "Nėra komentarų. Būkite pirmas!", docBtnClose: "Supratau", catBtnAll: "Viskas", catBtnPosters: "Plakatai", catBtnClay: "Molis", catBtnCards: "Atvirukai" },
       EN: { heroDesc: "Welcome, dear brothers and sisters of our international spiritual family! We are absolutely thrilled that you came to the congress in Lithuania. This will be an unforgettable congress. We prepared these posters and clay gifts especially for you with great love. On this page we want to show you how we created everything. We would be very interested to hear your impressions. Please leave us a few warm words!", btnExplore: "Photos", btnLeaveMessage: "Letter", galleryTitle: "Behind the Scenes", commentsTitle: "Letter", commentsDesc: "Please leave us a few warm words.", labelName: "Your Name", labelMsg: "Message", btnSubmitComment: "Send", commentsSub: "Guestbook", labelTranslateOn: "AI Translation Active", wsTitle: "Welcome!", wsDesc: "Choose your preferences", wsCountryLabel: "Country", wsLangLabel: "Language", wsSizeLabel: "Text Size", wsSizeNormal: "Normal", wsSizeLarge: "Large", btnContinue: "Continue", wsPrivacy: "Privacy Policy", wsTerms: "Terms of Use", wsAcceptText: "I agree to the", wsAnd: "and", translatedFrom: "Translated from", loading: "Loading...", noComments: "No comments yet. Be the first!", docBtnClose: "I understand", catBtnAll: "All", catBtnPosters: "Posters", catBtnClay: "Clay", catBtnCards: "Postcards" },
       RU: { heroDesc: "Добро пожаловать, дорогие братья и сестры нашей международной духовной семьи! Мы бесконечно рады, что вы приехали на конгресс в Литву. Это будет незабываемый конгресс. Эти плакаты и глиняные подарки мы готовили специально для вас с огромной любовью. На этой странице мы хотим показать вам процесс творчества. Нам было бы очень интересно узнать ваши впечатления. Пожалуйста, оставьте несколько теплых слов!", btnExplore: "Фото", btnLeaveMessage: "Письмо", galleryTitle: "Закулисье", commentsTitle: "Письмо", commentsDesc: "Оставьте нам несколько теплых слов.", labelName: "Ваше имя", labelMsg: "Сообщение", btnSubmitComment: "Отправить", commentsSub: "Отзывы", labelTranslateOn: "AI-перевод активен", wsTitle: "Добро пожаловать!", wsDesc: "Выберите настройки", wsCountryLabel: "Страна", wsLangLabel: "Язык", wsSizeLabel: "Размер текста", wsSizeNormal: "Обычный", wsSizeLarge: "Крупный", btnContinue: "Продолжить", wsPrivacy: "Политика конфиденциальности", wsTerms: "Правила использования", wsAcceptText: "Я согласен с", wsAnd: "и", translatedFrom: "Переведено с", loading: "Загрузка...", noComments: "Пока нет комментариев. Будьте первым!", docBtnClose: "Понятно", catBtnAll: "Все", catBtnPosters: "Плакаты", catBtnClay: "Глина", catBtnCards: "Открытки" },
-      LV: { heroDesc: "Laipni lūdzam, dārgie brāļi un māsas no mūsu starptautiskās garīgās ģimenes! Mēs esam bezgala priecīgi, ka esat ieradušies uz kongresu Lietuvā. Šis būs neaizmirstams kongress. Šos plakātus un māla dāvaniņas mēs gatavojām īpaši jums ar lielu mīlestību. Šajā lapā mēs vēlamies parādīt, kā mēs visu radījām. Mums būtu ļoti interesanti uzzināt jūsu iespaidus. Lūdzu, atstājiet mums dažus siltus vārdus!", btnExplore: "Foto", btnLeaveMessage: "Vēstule", galleryTitle: "Aizkulises", commentsTitle: "Vēstule", commentsDesc: "Lūdzu, atstājiet mums dažus siltus vārdus.", labelName: "Jūsu Vārds", labelMsg: "Ziņojums", btnSubmitComment: "Sūtīt", commentsSub: "Atsauksmes", labelTranslateOn: "AI tulkojums ieslēgts", wsTitle: "Laipni lūdzam!", wsDesc: "Izvēlieties iestatījumus", wsCountryLabel: "Valsts", wsLangLabel: "Valoda", wsSizeLabel: "Teksta izmērs", wsSizeNormal: "Standarta", wsSizeLarge: "Liels", btnContinue: "Turpināt", wsPrivacy: "Privātuma politika", wsTerms: "Lietošanas noteikumi", wsAcceptText: "Es piekrītu", wsAnd: "un", translatedFrom: "Tulkots no", loading: "Notiek ielāde...", noComments: "Vēl nav komentāru. Esiet pirmais!", docBtnClose: "Sapratu", catBtnAll: "Viss", catBtnPosters: "Plakāti", catBtnClay: "Māls", catBtnCards: "Pastkartes" },
+      LV: { heroDesc: "Laipni lūdzam, dārgie brāļi un māsas no mūsu starptautiskās garīgās ģimenes! Mēs esam bezgala priecīgi, ka esat ieradušies uz kongresu Lietuvā. Šis būs neaizmirstams kongress. Šos plakātus un māla dāvaniņas mēs gatavojām īpaši jums ar lielu mīlestību. Šajā lapā mēs vēlamies parādīt, kā mēs visu radījām. Mums būtu ļoti interesanti uzzināt jūsu iespaidus. Lūdzu, atstājiet mums dažus siltus vārdus!", btnExplore: "Foto", btnLeaveMessage: "Vēstule", galleryTitle: "Aizkulises", commentsTitle: "Vēstule", commentsDesc: "Lūdzu, atstājiet mums dažus siltus vārdus.", labelName: "Jūsu Vārds", labelMsg: "Ziņojums", btnSubmitComment: "Sūtīt", commentsSub: "Atsauksmes", labelTranslateOn: "AI tulkojums ieslēgts", wsTitle: "Laipni lūdzam!", wsDesc: "Izvēlieties iestatījumus", wsCountryLabel: "Valsts", wsLangLabel: "Valoda", wsSizeLabel: "Teksta izmērs", Standarta: "Standarta", wsSizeLarge: "Liels", btnContinue: "Turpināt", wsPrivacy: "Privātuma politika", wsTerms: "Lietošanas noteikumi", wsAcceptText: "Es piekrītu", wsAnd: "un", translatedFrom: "Tulkots no", loading: "Notiek ielāde...", noComments: "Vēl nav komentāru. Esiet pirmais!", docBtnClose: "Sapratu", catBtnAll: "Viss", catBtnPosters: "Plakāti", catBtnClay: "Māls", catBtnCards: "Pastkartes" },
       KUR: { heroDesc: "Bi xêr hatin, xwişk û birayên delal ên malbata me ya giyanî ya navneteweyî! Em pir kêfxweş in ku hûn hatin kongreya Lîtvanyayê. Ev dê bibe kongreyek jibîrnekirî. Me ev poster û diyarî bi hezkirinek mezin ji bo we amade kirin. Em dixwazin nîşanî we bidin ka me çawa her tişt afirand. Ji kerema xwe çend peyvên germ ji me re bihêlin!", btnExplore: "Wêne", btnLeaveMessage: "Name", galleryTitle: "Li pişt perdeyê", commentsTitle: "Name", commentsDesc: "Ji kerema xwe çend peyvên germ ji me re bihêlin.", labelName: "Navê te", labelMsg: "Peyam", btnSubmitComment: "Bişîne", commentsSub: "Şîrove", labelTranslateOn: "Wergera AI çalak e", wsTitle: "Bi xêr hatin!", wsDesc: "Vebijarkên xwe hilbijêrin", wsCountryLabel: "Welat", wsLangLabel: "Ziman", wsSizeLabel: "Mezinahiya nivîsê", wsSizeNormal: "Normal", wsSizeLarge: "Mezin", btnContinue: "Berdewam bike", wsPrivacy: "Siyaseta Taybetîtiyê", wsTerms: "Mercên Bikaranînê", wsAcceptText: "Ez qebûl dikim", wsAnd: "û", translatedFrom: "Ji hatî wergerandin", loading: "Tê barkirin...", noComments: "Hê şîrove tune. Bibin yê yekem!", docBtnClose: "Fêm kir", catBtnAll: "Hemû", catBtnPosters: "Poster", catBtnClay: "Herrî", catBtnCards: "Kart" },
       AM: { heroDesc: "Բարի գալուստ, մեր միջազգային հոգևոր ընտանիքի սիրելի եղբայրներ և քույրեր: Մենք անչափ ուրախ ենք, որ դուք եկել եք Լիտվա: Սա կլինի անմոռանալի կոնգրես: Այս պաստառներն ու կավե նվերները մենք պատրաստել ենք հատուկ ձեզ համար՝ մեծ սիրով: Խնդրում ենք թողնել մեզ մի քանի ջերմ խոսք:", btnExplore: "Լուսանկարներ", btnLeaveMessage: "Նամակ", galleryTitle: "Կուլիսներում", commentsTitle: "Նամակ", commentsDesc: "Խնդրում ենք թողնել մեզ մի քանի ջերմ խոսք:", labelName: "Ձեր անունը", labelMsg: "Հաղորդագրություն", btnSubmitComment: "Ուղարկել", commentsSub: "Մեկնաբանություններ", labelTranslateOn: "AI Թարգմանությունը միացված է", wsTitle: "Բարի գալուստ", wsDesc: "Ընտրեք կարգավորումները", wsCountryLabel: "Երկիր", wsLangLabel: "Լեզու", wsSizeLabel: "Տեքստի չափը", wsSizeNormal: "Ստանդարտ", wsSizeLarge: "Մեծ", btnContinue: "Շարունակել", wsPrivacy: "Գաղտնիության քաղաքականություն", wsTerms: "Օգտագործման պայմաններ", wsAcceptText: "Ես համաձայն եմ", wsAnd: "և", translatedFrom: "Թարգմանված է", loading: "Բեռնվում է...", noComments: "Դեռ մեկնաբանություններ չկան: Եղեք առաջինը:", docBtnClose: "Հասկացա", catBtnAll: "Բոլորը", catBtnPosters: "Պաստառներ", catBtnClay: "Կավ", catBtnCards: "Բացիկներ" },
       PT: { heroDesc: "Bem-vindos, queridos irmãos e irmãs da nossa família espiritual internacional! Estamos absolutamente emocionados por vocês terem vindo ao congresso na Lituânia. Preparamos estes presentes com muito amor. Gostaríamos muito de saber as suas impressões. Por favor, deixe-nos algumas palavras calorosas!", btnExplore: "Fotos", btnLeaveMessage: "Carta", galleryTitle: "Bastidores", commentsTitle: "Carta", commentsDesc: "Por favor, deixe-nos algumas palavras calorosas.", labelName: "Seu Nome", labelMsg: "Mensagem", btnSubmitComment: "Enviar", commentsSub: "Comentários", labelTranslateOn: "Tradução AI Ativa", wsTitle: "Bem-vindo!", wsDesc: "Escolha suas preferências", wsCountryLabel: "País", wsLangLabel: "Idioma", wsSizeLabel: "Tamanho do Texto", wsSizeNormal: "Normal", wsSizeLarge: "Grande", btnContinue: "Continuar", wsPrivacy: "Política de Privacidade", wsTerms: "Termos de Uso", wsAcceptText: "Eu concordo com a", wsAnd: "e", translatedFrom: "Traduzido de", loading: "Carregando...", noComments: "Ainda não há comentários. Seja o primeiro!", docBtnClose: "Entendi", catBtnAll: "Tudo", catBtnPosters: "Cartazes", catBtnClay: "Argila", catBtnCards: "Cartões" },
@@ -316,31 +326,11 @@
     const DOCS = {
       privacy: {
         LT: { title: "Privatumo politika", text: "<p>Ši svetainė naudoja vietinę atmintį, kad išsaugotų jūsų pasirinktą kalbą, šalį ir teksto dydį.</p><p>Jūsų vardas, šalis ir komentarai yra saugomi saugioje duomenų bazėje (Firebase) ir rodomi kitiems lankytojams.</p><p>Duomenys nenaudojami komerciniais tikslais ir neperduodami trečiosioms šalims.</p>" },
-        EN: { title: "Privacy Policy", text: "<p>This site uses local storage to save your language, country, and text size preferences.</p><p>Your name, country, and comments are stored in a secure database (Firebase) to be displayed to other visitors.</p><p>Data is not used for commercial purposes or shared with third parties.</p>" },
-        RU: { title: "Политика конфиденциальности", text: "<p>Этот сайт использует локальное хранилище для сохранения выбранного языка, страны и размера текста.</p><p>Ваше имя, страна и комментарии сохраняются в безопасной базе данных (Firebase) для отображения другим посетителям.</p><p>Данные не используются в коммерческих целях и не передаются третьим лицам.</p>" },
-        LV: { title: "Privātuma politika", text: "<p>Šī vietne izmanto lokālo krātuvi, lai saglabātu jūsu valodas, valsts un teksta izmēra preferences.</p><p>Jūsu vārds, valsts un komentāri tiek glabāti drošā datubāzē (Firebase), lai tos parādītu citiem apmeklētājiem.</p><p>Dati netiek izmantoti komerciāliem mērķiem un netiek nodoti trešajām pusēm.</p>" },
-        KUR: { title: "Siyaseta Taybetîtiyê", text: "<p>Ev malper hilanîna herêmî bikar tîne da ku tercîhên ziman, welat û mezinahiya nivîsa we hilîne.</p><p>Nav, welat û şîroveyên we di databasek ewledar (Firebase) de têne hilanîn da ku ji mêvanên din re werin nîşandan.</p><p>Daneyên ji bo armancên bazirganî nayên bikar anîn û bi aliyên sêyemîn re nayên parve kirin.</p>" },
-        AM: { title: "Գաղտնիության քաղաքականություն", text: "<p>Այս կայքը օգտագործում է տեղական պահեստը ձեր լեզվի, երկրի և տեքստի չափի կարգավորումները պահպանելու համար:</p><p>Ձեր անունը, երկիրը և մեկնաբանությունները պահվում են անվտանգ տվյալների բազայում (Firebase)՝ այլ այցելուներին ցուցադրելու համար:</p><p>Տվյալները չեն օգտագործվում առևտրային նպատակներով և չեն փոխանցվում երրորդ անձանց:</p>" },
-        PT: { title: "Política de Privacidade", text: "<p>Este site usa armazenamento local para salvar suas preferências de idioma, país e tamanho do texto.</p><p>Seu nome, país e comentários são armazenados em um banco de dados seguro (Firebase) para serem exibidos a outros visitantes.</p><p>Os dados não são usados para fins comerciais nem compartilhados com terceiros.</p>" },
-        ES: { title: "Política de Privacidad", text: "<p>Este sitio utiliza el almacenamiento local para guardar suas preferencias de idioma, país y tamaño de texto.</p><p>Su nombre, país y comentarios se guardan en una base de datos segura (Firebase) para mostrarse a otros visitantes.</p><p>Los datos no se utilizan con fines comerciales ni se comparten con terceros.</p>" },
-        HE: { title: "מדיניות פרטיות", text: "<p>אתר זה משתמש באחסון מקומי כדי לשמור את העדפות השפה, המדינה וגודל הטקסט שלך.</p><p>השם, המדינה והתגובות שלך נשמרים במסד נתונים מאובטח (Firebase) כדי להציג למבקרים אחרים.</p><p>הנתונים אינם משמשים למטרות מסחריות ואינם מועברים לצדדים שלישיים.</p>" },
-        JA: { title: "プライバシーポリシー", text: "<p>当サイトでは、言語、国、テキストサイズの履歴を保存するためにローカルストレージを使用しています。</p><p>お名前、国名、コメントは安全なデータベース（Firebase）に保存され、他の訪問者に表示されます。</p><p>データは商業目的で使用されたり、第三者と共有されたりすることはありません。</p>" },
-        FR: { title: "Politique de confidentialité", text: "<p>Ce site utilise le stockage local pour enregistrer vos préférences de langue, de pays et de taille de texte.</p><p>Votre nom, votre pays et vos commentaires sont stockés dans une base de données sécurisée (Firebase) pour être affichés aux autres visiteurs.</p><p>Les données ne sont pas utilisées à des fins commerciales ni partagées avec des tiers.</p>" },
-        SV: { title: "Integritetspolicy", text: "<p>Denna webbplats använder lokal lagring för att spara dina inställningar för språk, land och textstorlek.</p><p>Ditt namn, land och kommentarer lagras i en säker databas (Firebase) för att visas för andra besökare.</p><p>Data används inte för kommersiella ändamål och delas inte med tredje part.</p>" }
+        EN: { title: "Privacy Policy", text: "<p>This site uses local storage to save your language, country, and text size preferences.</p><p>Your name, country, and comments are stored in a secure database (Firebase) to be displayed to other visitors.</p><p>Data is not used for commercial purposes or shared with third parties.</p>" }
       },
       terms: {
         LT: { title: "Naudojimo taisyklės", text: "<p>Visos nuotraukos ir vaizdo įrašai skirti tik asmeniniam peržiūrai.</p><p>Draudžiama publikuoti medžiagą kitose svetainėse ar socialiniuose tinkluose be leidimo.</p><p>Draudžiama naudoti medžiagą komerciniais tikslais.</p>" },
-        EN: { title: "Terms of Use", text: "<p>All photos and videos are for personal viewing only.</p><p>It is forbidden to publish materials on other sites or social networks without permission.</p><p>It is forbidden to use materials for commercial purposes.</p>" },
-        RU: { title: "Правила использования", text: "<p>Все фотографии и видео предназначены только для личного просмотра.</p><p>Запрещается публиковать материалы на других сайтах или в социальных сетях без разрешения.</p><p>Запрещается использовать материалы в коммерческих целях.</p>" },
-        LV: { title: "Lietošanas noteikumi", text: "<p>Visas fotogrāfijas un video ir paredzēti tikai personīgai apskatei.</p><p>Ir aizliegts publicēt materiālus citās vietnēs vai sociālajos tīklos bez atļaujas.</p><p>Ir aizliegts izmantot materiālus komerciāliem mērķiem.</p>" },
-        KUR: { title: "Mercên Bikaranînê", text: "<p>Hemû wêne û vîdyo tenê ji bo temaşekirina kesane ne.</p><p>Qedexe ye ku materyal bêyî destûr li ser malperên din an torên civakî werin weşandin.</p><p>Qedexe ye ku materyal ji bo armancên bazirganî werin bikar anîn.</p>" },
-        AM: { title: "Օգտագործման պայմաններ", text: "<p>Բոլոր լուսանկարները և տեսանյութերը միայն անձնական դիտման համար են:</p><p>Արգելվում է նյութերը հրապարակել այլ կայքերում կամ սոցիալական ցանցերում առանց թույլտվության:</p><p>Արգելվում է նյութերն օգտագործել առևտրային նպատակներով:</p>" },
-        PT: { title: "Termos de Uso", text: "<p>Todas as fotos e vídeos são apenas para visualização pessoal.</p><p>É proibido publicar materiais em outros sites ou redes sociais sem permissão.</p><p>É proibido usar materiais para fins comerciais.</p>" },
-        ES: { title: "Términos de Uso", text: "<p>Todas las fotos y videos son solo para visualización personal.</p><p>Está prohibido publicar materiales en otros sitios o redes sociales sin permiso.</p><p>Está prohibido utilizar materiales con fines comerciales.</p>" },
-        HE: { title: "תנאי שימוש", text: "<p>כל התמונות והסרטונים מיועדים לצפייה אישית בלבד.</p><p>חל איסור לפרסם חומרים באתרים אחרים או ברשתות חברתיות ללא אישור.</p><p>חל איסור להשתמש בחומרים למטרות מסחריות.</p>" },
-        JA: { title: "利用規約", text: "<p>すべての写真および動画は個人利用のみを目的としています。</p><p>許可なく他のサイトや SNS にコンテンツを転載することを禁じます。</p><p>商業目的での素材の使用は禁止されています。</p>" },
-        FR: { title: "Conditions d'utilisation", text: "<p>Toutes les photos et vidéos sont destinées à un visionnage personnel uniquement.</p><p>Il est interdit de publier des documents sur d'autres sites ou réseaux sociaux sans autorisation.</p><p>Il est interdit d'utiliser des documents à des fins commerciales.</p>" },
-        SV: { title: "Användarvillkor", text: "<p>Alla foton och videor är endast för personlig visning.</p><p>Det är förbjudet att publicera material på andra webbplatser eller sociala nätverk utan tillstånd.</p><p>Det är förbjudet att använda material för kommersiella ändamål.</p>" }
+        EN: { title: "Terms of Use", text: "<p>All photos and videos are for personal viewing only.</p><p>It is forbidden to publish materials on other sites or social networks without permission.</p><p>It is forbidden to use materials for commercial purposes.</p>" }
       }
     };
 
@@ -430,6 +420,11 @@
       });
     };
 
+    const getTranslation = (c, targetLang) => {
+      if (!c.translatedText) return null;
+      return c.translatedText[targetLang] || c.translatedText[targetLang.toLowerCase()] || c.translatedText[GOOGLE_LANGS[targetLang]] || null;
+    };
+
     const translateWithGoogle = async (text, sourceLang) => {
       const translations = {};
       translations[sourceLang] = text;
@@ -469,13 +464,13 @@
         const div = document.createElement('div');
         div.className = "bg-white border border-[#ebdcd0] rounded-2xl p-6 shadow-sm fade-in hover:shadow-md transition-shadow duration-300";
         
-        let translatedStr = null;
-        if (c.translatedText && typeof c.translatedText === 'object') {
-          translatedStr = c.translatedText[currentLang];
+        let translatedStr = getTranslation(c, currentLang);
+        if (!translatedStr && currentLang !== 'EN') {
+          translatedStr = getTranslation(c, 'EN');
         }
         
         const rawText = translatedStr ? translatedStr : c.originalText;
-        const text = escapeHTML(rawText);
+        const text = escapeHTML(rawText || '');
         const safeName = escapeHTML(c.name || 'Svečias');
         const safeCountry = escapeHTML(c.country || '');
         const isTr = c.originalLang !== currentLang && !!translatedStr;
@@ -484,7 +479,7 @@
         Object.entries(c.reactions || {}).forEach(([emoji, users]) => {
           if(!users.length) return;
           const active = users.includes(userId);
-          rHtml += `<button onclick="react('${c.id}','${emoji}',${active})" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${active ? 'bg-[#b2533e]/10 text-[#b2533e] border border-[#b2533e]/30' : 'bg-stone-50 text-stone-600 border border-transparent hover:bg-stone-100'}">${emoji} ${users.length}</button>`;
+          rHtml += `<button onclick="react('${c.id}','${emoji}',${active})" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${active ? 'bg-[#b2533e]/10 text-[#b2533e] border border-[#b2533e]/30' : 'bg-stone-50 text-stone-600 border border-transparent hover:bg-stone-100'} shadow-sm">${emoji} ${users.length}</button>`;
         });
 
         div.innerHTML = `
@@ -500,13 +495,17 @@
           <p class="text-base text-[#5c524a] font-medium leading-relaxed whitespace-pre-wrap mb-4">${text}</p>
           ${isTr ? `<div class="flex items-center gap-2 mb-4"><div class="h-px bg-[#f1ede6] flex-grow"></div><p class="text-[10px] text-[#8e7a68] font-bold uppercase tracking-widest text-center">✨ ${t.translatedFrom} ${c.originalLang}</p><div class="h-px bg-[#f1ede6] flex-grow"></div></div>` : '<div class="h-px bg-[#f1ede6] w-full mb-4"></div>'}
           
-          <div class="flex flex-col gap-3">
+          <div class="mt-2">
             <div class="flex flex-wrap gap-2 items-center">
               ${rHtml}
-              <button onclick="togglePicker('${c.id}')" class="w-8 h-8 rounded-full bg-stone-50 flex items-center justify-center text-stone-400 font-bold hover:bg-stone-200 hover:text-[#b2533e] transition-colors duration-300 pb-1 text-lg shadow-sm border border-[#ebdcd0]">+</button>
+              <button onclick="togglePicker('${c.id}')" class="h-9 w-12 rounded-full bg-stone-100 flex items-center justify-center text-stone-500 font-bold hover:bg-stone-200 hover:text-[#b2533e] transition-colors duration-300 shadow-sm border border-[#ebdcd0]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+              </button>
             </div>
-            <div id="picker-${c.id}" class="hidden flex-wrap gap-1.5 p-3 bg-[#f5efe6] rounded-2xl border border-[#ebdcd0] shadow-inner fade-in">
-              ${REACTIONS.map(e => `<button onclick="react('${c.id}','${e}',false); togglePicker('${c.id}')" class="w-9 h-9 flex items-center justify-center text-xl hover:bg-white hover:shadow-sm rounded-xl transition-all duration-200 hover:scale-110 border border-transparent hover:border-[#c7b198]">${e}</button>`).join('')}
+            <div id="picker-${c.id}" class="hidden overflow-hidden transition-all duration-300 mt-3">
+              <div class="bg-[#faf9f6] border border-[#ebdcd0] rounded-2xl p-4 shadow-sm grid grid-cols-7 sm:grid-cols-10 gap-x-2 gap-y-3 justify-items-center">
+                ${REACTIONS.map(e => `<button onclick="react('${c.id}','${e}',false); togglePicker('${c.id}')" class="w-10 h-10 flex items-center justify-center text-2xl hover:bg-white hover:shadow-sm rounded-full transition-all duration-200 hover:scale-125 focus:outline-none">${e}</button>`).join('')}
+              </div>
             </div>
           </div>
         `;
@@ -519,8 +518,10 @@
       if(p.classList.contains('hidden')) {
         document.querySelectorAll('div[id^="picker-"]').forEach(el => el.classList.add('hidden'));
         p.classList.remove('hidden');
+        p.classList.add('fade-in');
       } else {
         p.classList.add('hidden');
+        p.classList.remove('fade-in');
       }
     };
 
@@ -541,7 +542,6 @@
       
       try {
         const translatedObj = await translateWithGoogle(text, currentLang);
-        
         await addDoc(collection(db, "comments"), {
           name: name,
           country: currentCountry,
