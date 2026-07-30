@@ -16,7 +16,7 @@
     }
     html {
       font-size: 16px;
-      transition: font-size 0.3s ease;
+      transition: font-size 0.5s ease-in-out;
     }
     html.text-large {
       font-size: 18px;
@@ -31,15 +31,18 @@
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #c5b39a; border-radius: 4px; }
     .modal-overlay { backdrop-filter: blur(12px); background-color: rgba(250, 249, 246, 0.95); }
     .hide { display: none !important; }
-    .fade-in { animation: fadeIn 0.4s ease-in-out forwards; }
-    @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+    .fade-in { animation: fadeIn 0.6s ease-in-out forwards; }
+    @keyframes fadeIn { 
+      from { opacity: 0; transform: translateY(10px); } 
+      to { opacity: 1; transform: translateY(0); } 
+    }
   </style>
 </head>
 <body class="min-h-screen selection:bg-[#b2533e] selection:text-white antialiased overflow-hidden" id="bodyEl">
 
-  <div id="welcomeScreen" class="fixed inset-0 z-[100] modal-overlay flex flex-col items-center justify-center p-4 transition-opacity duration-500">
+  <div id="welcomeScreen" class="fixed inset-0 z-[100] modal-overlay flex flex-col items-center justify-center p-4 transition-opacity duration-700">
     <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl border border-[#ebdcd0] p-8 space-y-6 relative overflow-hidden fade-in">
-      <div class="text-center space-y-2">
+      <div class="text-center space-y-3">
         <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="h-16 w-16 rounded-full object-cover border-2 border-[#b2533e] mx-auto shadow-md">
         <h2 class="text-2xl font-extrabold tracking-tight text-[#2c2520]" id="wsTitle">VILNIUS FAMILY 2026</h2>
         <p class="text-sm text-[#8e7a68]" id="wsDesc">Sveiki atvykę! Pasirinkite nustatymus.</p>
@@ -47,11 +50,11 @@
       <div class="space-y-4">
         <div>
           <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5">🌍 <span id="wsCountryLabel">Šalis</span></label>
-          <select id="wsCountry" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-medium transition-colors"></select>
+          <select id="wsCountry" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-medium transition-all duration-300"></select>
         </div>
         <div>
           <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5">💬 <span id="wsLangLabel">Kalba</span></label>
-          <select id="wsLang" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-medium transition-colors">
+          <select id="wsLang" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-medium transition-all duration-300">
             <option value="LT">Lietuvių</option>
             <option value="EN">English</option>
             <option value="RU">Русский</option>
@@ -68,7 +71,7 @@
         </div>
         <div>
           <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5">🔠 <span id="wsSizeLabel">Teksto dydis</span></label>
-          <select id="wsSize" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-medium transition-colors">
+          <select id="wsSize" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-medium transition-all duration-300">
             <option value="normal" id="wsSizeNormal">Standartinis</option>
             <option value="large" id="wsSizeLarge">Padidintas</option>
           </select>
@@ -77,32 +80,32 @@
       <div class="pt-2 space-y-4">
         <div class="flex items-start gap-3 bg-[#fcfaf7] p-3 rounded-xl border border-[#ebdcd0]">
           <input type="checkbox" id="wsAccept" class="mt-0.5 w-5 h-5 text-[#b2533e] rounded border-[#c7b198] cursor-pointer">
-          <label for="wsAccept" class="text-xs text-[#5c524a] cursor-pointer select-none">
+          <label for="wsAccept" class="text-xs text-[#5c524a] cursor-pointer select-none leading-relaxed">
             <span id="wsAcceptText">Sutinku su</span>
-            <button onclick="openDoc('privacy')" class="text-[#b2533e] font-bold" id="wsPrivacy">Privatumo politika</button>
+            <button onclick="openDoc('privacy')" class="text-[#b2533e] font-bold hover:underline transition-all" id="wsPrivacy">Privatumo politika</button>
             <span id="wsAnd">ir</span>
-            <button onclick="openDoc('terms')" class="text-[#b2533e] font-bold" id="wsTerms">Naudojimo taisyklėmis</button>
+            <button onclick="openDoc('terms')" class="text-[#b2533e] font-bold hover:underline transition-all" id="wsTerms">Naudojimo taisyklėmis</button>
           </label>
         </div>
-        <button id="btnContinue" disabled class="w-full bg-[#2c2520] text-white py-4 rounded-xl text-sm uppercase tracking-widest font-bold disabled:opacity-50 transition-all shadow-md">Tęsti</button>
+        <button id="btnContinue" disabled class="w-full bg-[#2c2520] text-white py-4 rounded-xl text-sm uppercase tracking-widest font-bold disabled:opacity-50 transition-all duration-300 shadow-md hover:shadow-lg hover:bg-[#1f1a16]">Tęsti</button>
       </div>
     </div>
   </div>
 
-  <div id="docModal" class="fixed inset-0 z-[110] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hide transition-opacity">
+  <div id="docModal" class="fixed inset-0 z-[110] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hide transition-opacity duration-500">
     <div class="max-w-2xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] fade-in">
       <div class="p-6 border-b border-[#ebdcd0] flex justify-between items-center bg-[#fcfaf7]">
         <h3 class="font-bold text-xl text-[#2c2520]" id="docTitle">Dokumentas</h3>
-        <button onclick="closeDoc()" class="text-[#8e7a68] text-4xl leading-none hover:text-[#b2533e]">&times;</button>
+        <button onclick="closeDoc()" class="text-[#8e7a68] text-4xl leading-none hover:text-[#b2533e] transition-colors duration-300">&times;</button>
       </div>
-      <div class="p-6 overflow-y-auto custom-scrollbar text-base text-[#5c524a] space-y-5" id="docContent"></div>
+      <div class="p-6 overflow-y-auto custom-scrollbar text-base text-[#5c524a] space-y-5 leading-relaxed" id="docContent"></div>
       <div class="p-5 border-t border-[#ebdcd0] bg-[#fcfaf7]">
-        <button onclick="closeDoc()" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3.5 rounded-xl font-bold uppercase tracking-widest" id="docBtnClose">Supratau</button>
+        <button onclick="closeDoc()" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3.5 rounded-xl font-bold uppercase tracking-widest hover:bg-[#ebdcd0] transition-colors duration-300" id="docBtnClose">Supratau</button>
       </div>
     </div>
   </div>
 
-  <nav class="sticky top-0 z-40 bg-[#faf9f6]/95 backdrop-blur-md border-b border-[#ebdcd0] py-3 px-4 md:px-8 transition-all">
+  <nav class="sticky top-0 z-40 bg-[#faf9f6]/95 backdrop-blur-md border-b border-[#ebdcd0] py-3 px-4 md:px-8 transition-all duration-500">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <div class="flex items-center gap-3">
         <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="h-10 w-10 rounded-full object-cover border border-[#b2533e] shadow-sm">
@@ -111,25 +114,25 @@
           <span class="text-[10px] uppercase tracking-[0.2em] text-[#8e7a68] block">Congress 2026</span>
         </div>
       </div>
-      <button onclick="openSettings()" class="p-2.5 bg-[#f5efe6] border border-[#c7b198] rounded-full text-[#2c2520] hover:bg-[#ebdcd0] transition-colors">
+      <button onclick="openSettings()" class="p-2.5 bg-[#f5efe6] border border-[#c7b198] rounded-full text-[#2c2520] hover:bg-[#ebdcd0] transition-colors duration-300 shadow-sm hover:shadow-md">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
       </button>
     </div>
   </nav>
 
   <header class="relative overflow-hidden py-16 md:py-24 px-4 border-b border-[#ebdcd0] bg-[#fcfaf7]">
-    <div class="max-w-4xl mx-auto text-center space-y-8">
+    <div class="max-w-4xl mx-auto text-center space-y-8 fade-in">
       <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-[#2c2520] leading-tight uppercase">Vilnius Family 2026</h1>
       <p class="text-base md:text-lg text-[#5c524a] leading-relaxed max-w-3xl mx-auto font-medium" id="heroDesc"></p>
       <div class="pt-6 flex flex-wrap justify-center gap-4">
-        <a href="#gallery" class="bg-[#2c2520] text-white text-sm uppercase tracking-widest font-bold px-10 py-4 rounded-full hover:shadow-xl transition-all" id="btnExplore">Nuotraukos</a>
-        <a href="#comments" class="bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] text-sm uppercase tracking-widest font-bold px-10 py-4 rounded-full transition-all" id="btnLeaveMessage">Laiškas</a>
+        <a href="#gallery" class="bg-[#2c2520] text-white text-sm uppercase tracking-widest font-bold px-10 py-4 rounded-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300" id="btnExplore">Nuotraukos</a>
+        <a href="#comments" class="bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] text-sm uppercase tracking-widest font-bold px-10 py-4 rounded-full hover:bg-[#ebdcd0] hover:-translate-y-1 transition-all duration-300" id="btnLeaveMessage">Laiškas</a>
       </div>
     </div>
   </header>
 
   <main class="max-w-7xl mx-auto px-4 md:px-8 py-16 space-y-20">
-    <section id="process-video">
+    <section id="process-video" class="fade-in">
       <div class="max-w-5xl mx-auto bg-[#f5efe6] border border-[#ebdcd0] rounded-3xl p-4 md:p-8 shadow-sm">
         <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-xl bg-black">
           <iframe 
@@ -144,35 +147,35 @@
       </div>
     </section>
 
-    <section id="gallery" class="space-y-8">
+    <section id="gallery" class="space-y-8 fade-in">
       <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-[#ebdcd0] pb-6">
         <h2 class="text-2xl md:text-3xl font-bold text-[#2c2520]" id="galleryTitle">Darbo užkulisiai</h2>
         <div class="flex gap-2 overflow-x-auto custom-scrollbar w-full md:w-auto pb-2">
-          <button onclick="switchCategory('all')" id="catBtnAll" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#b2533e] border-b-2 border-[#b2533e] whitespace-nowrap transition-colors">Viskas</button>
-          <button onclick="switchCategory('posters')" id="catBtnPosters" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap hover:text-[#b2533e] transition-colors">Plakatai</button>
-          <button onclick="switchCategory('clay')" id="catBtnClay" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap hover:text-[#b2533e] transition-colors">Molis</button>
-          <button onclick="switchCategory('postcards')" id="catBtnCards" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap hover:text-[#b2533e] transition-colors">Atvirukai</button>
+          <button onclick="switchCategory('all')" id="catBtnAll" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#b2533e] border-b-2 border-[#b2533e] whitespace-nowrap transition-all duration-300">Viskas</button>
+          <button onclick="switchCategory('posters')" id="catBtnPosters" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap hover:text-[#b2533e] transition-all duration-300">Plakatai</button>
+          <button onclick="switchCategory('clay')" id="catBtnClay" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap hover:text-[#b2533e] transition-all duration-300">Molis</button>
+          <button onclick="switchCategory('postcards')" id="catBtnCards" class="px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap hover:text-[#b2533e] transition-all duration-300">Atvirukai</button>
         </div>
       </div>
       <div id="galleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6"></div>
     </section>
 
-    <section id="comments" class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 pt-16 border-t border-[#ebdcd0]">
+    <section id="comments" class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 pt-16 border-t border-[#ebdcd0] fade-in">
       <div class="lg:col-span-5 space-y-8">
         <div class="space-y-3">
           <h2 class="text-3xl font-bold text-[#2c2520]" id="commentsTitle">Laiškas</h2>
           <p class="text-base text-[#5c524a] leading-relaxed font-medium" id="commentsDesc"></p>
         </div>
-        <form id="commentForm" class="space-y-5 bg-[#f5efe6] p-8 rounded-3xl border border-[#ebdcd0] shadow-sm">
+        <form id="commentForm" class="space-y-5 bg-[#f5efe6] p-8 rounded-3xl border border-[#ebdcd0] shadow-md transition-all duration-500">
           <div>
             <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-2" id="labelName">Vardas</label>
-            <input type="text" id="formName" required class="w-full bg-white border border-[#c7b198] py-3 px-5 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none transition-all">
+            <input type="text" id="formName" required class="w-full bg-white border border-[#c7b198] py-3.5 px-5 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none transition-all duration-300">
           </div>
           <div>
             <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-2" id="labelMsg">Žinutė</label>
-            <textarea id="formText" rows="5" required class="w-full bg-white border border-[#c7b198] py-3 px-5 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none resize-none"></textarea>
+            <textarea id="formText" rows="5" required class="w-full bg-white border border-[#c7b198] py-3.5 px-5 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none resize-none transition-all duration-300"></textarea>
           </div>
-          <button type="submit" class="w-full bg-[#2c2520] text-white py-4 rounded-xl text-sm uppercase tracking-widest font-bold hover:bg-[#1f1a16] transition-all flex justify-center items-center gap-3" id="btnSubmitComment">
+          <button type="submit" class="w-full bg-[#2c2520] text-white py-4 rounded-xl text-sm uppercase tracking-widest font-bold hover:bg-[#1f1a16] transition-all duration-300 flex justify-center items-center gap-3 shadow-lg hover:shadow-xl hover:-translate-y-0.5" id="btnSubmitComment">
             <span>Siųsti</span>
             <div id="loader" class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin hide"></div>
           </button>
@@ -181,19 +184,19 @@
       <div class="lg:col-span-7 space-y-8">
         <div class="flex justify-between items-center">
           <h3 class="font-bold text-xl text-[#2c2520]" id="commentsSub">Atsiliepimai</h3>
-          <span class="text-[11px] text-[#b2533e] bg-[#b2533e]/10 px-3 py-1.5 rounded-full flex items-center gap-2 font-bold border border-[#b2533e]/20">
+          <span class="text-[11px] text-[#b2533e] bg-[#b2533e]/10 px-3 py-1.5 rounded-full flex items-center gap-2 font-bold border border-[#b2533e]/20 transition-all duration-500">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span id="labelTranslateOn">AI vertimas įjungtas</span>
           </span>
         </div>
-        <div id="commentsWrapper" class="space-y-5 max-h-[700px] overflow-y-auto pr-3 custom-scrollbar pb-20">
-          <div class="text-center py-12 text-[#8e7a68] animate-pulse" id="loadingText">Kraunama...</div>
+        <div id="commentsWrapper" class="space-y-5 max-h-[700px] overflow-y-auto pr-3 custom-scrollbar pb-20 scroll-smooth">
+          <div class="text-center py-12 text-[#8e7a68] animate-pulse font-medium" id="loadingText">Kraunama...</div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="mt-24 border-t border-[#ebdcd0] py-12 px-4 bg-[#f5efe6] text-center space-y-5">
+  <footer class="mt-24 border-t border-[#ebdcd0] py-12 px-4 bg-[#f5efe6] text-center space-y-5 transition-all duration-500">
     <div class="flex justify-center items-center gap-3">
       <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="h-10 w-10 rounded-full object-cover border-2 border-[#b2533e]">
       <span class="font-extrabold text-[#2c2520] text-lg tracking-widest uppercase">Vilnius Family 2026</span>
@@ -201,19 +204,19 @@
     <div class="text-xs font-medium text-[#8e7a68] tracking-wide">&copy; 2026 Vilnius, Lithuania.</div>
   </footer>
 
-  <div id="imageModal" class="fixed inset-0 z-[120] bg-black/95 flex-col justify-center items-center p-2 md:p-6 hide transition-opacity duration-300" onclick="closeImageModal()">
-    <button class="absolute top-4 right-4 text-white/70 hover:text-white bg-black/40 rounded-full w-12 h-12 flex items-center justify-center text-2xl z-50 transition-colors" onclick="closeImageModal()">&times;</button>
-    <button class="absolute left-4 text-white bg-black/50 rounded-full w-14 h-14 flex items-center justify-center backdrop-blur-md z-50 transition-colors hover:bg-[#b2533e]" onclick="navigateModal(-1); event.stopPropagation();">
+  <div id="imageModal" class="fixed inset-0 z-[120] bg-black/95 flex-col justify-center items-center p-2 md:p-6 hide transition-opacity duration-500" onclick="closeImageModal()">
+    <button class="absolute top-4 right-4 text-white/70 hover:text-white bg-black/40 rounded-full w-12 h-12 flex items-center justify-center text-2xl z-50 transition-all duration-300 hover:scale-110" onclick="closeImageModal()">&times;</button>
+    <button class="absolute left-4 text-white bg-black/50 rounded-full w-14 h-14 flex items-center justify-center backdrop-blur-md z-50 transition-all duration-300 hover:bg-[#b2533e] hover:scale-110" onclick="navigateModal(-1); event.stopPropagation();">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
     </button>
     <div class="w-full h-[85vh] flex items-center justify-center px-4 overflow-hidden" onclick="event.stopPropagation()">
-      <img id="modalImg" src="" alt="Gallery" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl transition-transform duration-200 cursor-zoom-in" title="Slinkite ratuku, kad priartintumėte">
+      <img id="modalImg" src="" alt="Gallery" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl transition-transform duration-300 cursor-zoom-in" title="Slinkite ratuku, kad priartintumėte">
     </div>
-    <button class="absolute right-4 text-white bg-black/50 rounded-full w-14 h-14 flex items-center justify-center backdrop-blur-md z-50 transition-colors hover:bg-[#b2533e]" onclick="navigateModal(1); event.stopPropagation();">
+    <button class="absolute right-4 text-white bg-black/50 rounded-full w-14 h-14 flex items-center justify-center backdrop-blur-md z-50 transition-all duration-300 hover:bg-[#b2533e] hover:scale-110" onclick="navigateModal(1); event.stopPropagation();">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
     </button>
-    <div class="absolute bottom-6 z-50">
-      <span id="modalIndexIndicator" class="text-sm font-bold text-white tracking-widest bg-black/60 px-6 py-2.5 rounded-full border border-white/10"></span>
+    <div class="absolute bottom-6 z-50 fade-in">
+      <span id="modalIndexIndicator" class="text-sm font-bold text-white tracking-widest bg-black/60 backdrop-blur-md px-6 py-2.5 rounded-full border border-white/10 shadow-lg"></span>
     </div>
   </div>
 
@@ -233,8 +236,11 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const DEEPL_KEY = '28ecb458-b261-46cf-bfce-a421ffa0ca00:fx';
-    const TARGET_LANGS = ['LT', 'EN', 'RU', 'LV', 'PT', 'ES', 'JA', 'FR', 'SV'];
+    const GOOGLE_LANGS = {
+      'LT': 'lt', 'EN': 'en', 'RU': 'ru', 'LV': 'lv', 'KUR': 'ku', 
+      'AM': 'hy', 'PT': 'pt', 'ES': 'es', 'HE': 'he', 'JA': 'ja', 
+      'FR': 'fr', 'SV': 'sv'
+    };
 
     const IMAGES = [
       { url: 'https://i.postimg.cc/tgKZznNy/IMG-0018-143-Edited.jpg', cat: 'posters' },
@@ -401,6 +407,8 @@
       }
     };
 
+    const REACTIONS = ['❤️', '💖', '🤍', '👍', '🥰', '🙏', '🕊️', '☀️', '🇱🇹', '🇱🇻', '🇵🇱', '🇺🇦', '🇬🇧', '🇺🇸', '🇩🇪', '🇫🇷', '🇪🇸', '🇳🇬', '🇦🇲', '🇧🇷', '🇨🇱', '🇩🇴', '🇮🇱', '🇯🇵', '🇵🇹', '🇸🇪', '🇳🇴', '🇩🇰'];
+    
     let prefs = null;
     let currentLang = 'LT';
     let currentCountry = 'Lithuania';
@@ -519,8 +527,8 @@
         const b = document.getElementById('catBtn' + c);
         if(!b) return;
         b.className = (c.toLowerCase() === cat || (c === 'Cards' && cat === 'postcards')) 
-          ? "px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#b2533e] border-b-2 border-[#b2533e] whitespace-nowrap transition-colors" 
-          : "px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap hover:text-[#b2533e] transition-colors";
+          ? "px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#b2533e] border-b-2 border-[#b2533e] whitespace-nowrap transition-all duration-300" 
+          : "px-5 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] border-b-2 border-transparent whitespace-nowrap hover:text-[#b2533e] transition-all duration-300";
       });
       renderGallery();
     };
@@ -531,9 +539,9 @@
       activeImages = IMAGES.filter(i => activeCategory === 'all' || i.cat === activeCategory);
       activeImages.forEach((img, idx) => {
         const d = document.createElement('div');
-        d.className = "aspect-[4/5] bg-stone-100 rounded-2xl overflow-hidden relative cursor-pointer group shadow-sm hover:shadow-md transition-shadow";
+        d.className = "aspect-[4/5] bg-stone-100 rounded-2xl overflow-hidden relative cursor-pointer group shadow-sm hover:shadow-md transition-all duration-300";
         d.onclick = () => openModal(idx);
-        d.innerHTML = `<img src="${img.url}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">`;
+        d.innerHTML = `<img src="${img.url}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">`;
         grid.appendChild(d);
       });
     };
@@ -574,9 +582,12 @@
 
     let commentsData = [];
     const listenToComments = () => {
-      onSnapshot(query(collection(db, "comments"), orderBy("timestamp", "desc")), (snap) => {
+      const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
+      onSnapshot(q, (snap) => {
         commentsData = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         renderCommentsUI();
+      }, (err) => {
+        console.error(err);
       });
     };
 
@@ -586,45 +597,47 @@
       const t = TRANSLATIONS[currentLang] || TRANSLATIONS['EN'];
       
       if(!commentsData.length) {
-        w.innerHTML = `<p class="text-center py-10 text-[#8e7a68] font-medium border border-dashed border-[#ebdcd0] rounded-2xl">${t.noComments}</p>`;
+        w.innerHTML = `<div class="text-center py-12 text-[#8e7a68] font-medium border border-dashed border-[#ebdcd0] rounded-2xl fade-in">${t.noComments}</div>`;
         return;
       }
 
       commentsData.forEach(c => {
-        const div = document.createElement('div');
-        div.className = "bg-white border border-[#ebdcd0] rounded-2xl p-6 space-y-4 shadow-sm fade-in hover:shadow-md transition-shadow";
-        
-        const rawText = (c.translatedText && c.translatedText[currentLang]) ? c.translatedText[currentLang] : c.originalText;
-        const text = escapeHTML(rawText || '');
-        const safeName = escapeHTML(c.name || '');
-        const safeCountry = escapeHTML(c.country || '');
-        const isTr = c.originalLang !== currentLang && c.translatedText && c.translatedText[currentLang];
+        try {
+          const div = document.createElement('div');
+          div.className = "bg-white border border-[#ebdcd0] rounded-2xl p-6 space-y-4 shadow-sm fade-in hover:shadow-md transition-shadow duration-300";
+          
+          const rawText = (c.translatedText && c.translatedText[currentLang]) ? c.translatedText[currentLang] : c.originalText;
+          const text = escapeHTML(rawText || '');
+          const safeName = escapeHTML(c.name || '');
+          const safeCountry = escapeHTML(c.country || '');
+          const isTr = c.originalLang !== currentLang && c.translatedText && c.translatedText[currentLang];
 
-        let rHtml = '';
-        Object.entries(c.reactions || {}).forEach(([emoji, users]) => {
-          if(!users.length) return;
-          const active = users.includes(userId);
-          rHtml += `<button onclick="react('${c.id}','${emoji}',${active})" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${active ? 'bg-[#b2533e]/10 text-[#b2533e] border border-[#b2533e]/30' : 'bg-stone-50 text-stone-600 border border-transparent hover:bg-stone-100'}">${emoji} ${users.length}</button>`;
-        });
+          let rHtml = '';
+          Object.entries(c.reactions || {}).forEach(([emoji, users]) => {
+            if(!users.length) return;
+            const active = users.includes(userId);
+            rHtml += `<button onclick="react('${c.id}','${emoji}',${active})" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${active ? 'bg-[#b2533e]/10 text-[#b2533e] border border-[#b2533e]/30' : 'bg-stone-50 text-stone-600 border border-transparent hover:bg-stone-100'}">${emoji} ${users.length}</button>`;
+          });
 
-        div.innerHTML = `
-          <div class="flex justify-between items-start">
-            <div>
-              <h4 class="font-bold text-[#2c2520]">${safeName}</h4>
-              <p class="text-[10px] font-bold uppercase text-[#8e7a68] mt-1">📍 ${safeCountry}</p>
+          div.innerHTML = `
+            <div class="flex justify-between items-start">
+              <div>
+                <h4 class="font-bold text-[#2c2520]">${safeName}</h4>
+                <p class="text-[10px] font-bold uppercase text-[#8e7a68] mt-1">📍 ${safeCountry}</p>
+              </div>
             </div>
-          </div>
-          <p class="text-base text-[#5c524a] font-medium leading-relaxed whitespace-pre-wrap">${text}</p>
-          ${isTr ? `<p class="text-[11px] text-[#8e7a68] font-bold pt-2 border-t border-[#f1ede6]">✨ ${t.translatedFrom} ${c.originalLang}</p>` : ''}
-          <div class="flex flex-wrap gap-2 pt-2 items-center relative">
-            ${rHtml}
-            <button onclick="togglePicker('${c.id}')" class="w-8 h-8 rounded-full bg-stone-50 flex items-center justify-center text-stone-400 font-bold hover:bg-stone-200 hover:text-[#b2533e] transition-colors pb-1 text-lg">+</button>
-            <div id="picker-${c.id}" class="hidden absolute bottom-full left-0 mb-2 flex flex-wrap gap-2 p-3 bg-white rounded-2xl border border-[#ebdcd0] shadow-xl z-10 w-72">
-              ${REACTIONS.map(e => `<button onclick="react('${c.id}','${e}',false); togglePicker('${c.id}')" class="w-10 h-10 flex items-center justify-center text-xl hover:bg-stone-100 rounded-xl transition-transform hover:scale-110">${e}</button>`).join('')}
+            <p class="text-base text-[#5c524a] font-medium leading-relaxed whitespace-pre-wrap">${text}</p>
+            ${isTr ? `<p class="text-[11px] text-[#8e7a68] font-bold pt-2 border-t border-[#f1ede6]">✨ ${t.translatedFrom} ${c.originalLang}</p>` : ''}
+            <div class="flex flex-wrap gap-2 pt-2 items-center relative">
+              ${rHtml}
+              <button onclick="togglePicker('${c.id}')" class="w-8 h-8 rounded-full bg-stone-50 flex items-center justify-center text-stone-400 font-bold hover:bg-stone-200 hover:text-[#b2533e] transition-colors duration-300 pb-1 text-lg shadow-sm">+</button>
+              <div id="picker-${c.id}" class="hidden absolute bottom-full left-0 mb-2 flex flex-wrap gap-2 p-3 bg-white rounded-2xl border border-[#ebdcd0] shadow-xl z-10 w-72 fade-in">
+                ${REACTIONS.map(e => `<button onclick="react('${c.id}','${e}',false); togglePicker('${c.id}')" class="w-10 h-10 flex items-center justify-center text-xl hover:bg-stone-100 rounded-xl transition-transform duration-200 hover:scale-110">${e}</button>`).join('')}
+              </div>
             </div>
-          </div>
-        `;
-        w.appendChild(div);
+          `;
+          w.appendChild(div);
+        } catch (error) {}
       });
     };
 
@@ -643,51 +656,27 @@
       await updateDoc(r, { [`reactions.${em}`]: act ? arrayRemove(userId) : arrayUnion(userId) });
     };
 
-    const translateWithDeepL = async (text, sourceLang) => {
+    const translateWithGoogle = async (text, sourceLang) => {
       const translations = {};
       translations[sourceLang] = text;
+      const sLang = GOOGLE_LANGS[sourceLang] || 'auto';
       
-      const supportedTargets = TARGET_LANGS.filter(l => !['KUR', 'AM', 'HE'].includes(l));
-      
-      const promises = supportedTargets.map(async (target) => {
-        if (target === sourceLang) return;
-        
-        let targetTag = target;
-        if (target === 'EN') targetTag = 'EN-US';
-        if (target === 'PT') targetTag = 'PT-BR';
-        
+      const promises = Object.keys(GOOGLE_LANGS).map(async (targetLangKey) => {
+        if (targetLangKey === sourceLang) return;
+        const tLang = GOOGLE_LANGS[targetLangKey];
         try {
-          const params = new URLSearchParams();
-          params.append('auth_key', DEEPL_KEY);
-          params.append('text', text);
-          params.append('target_lang', targetTag);
-          params.append('source_lang', sourceLang.toUpperCase());
-
-          const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://api-free.deepl.com/v2/translate');
-          
-          const res = await fetch(proxyUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: params.toString()
-          });
-          
+          const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sLang}&tl=${tLang}&dt=t&q=${encodeURIComponent(text)}`;
+          const res = await fetch(url);
           const data = await res.json();
-          if (data && data.translations && data.translations.length > 0) {
-            translations[target] = data.translations[0].text;
+          if (data && data[0]) {
+            translations[targetLangKey] = data[0].map(item => item[0]).join('');
           }
-        } catch (err) {}
-      });
-      
-      await Promise.all(promises);
-      
-      ['KUR', 'AM', 'HE'].forEach(lang => {
-        if (lang !== sourceLang && !translations[lang]) {
-          translations[lang] = translations['EN'] || text;
+        } catch (e) {
+          translations[targetLangKey] = text;
         }
       });
       
+      await Promise.all(promises);
       return translations;
     };
 
@@ -703,7 +692,7 @@
       loader.classList.remove('hide');
       
       try {
-        const translatedObj = await translateWithDeepL(text, currentLang);
+        const translatedObj = await translateWithGoogle(text, currentLang);
         
         await addDoc(collection(db, "comments"), {
           name: name,
