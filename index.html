@@ -137,7 +137,7 @@
         <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-xl bg-black">
           <iframe 
             class="w-full h-full"
-            src="https://www.youtube.com/embed/PJVeiOZQZ_8?is=N_uusgysVHrjGhNj" 
+            src="https://www.youtube.com/embed/[ВСТАВЬ_ID_ВИДЕО_ТУТ]" 
             title="Vilnius Family 2026" 
             frameborder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -235,12 +235,6 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
-    const GOOGLE_LANGS = {
-      'LT': 'lt', 'EN': 'en', 'RU': 'ru', 'LV': 'lv', 'KUR': 'ku', 
-      'AM': 'hy', 'PT': 'pt', 'ES': 'es', 'HE': 'he', 'JA': 'ja', 
-      'FR': 'fr', 'SV': 'sv'
-    };
 
     const IMAGES = [
       { url: 'https://i.postimg.cc/tgKZznNy/IMG-0018-143-Edited.jpg', cat: 'posters' },
@@ -409,6 +403,12 @@
 
     const REACTIONS = ['❤️', '💖', '🤍', '👍', '🥰', '🙏', '🕊️', '☀️', '🇱🇹', '🇱🇻', '🇵🇱', '🇺🇦', '🇬🇧', '🇺🇸', '🇩🇪', '🇫🇷', '🇪🇸', '🇳🇬', '🇦🇲', '🇧🇷', '🇨🇱', '🇩🇴', '🇮🇱', '🇯🇵', '🇵🇹', '🇸🇪', '🇳🇴', '🇩🇰'];
     
+    const LANG_MAP = {
+      'LT': 'lt', 'EN': 'en', 'RU': 'ru', 'LV': 'lv', 'KUR': 'ku', 
+      'AM': 'hy', 'PT': 'pt', 'ES': 'es', 'HE': 'he', 'JA': 'ja', 
+      'FR': 'fr', 'SV': 'sv'
+    };
+
     let prefs = null;
     let currentLang = 'LT';
     let currentCountry = 'Lithuania';
@@ -606,11 +606,18 @@
           const div = document.createElement('div');
           div.className = "bg-white border border-[#ebdcd0] rounded-2xl p-6 space-y-4 shadow-sm fade-in hover:shadow-md transition-shadow duration-300";
           
-          const rawText = (c.translatedText && c.translatedText[currentLang]) ? c.translatedText[currentLang] : c.originalText;
+          const targetCode = LANG_MAP[currentLang] || currentLang.toLowerCase();
+          
+          let translatedStr = null;
+          if (c.translatedText) {
+            translatedStr = c.translatedText[currentLang] || c.translatedText[targetCode];
+          }
+          
+          const rawText = translatedStr ? translatedStr : c.originalText;
           const text = escapeHTML(rawText || '');
           const safeName = escapeHTML(c.name || '');
           const safeCountry = escapeHTML(c.country || '');
-          const isTr = c.originalLang !== currentLang && c.translatedText && c.translatedText[currentLang];
+          const isTr = c.originalLang !== currentLang && !!translatedStr;
 
           let rHtml = '';
           Object.entries(c.reactions || {}).forEach(([emoji, users]) => {
@@ -656,30 +663,6 @@
       await updateDoc(r, { [`reactions.${em}`]: act ? arrayRemove(userId) : arrayUnion(userId) });
     };
 
-    const translateWithGoogle = async (text, sourceLang) => {
-      const translations = {};
-      translations[sourceLang] = text;
-      const sLang = GOOGLE_LANGS[sourceLang] || 'auto';
-      
-      const promises = Object.keys(GOOGLE_LANGS).map(async (targetLangKey) => {
-        if (targetLangKey === sourceLang) return;
-        const tLang = GOOGLE_LANGS[targetLangKey];
-        try {
-          const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sLang}&tl=${tLang}&dt=t&q=${encodeURIComponent(text)}`;
-          const res = await fetch(url);
-          const data = await res.json();
-          if (data && data[0]) {
-            translations[targetLangKey] = data[0].map(item => item[0]).join('');
-          }
-        } catch (e) {
-          translations[targetLangKey] = text;
-        }
-      });
-      
-      await Promise.all(promises);
-      return translations;
-    };
-
     document.getElementById('commentForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       
@@ -692,14 +675,11 @@
       loader.classList.remove('hide');
       
       try {
-        const translatedObj = await translateWithGoogle(text, currentLang);
-        
         await addDoc(collection(db, "comments"), {
           name: name,
           country: currentCountry,
           originalLang: currentLang,
           originalText: text,
-          translatedText: translatedObj,
           timestamp: serverTimestamp(),
           reactions: {}
         });
