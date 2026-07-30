@@ -236,6 +236,12 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    const EXT_LANGS = {
+      'LT': 'lt', 'EN': 'en', 'RU': 'ru', 'LV': 'lv', 'KUR': 'ku', 
+      'AM': 'hy', 'PT': 'pt', 'ES': 'es', 'HE': 'he', 'JA': 'ja', 
+      'FR': 'fr', 'SV': 'sv'
+    };
+
     const IMAGES = [
       { url: 'https://i.postimg.cc/tgKZznNy/IMG-0018-143-Edited.jpg', cat: 'posters' },
       { url: 'https://i.postimg.cc/mD7cpZmC/IMG-0024-1-Edited.jpg', cat: 'posters' },
@@ -399,14 +405,6 @@
         FR: { title: "Conditions d'utilisation", text: "<p>Toutes les photos et vidéos sont destinées à un visionnage personnel uniquement.</p><p>Il est interdit de publier des documents sur d'autres sites ou réseaux sociaux sans autorisation.</p><p>Il est interdit d'utiliser des documents à des fins commerciales.</p>" },
         SV: { title: "Användarvillkor", text: "<p>Alla foton och videor är endast för personlig visning.</p><p>Det är förbjudet att publicera material på andra webbplatser eller sociala nätverk utan tillstånd.</p><p>Det är förbjudet att använda material för kommersiella ändamål.</p>" }
       }
-    };
-
-    const REACTIONS = ['❤️', '💖', '🤍', '👍', '🥰', '🙏', '🕊️', '☀️', '🇱🇹', '🇱🇻', '🇵🇱', '🇺🇦', '🇬🇧', '🇺🇸', '🇩🇪', '🇫🇷', '🇪🇸', '🇳🇬', '🇦🇲', '🇧🇷', '🇨🇱', '🇩🇴', '🇮🇱', '🇯🇵', '🇵🇹', '🇸🇪', '🇳🇴', '🇩🇰'];
-    
-    const LANG_MAP = {
-      'LT': 'lt', 'EN': 'en', 'RU': 'ru', 'LV': 'lv', 'KUR': 'ku', 
-      'AM': 'hy', 'PT': 'pt', 'ES': 'es', 'HE': 'he', 'JA': 'ja', 
-      'FR': 'fr', 'SV': 'sv'
     };
 
     let prefs = null;
@@ -606,11 +604,14 @@
           const div = document.createElement('div');
           div.className = "bg-white border border-[#ebdcd0] rounded-2xl p-6 space-y-4 shadow-sm fade-in hover:shadow-md transition-shadow duration-300";
           
-          const targetCode = LANG_MAP[currentLang] || currentLang.toLowerCase();
+          const targetCode = EXT_LANGS[currentLang] || currentLang.toLowerCase();
           
           let translatedStr = null;
           if (c.translatedText) {
-            translatedStr = c.translatedText[currentLang] || c.translatedText[targetCode];
+            translatedStr = c.translatedText[targetCode];
+            if (!translatedStr && currentLang === 'HE') {
+              translatedStr = c.translatedText['iw'];
+            }
           }
           
           const rawText = translatedStr ? translatedStr : c.originalText;
@@ -635,12 +636,12 @@
             </div>
             <p class="text-base text-[#5c524a] font-medium leading-relaxed whitespace-pre-wrap">${text}</p>
             ${isTr ? `<p class="text-[11px] text-[#8e7a68] font-bold pt-2 border-t border-[#f1ede6]">✨ ${t.translatedFrom} ${c.originalLang}</p>` : ''}
-            <div class="flex flex-wrap gap-2 pt-2 items-center relative">
+            <div class="flex flex-wrap gap-2 pt-2 items-center">
               ${rHtml}
-              <button onclick="togglePicker('${c.id}')" class="w-8 h-8 rounded-full bg-stone-50 flex items-center justify-center text-stone-400 font-bold hover:bg-stone-200 hover:text-[#b2533e] transition-colors duration-300 pb-1 text-lg shadow-sm">+</button>
-              <div id="picker-${c.id}" class="hidden absolute bottom-full left-0 mb-2 flex flex-wrap gap-2 p-3 bg-white rounded-2xl border border-[#ebdcd0] shadow-xl z-10 w-72 fade-in">
-                ${REACTIONS.map(e => `<button onclick="react('${c.id}','${e}',false); togglePicker('${c.id}')" class="w-10 h-10 flex items-center justify-center text-xl hover:bg-stone-100 rounded-xl transition-transform duration-200 hover:scale-110">${e}</button>`).join('')}
-              </div>
+              <button onclick="togglePicker('${c.id}')" class="w-8 h-8 rounded-full bg-stone-50 flex items-center justify-center text-stone-400 font-bold hover:bg-stone-200 hover:text-[#b2533e] transition-colors duration-300 pb-1 text-lg shadow-sm border border-[#ebdcd0]">+</button>
+            </div>
+            <div id="picker-${c.id}" class="hidden flex-wrap gap-1.5 p-3 bg-[#f5efe6] rounded-2xl border border-[#ebdcd0] shadow-inner mt-3 fade-in">
+              ${REACTIONS.map(e => `<button onclick="react('${c.id}','${e}',false); togglePicker('${c.id}')" class="w-9 h-9 flex items-center justify-center text-xl hover:bg-white hover:shadow-sm rounded-xl transition-all duration-200 hover:scale-110 border border-transparent hover:border-[#c7b198]">${e}</button>`).join('')}
             </div>
           `;
           w.appendChild(div);
