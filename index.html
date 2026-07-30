@@ -234,7 +234,7 @@
     const db = getFirestore(app);
 
     const DEEPL_KEY = '28ecb458-b261-46cf-bfce-a421ffa0ca00:fx';
-    const TARGET_LANGS = ['LT', 'EN', 'RU', 'LV', 'PT', 'ES', 'HE', 'JA', 'FR', 'SV'];
+    const TARGET_LANGS = ['LT', 'EN', 'RU', 'LV', 'PT', 'ES', 'JA', 'FR', 'SV'];
 
     const IMAGES = [
       { url: 'https://i.postimg.cc/tgKZznNy/IMG-0018-143-Edited.jpg', cat: 'posters' },
@@ -401,8 +401,6 @@
       }
     };
 
-    const REACTIONS = ['❤️', '💖', '🤍', '👍', '🥰', '🙏', '🕊️', '☀️', '🇱🇹', '🇱🇻', '🇵🇱', '🇺🇦', '🇬🇧', '🇺🇸', '🇩🇪', '🇫🇷', '🇪🇸', '🇳🇬', '🇦🇲', '🇧🇷', '🇨🇱', '🇩🇴', '🇮🇱', '🇯🇵', '🇵🇹', '🇸🇪', '🇳🇴', '🇩🇰'];
-    
     let prefs = null;
     let currentLang = 'LT';
     let currentCountry = 'Lithuania';
@@ -413,6 +411,10 @@
     
     const userId = localStorage.getItem('vf2026_uid') || ('u_' + Math.random().toString(36).substr(2, 9));
     localStorage.setItem('vf2026_uid', userId);
+
+    const escapeHTML = (str) => str.replace(/[&<>'"]/g, tag => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    }[tag]));
 
     const init = () => {
       populateCountries();
@@ -565,7 +567,7 @@
       modalImgEl.addEventListener('wheel', (e) => {
         e.preventDefault();
         modalScale += e.deltaY * -0.005;
-        modalScale = Math.min(Math.max(1, modalScale), 5);
+        modalScale = Math.min(Math.max(1, modalScale), 7);
         modalImgEl.style.transform = `scale(${modalScale})`;
       });
     };
@@ -592,7 +594,10 @@
         const div = document.createElement('div');
         div.className = "bg-white border border-[#ebdcd0] rounded-2xl p-6 space-y-4 shadow-sm fade-in hover:shadow-md transition-shadow";
         
-        const text = (c.translatedText && c.translatedText[currentLang]) ? c.translatedText[currentLang] : c.originalText;
+        const rawText = (c.translatedText && c.translatedText[currentLang]) ? c.translatedText[currentLang] : c.originalText;
+        const text = escapeHTML(rawText || '');
+        const safeName = escapeHTML(c.name || '');
+        const safeCountry = escapeHTML(c.country || '');
         const isTr = c.originalLang !== currentLang && c.translatedText && c.translatedText[currentLang];
 
         let rHtml = '';
@@ -605,8 +610,120 @@
         div.innerHTML = `
           <div class="flex justify-between items-start">
             <div>
-              <h4 class="font-bold text-[#2c2520]">${c.name}</h4>
-              <p class="text-[10px] font-bold uppercase text-[#8e7a68] mt-1">📍 ${c.country}</p>
+              <h4 class="font-bold text-[#2c2520]">${safeName}</h4>
+              <p class="text-[10px] font-bold uppercase text-[#8e7a68] mt-1">📍 ${safeCountry}</p>
             </div>
           </div>
-          <p class="text-base text-[#5c524a] font-medium leading-relaxed whitespace-pre-wrap">
+          <p class="text-base text-[#5c524a] font-medium leading-relaxed whitespace-pre-wrap">${text}</p>
+          ${isTr ? `<p class="text-[11px] text-[#8e7a68] font-bold pt-2 border-t border-[#f1ede6]">✨ ${t.translatedFrom} ${c.originalLang}</p>` : ''}
+          <div class="flex flex-wrap gap-2 pt-2 items-center relative">
+            ${rHtml}
+            <button onclick="togglePicker('${c.id}')" class="w-8 h-8 rounded-full bg-stone-50 flex items-center justify-center text-stone-400 font-bold hover:bg-stone-200 hover:text-[#b2533e] transition-colors pb-1 text-lg">+</button>
+            <div id="picker-${c.id}" class="hidden absolute bottom-full left-0 mb-2 flex flex-wrap gap-2 p-3 bg-white rounded-2xl border border-[#ebdcd0] shadow-xl z-10 w-72">
+              ${REACTIONS.map(e => `<button onclick="react('${c.id}','${e}',false); togglePicker('${c.id}')" class="w-10 h-10 flex items-center justify-center text-xl hover:bg-stone-100 rounded-xl transition-transform hover:scale-110">${e}</button>`).join('')}
+            </div>
+          </div>
+        `;
+        w.appendChild(div);
+      });
+    };
+
+    window.togglePicker = (id) => {
+      const p = document.getElementById(`picker-${id}`);
+      if(p.classList.contains('hidden')) {
+        document.querySelectorAll('div[id^="picker-"]').forEach(el => el.classList.add('hidden'));
+        p.classList.remove('hidden');
+      } else {
+        p.classList.add('hidden');
+      }
+    };
+
+    window.react = async (id, em, act) => {
+      const r = doc(db, "comments", id);
+      await updateDoc(r, { [`reactions.${em}`]: act ? arrayRemove(userId) : arrayUnion(userId) });
+    };
+
+    const translateWithDeepL = async (text, sourceLang) => {
+      const translations = {};
+      translations[sourceLang] = text;
+      
+      const supportedTargets = TARGET_LANGS.filter(l => !['KUR', 'AM', 'HE'].includes(l));
+      
+      const promises = supportedTargets.map(async (target) => {
+        if (target === sourceLang) return;
+        
+        let targetTag = target;
+        if (target === 'EN') targetTag = 'EN-US';
+        if (target === 'PT') targetTag = 'PT-BR';
+        
+        try {
+          const params = new URLSearchParams();
+          params.append('auth_key', DEEPL_KEY);
+          params.append('text', text);
+          params.append('target_lang', targetTag);
+          params.append('source_lang', sourceLang.toUpperCase());
+
+          const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://api-free.deepl.com/v2/translate');
+          
+          const res = await fetch(proxyUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: params.toString()
+          });
+          
+          const data = await res.json();
+          if (data && data.translations && data.translations.length > 0) {
+            translations[target] = data.translations[0].text;
+          }
+        } catch (err) {}
+      });
+      
+      await Promise.all(promises);
+      
+      ['KUR', 'AM', 'HE'].forEach(lang => {
+        if (lang !== sourceLang && !translations[lang]) {
+          translations[lang] = translations['EN'] || text;
+        }
+      });
+      
+      return translations;
+    };
+
+    document.getElementById('commentForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const btn = document.getElementById('btnSubmitComment');
+      const loader = document.getElementById('loader');
+      const name = document.getElementById('formName').value;
+      const text = document.getElementById('formText').value;
+      
+      btn.disabled = true;
+      loader.classList.remove('hide');
+      
+      try {
+        const translatedObj = await translateWithDeepL(text, currentLang);
+        
+        await addDoc(collection(db, "comments"), {
+          name: name,
+          country: currentCountry,
+          originalLang: currentLang,
+          originalText: text,
+          translatedText: translatedObj,
+          timestamp: serverTimestamp(),
+          reactions: {}
+        });
+        
+        document.getElementById('formText').value = '';
+      } catch (err) {
+      } finally {
+        btn.disabled = false;
+        loader.classList.add('hide');
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>
