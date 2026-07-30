@@ -9,22 +9,37 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root { --bg-color: #faf9f6; --text-color: #2c2520; --accent-color: #b2533e; }
-    html { font-size: 16px; transition: font-size 0.5s ease-in-out; }
-    html.text-large { font-size: 18px; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-color); color: var(--text-color); }
+    :root {
+      --bg-color: #faf9f6;
+      --text-color: #2c2520;
+      --accent-color: #b2533e;
+    }
+    html {
+      font-size: 16px;
+      transition: font-size 0.5s ease-in-out;
+    }
+    html.text-large {
+      font-size: 18px;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
     .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #f1ede6; border-radius: 4px; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #c5b39a; border-radius: 4px; }
     .modal-overlay { backdrop-filter: blur(12px); background-color: rgba(250, 249, 246, 0.95); }
     .hide { display: none !important; }
-    .fade-in { animation: fadeIn 0.5s ease-out forwards; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.6s ease-in-out forwards; }
+    @keyframes fadeIn { 
+      from { opacity: 0; transform: translateY(10px); } 
+      to { opacity: 1; transform: translateY(0); } 
+    }
   </style>
 </head>
 <body class="min-h-screen selection:bg-[#b2533e] selection:text-white antialiased overflow-hidden" id="bodyEl">
 
-  <!-- Welcome Screen -->
   <div id="welcomeScreen" class="fixed inset-0 z-[100] modal-overlay flex flex-col items-center justify-center p-4 transition-opacity duration-700">
     <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl border border-[#ebdcd0] p-8 space-y-6 relative overflow-hidden fade-in">
       <div class="text-center space-y-3">
@@ -40,16 +55,25 @@
         <div>
           <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5">💬 <span id="wsLangLabel">Kalba</span></label>
           <select id="wsLang" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-medium transition-all duration-300">
-            <option value="LT">Lietuvių</option><option value="EN">English</option><option value="RU">Русский</option>
-            <option value="LV">Latviešu</option><option value="KUR">Kurdî</option><option value="AM">Հայերեն</option>
-            <option value="PT">Português</option><option value="ES">Español</option><option value="HE">עברית</option>
-            <option value="JA">日本語</option><option value="FR">Français</option><option value="SV">Svenska/Norsk</option>
+            <option value="LT">Lietuvių</option>
+            <option value="EN">English</option>
+            <option value="RU">Русский</option>
+            <option value="LV">Latviešu</option>
+            <option value="KUR">Kurdî</option>
+            <option value="AM">Հայերեն</option>
+            <option value="PT">Português</option>
+            <option value="ES">Español</option>
+            <option value="HE">עברית</option>
+            <option value="JA">日本語</option>
+            <option value="FR">Français</option>
+            <option value="SV">Svenska/Norsk</option>
           </select>
         </div>
         <div>
           <label class="block text-xs uppercase tracking-wider font-bold text-[#2c2520] mb-1.5">🔠 <span id="wsSizeLabel">Teksto dydis</span></label>
           <select id="wsSize" class="w-full bg-[#f5efe6] border border-[#c7b198] text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-medium transition-all duration-300">
-            <option value="normal" id="wsSizeNormal">Standartinis</option><option value="large" id="wsSizeLarge">Padidintas</option>
+            <option value="normal" id="wsSizeNormal">Standartinis</option>
+            <option value="large" id="wsSizeLarge">Padidintas</option>
           </select>
         </div>
       </div>
@@ -68,7 +92,6 @@
     </div>
   </div>
 
-  <!-- Doc Modal -->
   <div id="docModal" class="fixed inset-0 z-[110] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hide transition-opacity duration-500">
     <div class="max-w-2xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] fade-in">
       <div class="p-6 border-b border-[#ebdcd0] flex justify-between items-center bg-[#fcfaf7]">
@@ -82,7 +105,6 @@
     </div>
   </div>
 
-  <!-- Nav -->
   <nav class="sticky top-0 z-40 bg-[#faf9f6]/95 backdrop-blur-md border-b border-[#ebdcd0] py-3 px-4 md:px-8 transition-all duration-500">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <div class="flex items-center gap-3">
@@ -207,8 +229,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Соответствие языков сайта и кодов Google Translate
-    const EXT_LANGS = {
+    const GOOGLE_LANGS = {
       'LT': 'lt', 'EN': 'en', 'RU': 'ru', 'LV': 'lv', 'KUR': 'ku', 
       'AM': 'hy', 'PT': 'pt', 'ES': 'es', 'HE': 'iw', 'JA': 'ja', 
       'FR': 'fr', 'SV': 'sv'
@@ -295,11 +316,31 @@
     const DOCS = {
       privacy: {
         LT: { title: "Privatumo politika", text: "<p>Ši svetainė naudoja vietinę atmintį, kad išsaugotų jūsų pasirinktą kalbą, šalį ir teksto dydį.</p><p>Jūsų vardas, šalis ir komentarai yra saugomi saugioje duomenų bazėje (Firebase) ir rodomi kitiems lankytojams.</p><p>Duomenys nenaudojami komerciniais tikslais ir neperduodami trečiosioms šalims.</p>" },
-        EN: { title: "Privacy Policy", text: "<p>This site uses local storage to save your language, country, and text size preferences.</p><p>Your name, country, and comments are stored in a secure database (Firebase) to be displayed to other visitors.</p><p>Data is not used for commercial purposes or shared with third parties.</p>" }
+        EN: { title: "Privacy Policy", text: "<p>This site uses local storage to save your language, country, and text size preferences.</p><p>Your name, country, and comments are stored in a secure database (Firebase) to be displayed to other visitors.</p><p>Data is not used for commercial purposes or shared with third parties.</p>" },
+        RU: { title: "Политика конфиденциальности", text: "<p>Этот сайт использует локальное хранилище для сохранения выбранного языка, страны и размера текста.</p><p>Ваше имя, страна и комментарии сохраняются в безопасной базе данных (Firebase) для отображения другим посетителям.</p><p>Данные не используются в коммерческих целях и не передаются третьим лицам.</p>" },
+        LV: { title: "Privātuma politika", text: "<p>Šī vietne izmanto lokālo krātuvi, lai saglabātu jūsu valodas, valsts un teksta izmēra preferences.</p><p>Jūsu vārds, valsts un komentāri tiek glabāti drošā datubāzē (Firebase), lai tos parādītu citiem apmeklētājiem.</p><p>Dati netiek izmantoti komerciāliem mērķiem un netiek nodoti trešajām pusēm.</p>" },
+        KUR: { title: "Siyaseta Taybetîtiyê", text: "<p>Ev malper hilanîna herêmî bikar tîne da ku tercîhên ziman, welat û mezinahiya nivîsa we hilîne.</p><p>Nav, welat û şîroveyên we di databasek ewledar (Firebase) de têne hilanîn da ku ji mêvanên din re werin nîşandan.</p><p>Daneyên ji bo armancên bazirganî nayên bikar anîn û bi aliyên sêyemîn re nayên parve kirin.</p>" },
+        AM: { title: "Գաղտնիության քաղաքականություն", text: "<p>Այս կայքը օգտագործում է տեղական պահեստը ձեր լեզվի, երկրի և տեքստի չափի կարգավորումները պահպանելու համար:</p><p>Ձեր անունը, երկիրը և մեկնաբանությունները պահվում են անվտանգ տվյալների բազայում (Firebase)՝ այլ այցելուներին ցուցադրելու համար:</p><p>Տվյալները չեն օգտագործվում առևտրային նպատակներով և չեն փոխանցվում երրորդ անձանց:</p>" },
+        PT: { title: "Política de Privacidade", text: "<p>Este site usa armazenamento local para salvar suas preferências de idioma, país e tamanho do texto.</p><p>Seu nome, país e comentários são armazenados em um banco de dados seguro (Firebase) para serem exibidos a outros visitantes.</p><p>Os dados não são usados para fins comerciais nem compartilhados com terceiros.</p>" },
+        ES: { title: "Política de Privacidad", text: "<p>Este sitio utiliza el almacenamiento local para guardar suas preferencias de idioma, país y tamaño de texto.</p><p>Su nombre, país y comentarios se guardan en una base de datos segura (Firebase) para mostrarse a otros visitantes.</p><p>Los datos no se utilizan con fines comerciales ni se comparten con terceros.</p>" },
+        HE: { title: "מדיניות פרטיות", text: "<p>אתר זה משתמש באחסון מקומי כדי לשמור את העדפות השפה, המדינה וגודל הטקסט שלך.</p><p>השם, המדינה והתגובות שלך נשמרים במסד נתונים מאובטח (Firebase) כדי להציג למבקרים אחרים.</p><p>הנתונים אינם משמשים למטרות מסחריות ואינם מועברים לצדדים שלישיים.</p>" },
+        JA: { title: "プライバシーポリシー", text: "<p>当サイトでは、言語、国、テキストサイズの履歴を保存するためにローカルストレージを使用しています。</p><p>お名前、国名、コメントは安全なデータベース（Firebase）に保存され、他の訪問者に表示されます。</p><p>データは商業目的で使用されたり、第三者と共有されたりすることはありません。</p>" },
+        FR: { title: "Politique de confidentialité", text: "<p>Ce site utilise le stockage local pour enregistrer vos préférences de langue, de pays et de taille de texte.</p><p>Votre nom, votre pays et vos commentaires sont stockés dans une base de données sécurisée (Firebase) pour être affichés aux autres visiteurs.</p><p>Les données ne sont pas utilisées à des fins commerciales ni partagées avec des tiers.</p>" },
+        SV: { title: "Integritetspolicy", text: "<p>Denna webbplats använder lokal lagring för att spara dina inställningar för språk, land och textstorlek.</p><p>Ditt namn, land och kommentarer lagras i en säker databas (Firebase) för att visas för andra besökare.</p><p>Data används inte för kommersiella ändamål och delas inte med tredje part.</p>" }
       },
       terms: {
         LT: { title: "Naudojimo taisyklės", text: "<p>Visos nuotraukos ir vaizdo įrašai skirti tik asmeniniam peržiūrai.</p><p>Draudžiama publikuoti medžiagą kitose svetainėse ar socialiniuose tinkluose be leidimo.</p><p>Draudžiama naudoti medžiagą komerciniais tikslais.</p>" },
-        EN: { title: "Terms of Use", text: "<p>All photos and videos are for personal viewing only.</p><p>It is forbidden to publish materials on other sites or social networks without permission.</p><p>It is forbidden to use materials for commercial purposes.</p>" }
+        EN: { title: "Terms of Use", text: "<p>All photos and videos are for personal viewing only.</p><p>It is forbidden to publish materials on other sites or social networks without permission.</p><p>It is forbidden to use materials for commercial purposes.</p>" },
+        RU: { title: "Правила использования", text: "<p>Все фотографии и видео предназначены только для личного просмотра.</p><p>Запрещается публиковать материалы на других сайтах или в социальных сетях без разрешения.</p><p>Запрещается использовать материалы в коммерческих целях.</p>" },
+        LV: { title: "Lietošanas noteikumi", text: "<p>Visas fotogrāfijas un video ir paredzēti tikai personīgai apskatei.</p><p>Ir aizliegts publicēt materiālus citās vietnēs vai sociālajos tīklos bez atļaujas.</p><p>Ir aizliegts izmantot materiālus komerciāliem mērķiem.</p>" },
+        KUR: { title: "Mercên Bikaranînê", text: "<p>Hemû wêne û vîdyo tenê ji bo temaşekirina kesane ne.</p><p>Qedexe ye ku materyal bêyî destûr li ser malperên din an torên civakî werin weşandin.</p><p>Qedexe ye ku materyal ji bo armancên bazirganî werin bikar anîn.</p>" },
+        AM: { title: "Օգտագործման պայմաններ", text: "<p>Բոլոր լուսանկարները և տեսանյութերը միայն անձնական դիտման համար են:</p><p>Արգելվում է նյութերը հրապարակել այլ կայքերում կամ սոցիալական ցանցերում առանց թույլտվության:</p><p>Արգելվում է նյութերն օգտագործել առևտրային նպատակներով:</p>" },
+        PT: { title: "Termos de Uso", text: "<p>Todas as fotos e vídeos são apenas para visualização pessoal.</p><p>É proibido publicar materiais em outros sites ou redes sociais sem permissão.</p><p>É proibido usar materiais para fins comerciais.</p>" },
+        ES: { title: "Términos de Uso", text: "<p>Todas las fotos y videos son solo para visualización personal.</p><p>Está prohibido publicar materiales en otros sitios o redes sociales sin permiso.</p><p>Está prohibido utilizar materiales con fines comerciales.</p>" },
+        HE: { title: "תנאי שימוש", text: "<p>כל התמונות והסרטונים מיועדים לצפייה אישית בלבד.</p><p>חל איסור לפרסם חומרים באתרים אחרים או ברשתות חברתיות ללא אישור.</p><p>חל איסור להשתמש בחומרים למטרות מסחריות.</p>" },
+        JA: { title: "利用規約", text: "<p>すべての写真および動画は個人利用のみを目的としています。</p><p>許可なく他のサイトや SNS にコンテンツを転載することを禁じます。</p><p>商業目的での素材の使用は禁止されています。</p>" },
+        FR: { title: "Conditions d'utilisation", text: "<p>Toutes les photos et vidéos sont destinées à un visionnage personnel uniquement.</p><p>Il est interdit de publier des documents sur d'autres sites ou réseaux sociaux sans autorisation.</p><p>Il est interdit d'utiliser des documents à des fins commerciales.</p>" },
+        SV: { title: "Användarvillkor", text: "<p>Alla foton och videor är endast för personlig visning.</p><p>Det är förbjudet att publicera material på andra webbplatser eller sociala nätverk utan tillstånd.</p><p>Det är förbjudet att använda material för kommersiella ändamål.</p>" }
       }
     };
 
@@ -309,7 +350,7 @@
     const userId = localStorage.getItem('vf2026_uid') || ('u_' + Math.random().toString(36).substr(2, 9));
     localStorage.setItem('vf2026_uid', userId);
 
-    const escapeHTML = (str) => str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag]));
+    const escapeHTML = (str) => String(str || '').replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag]));
 
     const init = () => {
       populateCountries();
@@ -389,6 +430,32 @@
       });
     };
 
+    const translateWithGoogle = async (text, sourceLang) => {
+      const translations = {};
+      translations[sourceLang] = text;
+      const sLang = GOOGLE_LANGS[sourceLang] || 'auto';
+      
+      const promises = Object.keys(GOOGLE_LANGS).map(async (targetLangKey) => {
+        if (targetLangKey === sourceLang) return;
+        const tLang = GOOGLE_LANGS[targetLangKey];
+        try {
+          const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sLang}&tl=${tLang}&dt=t&q=${encodeURIComponent(text)}`;
+          const res = await fetch(url);
+          const data = await res.json();
+          if (data && data[0]) {
+            translations[targetLangKey] = data[0].map(item => item[0]).join('');
+          } else {
+            translations[targetLangKey] = text;
+          }
+        } catch (e) {
+          translations[targetLangKey] = text;
+        }
+      });
+      
+      await Promise.all(promises);
+      return translations;
+    };
+
     const renderCommentsUI = () => {
       const w = document.getElementById('commentsWrapper'); w.innerHTML = '';
       const t = TRANSLATIONS[currentLang] || TRANSLATIONS['EN'];
@@ -402,18 +469,13 @@
         const div = document.createElement('div');
         div.className = "bg-white border border-[#ebdcd0] rounded-2xl p-6 shadow-sm fade-in hover:shadow-md transition-shadow duration-300";
         
-        const targetCode = EXT_LANGS[currentLang];
         let translatedStr = null;
-        
-        // Чтение переводов, созданных Firebase
         if (c.translatedText && typeof c.translatedText === 'object') {
-          translatedStr = c.translatedText[targetCode];
-          if (!translatedStr && currentLang === 'HE') translatedStr = c.translatedText['iw'];
+          translatedStr = c.translatedText[currentLang];
         }
         
-        // Если перевода еще нет (задержка плагина) или язык не поддерживается, показываем оригинал
         const rawText = translatedStr ? translatedStr : c.originalText;
-        const text = escapeHTML(rawText || '');
+        const text = escapeHTML(rawText);
         const safeName = escapeHTML(c.name || 'Svečias');
         const safeCountry = escapeHTML(c.country || '');
         const isTr = c.originalLang !== currentLang && !!translatedStr;
@@ -471,16 +533,21 @@
       e.preventDefault();
       const btn = document.getElementById('btnSubmitComment');
       const loader = document.getElementById('loader');
+      const name = document.getElementById('formName').value;
+      const text = document.getElementById('formText').value;
       
       btn.disabled = true;
       loader.classList.remove('hide');
       
       try {
+        const translatedObj = await translateWithGoogle(text, currentLang);
+        
         await addDoc(collection(db, "comments"), {
-          name: document.getElementById('formName').value,
+          name: name,
           country: currentCountry,
           originalLang: currentLang,
-          originalText: document.getElementById('formText').value,
+          originalText: text,
+          translatedText: translatedObj,
           timestamp: serverTimestamp(),
           reactions: {}
         });
