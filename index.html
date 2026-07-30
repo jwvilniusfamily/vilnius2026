@@ -207,7 +207,7 @@
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
     </button>
     <div class="w-full h-[85vh] flex items-center justify-center px-4 overflow-hidden" onclick="event.stopPropagation()">
-      <img id="modalImg" src="" alt="Gallery" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl transition-transform duration-200 cursor-zoom-in">
+      <img id="modalImg" src="" alt="Gallery" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl transition-transform duration-200 cursor-zoom-in" title="Slinkite ratuku, kad priartintumėte">
     </div>
     <button class="absolute right-4 text-white bg-black/50 rounded-full w-14 h-14 flex items-center justify-center backdrop-blur-md z-50 transition-colors hover:bg-[#b2533e]" onclick="navigateModal(1); event.stopPropagation();">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
@@ -356,114 +356,18 @@
     };
 
     const TRANSLATIONS = {
-      LT: {
-        heroDesc: "Sveiki atvykę, mieli mūsų tarptautinės dvasinės šeimos broliai ir sesės! Mes be galo džiaugiamės, kad atvykote į kongresą Lietuvoje. Tai bus nepamirštamas kongresas. Mums be galo džiugu, kad galime jums parodyti Lietuvą. Šiuos plakatus su pasveikinimais įvairiomis kalbomis ir mūsų mažas molines dovanėles ruošėme specialiai jums su didele meile, norėdami supažindinti su mūsų kultūra ir tradicijomis. Šiame puslapyje norime parodyti, kaip viską kūrėme – čia rasite vaizdo įrašus iš mūsų darbo užkulisių. Mums būtų labai įdomu sužinoti jūsų įspūdžius. Prašome užeiti į skiltį „Laiškas“, pasirinkti savo šalį ir palikti mums keletą šiltų žodžių. Mes labai vertiname, kad esate kartu su mumis!",
-        btnExplore: "Nuotraukos", btnLeaveMessage: "Laiškas", galleryTitle: "Darbo užkulisiai",
-        commentsTitle: "Laiškas", commentsDesc: "Palikite mums keletą šiltų žodžių.",
-        labelName: "Jūsų Vardas", labelMsg: "Žinutė", btnSubmitComment: "Siųsti",
-        commentsSub: "Atsiliepimai", labelTranslateOn: "AI vertimas įjungtas",
-        wsTitle: "Sveiki atvykę!", wsDesc: "Pasirinkite nustatymus", wsCountryLabel: "Šalis", wsLangLabel: "Kalba", wsSizeLabel: "Teksto dydis", wsSizeNormal: "Standartinis", wsSizeLarge: "Padidintas", btnContinue: "Tęsti", wsPrivacy: "Privatumo politika", wsTerms: "Naudojimo taisyklės",
-        wsAcceptText: "Sutinku su", wsAnd: "ir", translatedFrom: "Versta iš", loading: "Kraunama...", noComments: "Nėra komentarų. Būkite pirmas!", docBtnClose: "Supratau"
-      },
-      EN: {
-        heroDesc: "Welcome, dear brothers and sisters of our international spiritual family! We are absolutely thrilled that you came to the congress in Lithuania. This will be an unforgettable congress. We prepared these posters and clay gifts especially for you with great love. On this page we want to show you how we created everything. We would be very interested to hear your impressions. Please leave us a few warm words!",
-        btnExplore: "Photos", btnLeaveMessage: "Letter", galleryTitle: "Behind the Scenes",
-        commentsTitle: "Letter", commentsDesc: "Please leave us a few warm words.",
-        labelName: "Your Name", labelMsg: "Message", btnSubmitComment: "Send",
-        commentsSub: "Guestbook", labelTranslateOn: "AI Translation Active",
-        wsTitle: "Welcome!", wsDesc: "Choose your preferences", wsCountryLabel: "Country", wsLangLabel: "Language", wsSizeLabel: "Text Size", wsSizeNormal: "Normal", wsSizeLarge: "Large", btnContinue: "Continue", wsPrivacy: "Privacy Policy", wsTerms: "Terms of Use",
-        wsAcceptText: "I agree to the", wsAnd: "and", translatedFrom: "Translated from", loading: "Loading...", noComments: "No comments yet. Be the first!", docBtnClose: "I understand"
-      },
-      RU: {
-        heroDesc: "Добро пожаловать, дорогие братья и сестры нашей международной духовной семьи! Мы бесконечно рады, что вы приехали на конгресс в Литву. Это будет незабываемый конгресс. Эти плакаты и глиняные подарки мы готовили специально для вас с огромной любовью. На этой странице мы хотим показать вам процесс творчества. Нам было бы очень интересно узнать ваши впечатления. Пожалуйста, оставьте несколько теплых слов!",
-        btnExplore: "Фото", btnLeaveMessage: "Письмо", galleryTitle: "Закулисье",
-        commentsTitle: "Письмо", commentsDesc: "Оставьте нам несколько теплых слов.",
-        labelName: "Ваше имя", labelMsg: "Сообщение", btnSubmitComment: "Отправить",
-        commentsSub: "Отзывы", labelTranslateOn: "AI-перевод активен",
-        wsTitle: "Добро пожаловать!", wsDesc: "Выберите настройки", wsCountryLabel: "Страна", wsLangLabel: "Язык", wsSizeLabel: "Размер текста", wsSizeNormal: "Обычный", wsSizeLarge: "Крупный", btnContinue: "Продолжить", wsPrivacy: "Политика конфиденциальности", wsTerms: "Правила использования",
-        wsAcceptText: "Я согласен с", wsAnd: "и", translatedFrom: "Переведено с", loading: "Загрузка...", noComments: "Пока нет комментариев. Будьте первым!", docBtnClose: "Понятно"
-      },
-      LV: {
-        heroDesc: "Laipni lūdzam, dārgie brāļi un māsas no mūsu starptautiskās garīgās ģimenes! Mēs esam bezgala priecīgi, ka esat ieradušies uz kongresu Lietuvā. Šis būs neaizmirstams kongress. Šos plakātus un māla dāvaniņas mēs gatavojām īpaši jums ar lielu mīlestību. Šajā lapā mēs vēlamies parādīt, kā mēs visu radījām. Mums būtu ļoti interesanti uzzināt jūsu iespaidus. Lūdzu, atstājiet mums dažus siltus vārdus!",
-        btnExplore: "Foto", btnLeaveMessage: "Vēstule", galleryTitle: "Aizkulises",
-        commentsTitle: "Vēstule", commentsDesc: "Lūdzu, atstājiet mums dažus siltus vārdus.",
-        labelName: "Jūsu Vārds", labelMsg: "Ziņojums", btnSubmitComment: "Sūtīt",
-        commentsSub: "Atsauksmes", labelTranslateOn: "AI tulkojums ieslēgts",
-        wsTitle: "Laipni lūdzam!", wsDesc: "Izvēlieties iestatījumus", wsCountryLabel: "Valsts", wsLangLabel: "Valoda", wsSizeLabel: "Teksta izmērs", wsSizeNormal: "Standarta", wsSizeLarge: "Liels", btnContinue: "Turpināt", wsPrivacy: "Privātuma politika", wsTerms: "Lietošanas noteikumi",
-        wsAcceptText: "Es piekrītu", wsAnd: "un", translatedFrom: "Tulkots no", loading: "Notiek ielāde...", noComments: "Vēl nav komentāru. Esiet pirmais!", docBtnClose: "Sapratu"
-      },
-      KUR: {
-        heroDesc: "Bi xêr hatin, xwişk û birayên delal ên malbata me ya giyanî ya navneteweyî! Em pir kêfxweş in ku hûn hatin kongreya Lîtvanyayê. Ev dê bibe kongreyek jibîrnekirî. Me ev poster û diyarî bi hezkirinek mezin ji bo we amade kirin. Em dixwazin nîşanî we bidin ka me çawa her tişt afirand. Ji kerema xwe çend peyvên germ ji me re bihêlin!",
-        btnExplore: "Wêne", btnLeaveMessage: "Name", galleryTitle: "Li pişt perdeyê",
-        commentsTitle: "Name", commentsDesc: "Ji kerema xwe çend peyvên germ ji me re bihêlin.",
-        labelName: "Navê te", labelMsg: "Peyam", btnSubmitComment: "Bişîne",
-        commentsSub: "Şîrove", labelTranslateOn: "Wergera AI çalak e",
-        wsTitle: "Bi xêr hatin!", wsDesc: "Vebijarkên xwe hilbijêrin", wsCountryLabel: "Welat", wsLangLabel: "Ziman", wsSizeLabel: "Mezinahiya nivîsê", wsSizeNormal: "Normal", wsSizeLarge: "Mezin", btnContinue: "Berdewam bike", wsPrivacy: "Siyaseta Taybetîtiyê", wsTerms: "Mercên Bikaranînê",
-        wsAcceptText: "Ez qebûl dikim", wsAnd: "û", translatedFrom: "Ji hatî wergerandin", loading: "Tê barkirin...", noComments: "Hê şîrove tune. Bibin yê yekem!", docBtnClose: "Fêm kir"
-      },
-      AM: {
-        heroDesc: "Բարի գալուստ, մեր միջազգային հոգևոր ընտանիքի սիրելի եղբայրներ և քույրեր: Մենք անչափ ուրախ ենք, որ դուք եկել եք Լիտվա: Սա կլինի անմոռանալի կոնգրես: Այս պաստառներն ու կավե նվերները մենք պատրաստել ենք հատուկ ձեզ համար՝ մեծ սիրով: Խնդրում ենք թողնել մեզ մի քանի ջերմ խոսք:",
-        btnExplore: "Լուսանկարներ", btnLeaveMessage: "Նամակ", galleryTitle: "Կուլիսներում",
-        commentsTitle: "Նամակ", commentsDesc: "Խնդրում ենք թողնել մեզ մի քանի ջերմ խոսք:",
-        labelName: "Ձեր անունը", labelMsg: "Հաղորդագրություն", btnSubmitComment: "Ուղարկել",
-        commentsSub: "Մեկնաբանություններ", labelTranslateOn: "AI Թարգմանությունը միացված է",
-        wsTitle: "Բարի գալուստ", wsDesc: "Ընտրեք կարգավորումները", wsCountryLabel: "Երկիր", wsLangLabel: "Լեզու", wsSizeLabel: "Տեքստի չափը", wsSizeNormal: "Ստանդարտ", wsSizeLarge: "Մեծ", btnContinue: "Շարունակել", wsPrivacy: "Գաղտնիության քաղաքականություն", wsTerms: "Օգտագործման պայմաններ",
-        wsAcceptText: "Ես համաձայն եմ", wsAnd: "և", translatedFrom: "Թարգմանված է", loading: "Բեռնվում է...", noComments: "Դեռ մեկնաբանություններ չկան: Եղեք առաջինը:", docBtnClose: "Հասկացա"
-      },
-      PT: {
-        heroDesc: "Bem-vindos, queridos irmãos e irmãs da nossa família espiritual internacional! Estamos absolutamente emocionados por vocês terem vindo ao congresso na Lituânia. Preparamos estes presentes com muito amor. Gostaríamos muito de saber as suas impressões. Por favor, deixe-nos algumas palavras calorosas!",
-        btnExplore: "Fotos", btnLeaveMessage: "Carta", galleryTitle: "Bastidores",
-        commentsTitle: "Carta", commentsDesc: "Por favor, deixe-nos algumas palavras calorosas.",
-        labelName: "Seu Nome", labelMsg: "Mensagem", btnSubmitComment: "Enviar",
-        commentsSub: "Comentários", labelTranslateOn: "Tradução AI Ativa",
-        wsTitle: "Bem-vindo!", wsDesc: "Escolha suas preferências", wsCountryLabel: "País", wsLangLabel: "Idioma", wsSizeLabel: "Tamanho do Texto", wsSizeNormal: "Normal", wsSizeLarge: "Grande", btnContinue: "Continuar", wsPrivacy: "Política de Privacidade", wsTerms: "Termos de Uso",
-        wsAcceptText: "Eu concordo com a", wsAnd: "e", translatedFrom: "Traduzido de", loading: "Carregando...", noComments: "Ainda não há comentários. Seja o primeiro!", docBtnClose: "Entendi"
-      },
-      ES: {
-        heroDesc: "¡Bienvenidos, queridos hermanos y hermanas de nuestra familia espiritual internacional! Estamos absolutamente encantados de que hayan venido al congresso en Lituania. Preparamos estos regalos especialmente para ustedes con mucho amor. ¡Por favor, déjennos unas cálidas palabras!",
-        btnExplore: "Fotos", btnLeaveMessage: "Carta", galleryTitle: "Detrás de escena",
-        commentsTitle: "Carta", commentsDesc: "Por favor, déjennos unas cálidas palabras.",
-        labelName: "Tu Nombre", labelMsg: "Mensaje", btnSubmitComment: "Enviar",
-        commentsSub: "Comentarios", labelTranslateOn: "Traducción AI Activa",
-        wsTitle: "¡Bienvenido!", wsDesc: "Elige tus preferencias", wsCountryLabel: "País", wsLangLabel: "Idioma", wsSizeLabel: "Tamaño del texto", wsSizeNormal: "Normal", wsSizeLarge: "Grande", btnContinue: "Continuar", wsPrivacy: "Política de Privacidad", wsTerms: "Términos de Uso",
-        wsAcceptText: "Acepto la", wsAnd: "y", translatedFrom: "Traducido de", loading: "Cargando...", noComments: "Aún no hay comentarios. ¡Sé el primero!", docBtnClose: "Entendido"
-      },
-      HE: {
-        heroDesc: "ברוכים הבאים, אחים ואחיות יקרים של המשפחה הרוחנית הבינלאומית שלנו! אנו נרגשים מאוד שבאתם לקונגרס בליטא. הכנו את המתנות הללו במיוחד עבורכם באהבה רבה. נשמח מאוד לשמוע את רשמיכם. אנא השאירו לנו כמה מילים חמות!",
-        btnExplore: "תמונות", btnLeaveMessage: "מכתב", galleryTitle: "מאחורי הקלעים",
-        commentsTitle: "מכתב", commentsDesc: "אנא השאירו לנו כמה מילים חמות.",
-        labelName: "השם שלך", labelMsg: "הודעה", btnSubmitComment: "לשלוח",
-        commentsSub: "תגובות", labelTranslateOn: "תרגום AI פעיל",
-        wsTitle: "ברוכים הבאים!", wsDesc: "בחר את ההעדפות שלך", wsCountryLabel: "מדינה", wsLangLabel: "שפה", wsSizeLabel: "גודל טקסט", wsSizeNormal: "רגיל", wsSizeLarge: "גדול", btnContinue: "המשך", wsPrivacy: "מדיניות פרטיות", wsTerms: "תנאי שימוש",
-        wsAcceptText: "אני מסכים ל", wsAnd: "ו", translatedFrom: "תורגם מ", loading: "טוען...", noComments: "עדיין אין תגובות. היה הראשון!", docBtnClose: "הבנתי"
-      },
-      JA: {
-        heroDesc: "私たちの国際的な霊的家族の親愛なる兄弟姉妹の皆さん、ようこそ！リトアニアでの大会にお越しいただき、本当に嬉しく思います。これらの贈り物は、大きな愛を込めて特別に準備しました。ぜひ温かい言葉を残してください！",
-        btnExplore: "写真", btnLeaveMessage: "手紙", galleryTitle: "舞台裏",
-        commentsTitle: "手紙", commentsDesc: "温かい言葉を残してください。",
-        labelName: "あなたの名前", labelMsg: "メッセージ", btnSubmitComment: "送信",
-        commentsSub: "コメント", labelTranslateOn: "AI翻訳が有効です",
-        wsTitle: "ようこそ！", wsDesc: "設定を選択してください", wsCountryLabel: "国", wsLangLabel: "言語", wsSizeLabel: "テキストサイズ", wsSizeNormal: "標準", wsSizeLarge: "大", btnContinue: "続行", wsPrivacy: "プライバシーポリシー", wsTerms: "利用規約",
-        wsAcceptText: "同意します", wsAnd: "と", translatedFrom: "翻訳元", loading: "読み込み中...", noComments: "まだコメントはありません。最初のコメントをどうぞ！", docBtnClose: "理解しました"
-      },
-      FR: {
-        heroDesc: "Bienvenue, chers frères et sœurs de notre famille spirituelle internationale ! Nous sommes absolument ravis que vous soyez venus au congrès en Lituanie. Nous avons préparé ces cadeaux spécialement pour vous avec beaucoup d'amour. S'il vous plaît, laissez-nous quelques mots chaleureux !",
-        btnExplore: "Photos", btnLeaveMessage: "Lettre", galleryTitle: "Dans les coulisses",
-        commentsTitle: "Lettre", commentsDesc: "S'il vous plaît, laissez-nous quelques mots chaleureux.",
-        labelName: "Votre Nom", labelMsg: "Message", btnSubmitComment: "Envoyer",
-        commentsSub: "Commentaires", labelTranslateOn: "Traduction AI Active",
-        wsTitle: "Bienvenue !", wsDesc: "Choisissez vos préférences", wsCountryLabel: "Pays", wsLangLabel: "Langue", wsSizeLabel: "Taille du texte", wsSizeNormal: "Normal", wsSizeLarge: "Grand", btnContinue: "Continuer", wsPrivacy: "Politique de confidentialité", wsTerms: "Conditions d'utilisation",
-        wsAcceptText: "J'accepte la", wsAnd: "et les", translatedFrom: "Traduit de", loading: "Chargement...", noComments: "Aucun commentaire pour le moment. Soyez le premier !", docBtnClose: "J'ai compris"
-      },
-      SV: {
-        heroDesc: "Välkomna, kära bröder och systrar i vår internationella andliga familj! Vi är oerhört glada att ni kom till kongressen i Litauen. Vi har förberett dessa gåvor speciellt för er med stor kärlek. Lämna gärna några varma ord till oss!",
-        btnExplore: "Foton", btnLeaveMessage: "Brev", galleryTitle: "Bakom kulisserna",
-        commentsTitle: "Brev", commentsDesc: "Lämna gärna några varma ord till oss.",
-        labelName: "Ditt Namn", labelMsg: "Meddelande", btnSubmitComment: "Skicka",
-        commentsSub: "Kommentarer", labelTranslateOn: "AI-översättning aktiv",
-        wsTitle: "Välkommen!", wsDesc: "Välj dina inställningar", wsCountryLabel: "Land", wsLangLabel: "Språk", wsSizeLabel: "Textstorlek", wsSizeNormal: "Normal", wsSizeLarge: "Stor", btnContinue: "Fortsätt", wsPrivacy: "Integritetspolicy", wsTerms: "Användarvillkor",
-        wsAcceptText: "Jag godkänner", wsAnd: "och", translatedFrom: "Översatt från", loading: "Laddar...", noComments: "Inga kommentarer ännu. Bli den första!", docBtnClose: "Jag förstår"
-      }
+      LT: { heroDesc: "Sveiki atvykę, mieli mūsų tarptautinės dvasinės šeimos broliai ir sesės! Mes be galo džiaugiamės, kad atvykote į kongresą Lietuvoje. Tai bus nepamirštamas kongresas. Mums be galo džiugu, kad galime jums parodyti Lietuvą. Šiuos plakatus su pasveikinimais įvairiomis kalbomis ir mūsų mažas molines dovanėles ruošėme specialiai jums su didele meile, norėdami supažindinti su mūsų kultūra ir tradicijomis. Šiame puslapyje norime parodyti, kaip viską kūrėme – čia rasite vaizdo įrašus iš mūsų darbo užkulisių. Mums būtų labai įdomu sužinoti jūsų įspūdžius. Prašome užeiti į skiltį „Laiškas“, pasirinkti savo šalį ir palikti mums keletą šiltų žodžių. Mes labai vertiname, kad esate kartu su mumis!", btnExplore: "Nuotraukos", btnLeaveMessage: "Laiškas", galleryTitle: "Darbo užkulisiai", commentsTitle: "Laiškas", commentsDesc: "Palikite mums keletą šiltų žodžių.", labelName: "Vardas", labelMsg: "Žinutė", btnSubmitComment: "Siųsti", commentsSub: "Atsiliepimai", labelTranslateOn: "AI vertimas įjungtas", wsTitle: "Sveiki atvykę!", wsDesc: "Pasirinkite nustatymus", wsCountryLabel: "Šalis", wsLangLabel: "Kalba", wsSizeLabel: "Teksto dydis", wsSizeNormal: "Standartinis", wsSizeLarge: "Padidintas", btnContinue: "Tęsti", wsPrivacy: "Privatumo politika", wsTerms: "Naudojimo taisyklės", wsAcceptText: "Sutinku su", wsAnd: "ir", translatedFrom: "Versta iš", loading: "Kraunama...", noComments: "Nėra komentarų. Būkite pirmas!", docBtnClose: "Supratau", catBtnAll: "Viskas", catBtnPosters: "Plakatai", catBtnClay: "Molis", catBtnCards: "Atvirukai" },
+      EN: { heroDesc: "Welcome, dear brothers and sisters of our international spiritual family! We are absolutely thrilled that you came to the congress in Lithuania. This will be an unforgettable congress. We prepared these posters and clay gifts especially for you with great love. On this page we want to show you how we created everything. We would be very interested to hear your impressions. Please leave us a few warm words!", btnExplore: "Photos", btnLeaveMessage: "Letter", galleryTitle: "Behind the Scenes", commentsTitle: "Letter", commentsDesc: "Please leave us a few warm words.", labelName: "Your Name", labelMsg: "Message", btnSubmitComment: "Send", commentsSub: "Guestbook", labelTranslateOn: "AI Translation Active", wsTitle: "Welcome!", wsDesc: "Choose your preferences", wsCountryLabel: "Country", wsLangLabel: "Language", wsSizeLabel: "Text Size", wsSizeNormal: "Normal", wsSizeLarge: "Large", btnContinue: "Continue", wsPrivacy: "Privacy Policy", wsTerms: "Terms of Use", wsAcceptText: "I agree to the", wsAnd: "and", translatedFrom: "Translated from", loading: "Loading...", noComments: "No comments yet. Be the first!", docBtnClose: "I understand", catBtnAll: "All", catBtnPosters: "Posters", catBtnClay: "Clay", catBtnCards: "Postcards" },
+      RU: { heroDesc: "Добро пожаловать, дорогие братья и сестры нашей международной духовной семьи! Мы бесконечно рады, что вы приехали на конгресс в Литву. Это будет незабываемый конгресс. Эти плакаты и глиняные подарки мы готовили специально для вас с огромной любовью. На этой странице мы хотим показать вам процесс творчества. Нам было бы очень интересно узнать ваши впечатления. Пожалуйста, оставьте несколько теплых слов!", btnExplore: "Фото", btnLeaveMessage: "Письмо", galleryTitle: "Закулисье", commentsTitle: "Письмо", commentsDesc: "Оставьте нам несколько теплых слов.", labelName: "Ваше имя", labelMsg: "Сообщение", btnSubmitComment: "Отправить", commentsSub: "Отзывы", labelTranslateOn: "AI-перевод активен", wsTitle: "Добро пожаловать!", wsDesc: "Выберите настройки", wsCountryLabel: "Страна", wsLangLabel: "Язык", wsSizeLabel: "Размер текста", wsSizeNormal: "Обычный", wsSizeLarge: "Крупный", btnContinue: "Продолжить", wsPrivacy: "Политика конфиденциальности", wsTerms: "Правила использования", wsAcceptText: "Я согласен с", wsAnd: "и", translatedFrom: "Переведено с", loading: "Загрузка...", noComments: "Пока нет комментариев. Будьте первым!", docBtnClose: "Понятно", catBtnAll: "Все", catBtnPosters: "Плакаты", catBtnClay: "Глина", catBtnCards: "Открытки" },
+      LV: { heroDesc: "Laipni lūdzam, dārgie brāļi un māsas no mūsu starptautiskās garīgās ģimenes! Mēs esam bezgala priecīgi, ka esat ieradušies uz kongresu Lietuvā. Šis būs neaizmirstams kongress. Šos plakātus un māla dāvaniņas mēs gatavojām īpaši jums ar lielu mīlestību. Šajā lapā mēs vēlamies parādīt, kā mēs visu radījām. Mums būtu ļoti interesanti uzzināt jūsu iespaidus. Lūdzu, atstājiet mums dažus siltus vārdus!", btnExplore: "Foto", btnLeaveMessage: "Vēstule", galleryTitle: "Aizkulises", commentsTitle: "Vēstule", commentsDesc: "Lūdzu, atstājiet mums dažus siltus vārdus.", labelName: "Jūsu Vārds", labelMsg: "Ziņojums", btnSubmitComment: "Sūtīt", commentsSub: "Atsauksmes", labelTranslateOn: "AI tulkojums ieslēgts", wsTitle: "Laipni lūdzam!", wsDesc: "Izvēlieties iestatījumus", wsCountryLabel: "Valsts", wsLangLabel: "Valoda", wsSizeLabel: "Teksta izmērs", wsSizeNormal: "Standarta", wsSizeLarge: "Liels", btnContinue: "Turpināt", wsPrivacy: "Privātuma politika", wsTerms: "Lietošanas noteikumi", wsAcceptText: "Es piekrītu", wsAnd: "un", translatedFrom: "Tulkots no", loading: "Notiek ielāde...", noComments: "Vēl nav komentāru. Esiet pirmais!", docBtnClose: "Sapratu", catBtnAll: "Viss", catBtnPosters: "Plakāti", catBtnClay: "Māls", catBtnCards: "Pastkartes" },
+      KUR: { heroDesc: "Bi xêr hatin, xwişk û birayên delal ên malbata me ya giyanî ya navneteweyî! Em pir kêfxweş in ku hûn hatin kongreya Lîtvanyayê. Ev dê bibe kongreyek jibîrnekirî. Me ev poster û diyarî bi hezkirinek mezin ji bo we amade kirin. Em dixwazin nîşanî we bidin ka me çawa her tişt afirand. Ji kerema xwe çend peyvên germ ji me re bihêlin!", btnExplore: "Wêne", btnLeaveMessage: "Name", galleryTitle: "Li pişt perdeyê", commentsTitle: "Name", commentsDesc: "Ji kerema xwe çend peyvên germ ji me re bihêlin.", labelName: "Navê te", labelMsg: "Peyam", btnSubmitComment: "Bişîne", commentsSub: "Şîrove", labelTranslateOn: "Wergera AI çalak e", wsTitle: "Bi xêr hatin!", wsDesc: "Vebijarkên xwe hilbijêrin", wsCountryLabel: "Welat", wsLangLabel: "Ziman", wsSizeLabel: "Mezinahiya nivîsê", wsSizeNormal: "Normal", wsSizeLarge: "Mezin", btnContinue: "Berdewam bike", wsPrivacy: "Siyaseta Taybetîtiyê", wsTerms: "Mercên Bikaranînê", wsAcceptText: "Ez qebûl dikim", wsAnd: "û", translatedFrom: "Ji hatî wergerandin", loading: "Tê barkirin...", noComments: "Hê şîrove tune. Bibin yê yekem!", docBtnClose: "Fêm kir", catBtnAll: "Hemû", catBtnPosters: "Poster", catBtnClay: "Herrî", catBtnCards: "Kart" },
+      AM: { heroDesc: "Բարի գալուստ, մեր միջազգային հոգևոր ընտանիքի սիրելի եղբայրներ և քույրեր: Մենք անչափ ուրախ ենք, որ դուք եկել եք Լիտվա: Սա կլինի անմոռանալի կոնգրես: Այս պաստառներն ու կավե նվերները մենք պատրաստել ենք հատուկ ձեզ համար՝ մեծ սիրով: Խնդրում ենք թողնել մեզ մի քանի ջերմ խոսք:", btnExplore: "Լուսանկարներ", btnLeaveMessage: "Նամակ", galleryTitle: "Կուլիսներում", commentsTitle: "Նամակ", commentsDesc: "Խնդրում ենք թողնել մեզ մի քանի ջերմ խոսք:", labelName: "Ձեր անունը", labelMsg: "Հաղորդագրություն", btnSubmitComment: "Ուղարկել", commentsSub: "Մեկնաբանություններ", labelTranslateOn: "AI Թարգմանությունը միացված է", wsTitle: "Բարի գալուստ", wsDesc: "Ընտրեք կարգավորումները", wsCountryLabel: "Երկիր", wsLangLabel: "Լեզու", wsSizeLabel: "Տեքստի չափը", wsSizeNormal: "Ստանդարտ", wsSizeLarge: "Մեծ", btnContinue: "Շարունակել", wsPrivacy: "Գաղտնիության քաղաքականություն", wsTerms: "Օգտագործման պայմաններ", wsAcceptText: "Ես համաձայն եմ", wsAnd: "և", translatedFrom: "Թարգմանված է", loading: "Բեռնվում է...", noComments: "Դեռ մեկնաբանություններ չկան: Եղեք առաջինը:", docBtnClose: "Հասկացա", catBtnAll: "Բոլորը", catBtnPosters: "Պաստառներ", catBtnClay: "Կավ", catBtnCards: "Բացիկներ" },
+      PT: { heroDesc: "Bem-vindos, queridos irmãos e irmãs da nossa família espiritual internacional! Estamos absolutamente emocionados por vocês terem vindo ao congresso na Lituânia. Preparamos estes presentes com muito amor. Gostaríamos muito de saber as suas impressões. Por favor, deixe-nos algumas palavras calorosas!", btnExplore: "Fotos", btnLeaveMessage: "Carta", galleryTitle: "Bastidores", commentsTitle: "Carta", commentsDesc: "Por favor, deixe-nos algumas palavras calorosas.", labelName: "Seu Nome", labelMsg: "Mensagem", btnSubmitComment: "Enviar", commentsSub: "Comentários", labelTranslateOn: "Tradução AI Ativa", wsTitle: "Bem-vindo!", wsDesc: "Escolha suas preferências", wsCountryLabel: "País", wsLangLabel: "Idioma", wsSizeLabel: "Tamanho do Texto", wsSizeNormal: "Normal", wsSizeLarge: "Grande", btnContinue: "Continuar", wsPrivacy: "Política de Privacidade", wsTerms: "Termos de Uso", wsAcceptText: "Eu concordo com a", wsAnd: "e", translatedFrom: "Traduzido de", loading: "Carregando...", noComments: "Ainda não há comentários. Seja o primeiro!", docBtnClose: "Entendi", catBtnAll: "Tudo", catBtnPosters: "Cartazes", catBtnClay: "Argila", catBtnCards: "Cartões" },
+      ES: { heroDesc: "¡Bienvenidos, queridos hermanos y hermanas de nuestra familia espiritual internacional! Estamos absolutamente encantados de que hayan venido al congresso en Lituania. Preparamos estos regalos especialmente para ustedes con mucho amor. ¡Por favor, déjennos unas cálidas palabras!", btnExplore: "Fotos", btnLeaveMessage: "Carta", galleryTitle: "Detrás de escena", commentsTitle: "Carta", commentsDesc: "Por favor, déjennos unas cálidas palabras.", labelName: "Tu Nombre", labelMsg: "Mensaje", btnSubmitComment: "Enviar", commentsSub: "Comentarios", labelTranslateOn: "Traducción AI Activa", wsTitle: "¡Bienvenido!", wsDesc: "Elige tus preferencias", wsCountryLabel: "País", wsLangLabel: "Idioma", wsSizeLabel: "Tamaño del texto", wsSizeNormal: "Normal", wsSizeLarge: "Grande", btnContinue: "Continuar", wsPrivacy: "Política de Privacidad", wsTerms: "Términos de Uso", wsAcceptText: "Acepto la", wsAnd: "y", translatedFrom: "Traducido de", loading: "Cargando...", noComments: "Aún no hay comentarios. ¡Sé el primero!", docBtnClose: "Entendido", catBtnAll: "Todo", catBtnPosters: "Carteles", catBtnClay: "Arcilla", catBtnCards: "Postales" },
+      HE: { heroDesc: "ברוכים הבאים, אחים ואחיות יקרים של המשפחה הרוחנית הבינלאומית שלנו! אנו נרגשים מאוד שבאתם לקונגרס בליטא. הכנו את המתנות הללו במיוחד עבורכם באהבה רבה. נשמח מאוד לשמוע את רשמיכם. אנא השאירו לנו כמה מילים חמות!", btnExplore: "תמונות", btnLeaveMessage: "מכתב", galleryTitle: "מאחורי הקלעים", commentsTitle: "מכתב", commentsDesc: "אנא השאירו לנו כמה מילים חמות.", labelName: "השם שלך", labelMsg: "הודעה", btnSubmitComment: "לשלוח", commentsSub: "תגובות", labelTranslateOn: "תרגום AI פעיל", wsTitle: "ברוכים הבאים!", wsDesc: "בחר את ההעדפות שלך", wsCountryLabel: "מדינה", wsLangLabel: "שפה", wsSizeLabel: "גודל טקסט", wsSizeNormal: "רגיל", wsSizeLarge: "גדול", btnContinue: "המשך", wsPrivacy: "מדיניות פרטיות", wsTerms: "תנאי שימוש", wsAcceptText: "אני מסכים ל", wsAnd: "ו", translatedFrom: "תורגם מ", loading: "טוען...", noComments: "עדיין אין תגובות. היה הראשון!", docBtnClose: "הבנתי", catBtnAll: "הכל", catBtnPosters: "פוסטרים", catBtnClay: "חימר", catBtnCards: "גלויות" },
+      JA: { heroDesc: "私たちの国際的な霊的家族の親愛なる兄弟姉妹の皆さん、ようこそ！リトアニアでの大会にお越しいただき、本当に嬉しく思います。これらの贈り物は、大きな愛を込めて特別に準備しました。ぜひ温かい言葉を残してください！", btnExplore: "写真", btnLeaveMessage: "手紙", galleryTitle: "舞台裏", commentsTitle: "手紙", commentsDesc: "温かい言葉を残してください。", labelName: "あなたの名前", labelMsg: "メッセージ", btnSubmitComment: "送信", commentsSub: "コメント", labelTranslateOn: "AI翻訳が有効です", wsTitle: "ようこそ！", wsDesc: "設定を選択してください", wsCountryLabel: "国", wsLangLabel: "言語", wsSizeLabel: "テキストサイズ", wsSizeNormal: "標準", wsSizeLarge: "大", btnContinue: "続行", wsPrivacy: "プライバシーポリシー", wsTerms: "利用規約", wsAcceptText: "同意します", wsAnd: "と", translatedFrom: "翻訳元", loading: "読み込み中...", noComments: "まだコメントはありません。最初のコメントをどうぞ！", docBtnClose: "理解しました", catBtnAll: "すべて", catBtnPosters: "ポスター", catBtnClay: "粘土", catBtnCards: "ポストカード" },
+      FR: { heroDesc: "Bienvenue, chers frères et sœurs de notre famille spirituelle internationale ! Nous sommes absolument ravis que vous soyez venus au congrès en Lituanie. Nous avons préparé ces cadeaux spécialement pour vous avec beaucoup d'amour. S'il vous plaît, laissez-nous quelques mots chaleureux !", btnExplore: "Photos", btnLeaveMessage: "Lettre", galleryTitle: "Dans les coulisses", commentsTitle: "Lettre", commentsDesc: "S'il vous plaît, laissez-nous quelques mots chaleureux.", labelName: "Votre Nom", labelMsg: "Message", btnSubmitComment: "Envoyer", commentsSub: "Commentaires", labelTranslateOn: "Traduction AI Active", wsTitle: "Bienvenue !", wsDesc: "Choisissez vos préférences", wsCountryLabel: "Pays", wsLangLabel: "Langue", wsSizeLabel: "Taille du texte", wsSizeNormal: "Normal", wsSizeLarge: "Grand", btnContinue: "Continuer", wsPrivacy: "Politique de confidentialité", wsTerms: "Conditions d'utilisation", wsAcceptText: "J'accepte la", wsAnd: "et les", translatedFrom: "Traduit de", loading: "Chargement...", noComments: "Aucun commentaire pour le moment. Soyez le premier !", docBtnClose: "J'ai compris", catBtnAll: "Tout", catBtnPosters: "Affiches", catBtnClay: "Argile", catBtnCards: "Cartes" },
+      SV: { heroDesc: "Välkomna, kära bröder och systrar i vår internationella andliga familj! Vi är oerhört glada att ni kom till kongressen i Litauen. Vi har förberett dessa gåvor speciellt för er med stor kärlek. Lämna gärna några varma ord till oss!", btnExplore: "Foton", btnLeaveMessage: "Brev", galleryTitle: "Bakom kulisserna", commentsTitle: "Brev", commentsDesc: "Lämna gärna några varma ord till oss.", labelName: "Ditt Namn", labelMsg: "Meddelande", btnSubmitComment: "Skicka", commentsSub: "Kommentarer", labelTranslateOn: "AI-översättning aktiv", wsTitle: "Välkommen!", wsDesc: "Välj dina inställningar", wsCountryLabel: "Land", wsLangLabel: "Språk", wsSizeLabel: "Textstorlek", wsSizeNormal: "Normal", wsSizeLarge: "Stor", btnContinue: "Fortsätt", wsPrivacy: "Integritetspolicy", wsTerms: "Användarvillkor", wsAcceptText: "Jag godkänner", wsAnd: "och", translatedFrom: "Översatt från", loading: "Laddar...", noComments: "Inga kommentarer ännu. Bli den första!", docBtnClose: "Jag förstår", catBtnAll: "Allt", catBtnPosters: "Affischer", catBtnClay: "Lera", catBtnCards: "Vykort" }
     };
 
     const DOCS = {
@@ -497,7 +401,7 @@
       }
     };
 
-    const REACTIONS = ['❤️', '👍', '🥰', '🙏', '🕊️', '☀️', '🇱🇹', '🇱🇻', '🇺🇸', '🇳🇬', '🇦🇲', '🇧🇷', '🇨🇱', '🇩🇴', '🇮🇱', '🇯🇵', '🇵🇹', '🇸🇪', '🇳🇴', '🇩🇰'];
+    const REACTIONS = ['❤️', '💖', '🤍', '👍', '🥰', '🙏', '🕊️', '☀️', '🇱🇹', '🇱🇻', '🇵🇱', '🇺🇦', '🇬🇧', '🇺🇸', '🇩🇪', '🇫🇷', '🇪🇸', '🇳🇬', '🇦🇲', '🇧🇷', '🇨🇱', '🇩🇴', '🇮🇱', '🇯🇵', '🇵🇹', '🇸🇪', '🇳🇴', '🇩🇰'];
     
     let prefs = null;
     let currentLang = 'LT';
@@ -596,6 +500,12 @@
       document.getElementById('btnSubmitComment').querySelector('span').textContent = t.btnSubmitComment;
       document.getElementById('commentsSub').textContent = t.commentsSub;
       document.getElementById('labelTranslateOn').textContent = t.labelTranslateOn;
+      
+      document.getElementById('catBtnAll').textContent = t.catBtnAll;
+      document.getElementById('catBtnPosters').textContent = t.catBtnPosters;
+      document.getElementById('catBtnClay').textContent = t.catBtnClay;
+      document.getElementById('catBtnCards').textContent = t.catBtnCards;
+
       document.body.style.direction = currentLang === 'HE' ? 'rtl' : 'ltr';
       
       renderCommentsUI();
@@ -699,113 +609,4 @@
               <p class="text-[10px] font-bold uppercase text-[#8e7a68] mt-1">📍 ${c.country}</p>
             </div>
           </div>
-          <p class="text-base text-[#5c524a] font-medium leading-relaxed whitespace-pre-wrap">${text}</p>
-          ${isTr ? `<p class="text-[11px] text-[#8e7a68] font-bold pt-2 border-t border-[#f1ede6]">✨ ${t.translatedFrom} ${c.originalLang}</p>` : ''}
-          <div class="flex flex-wrap gap-2 pt-2 items-center relative">
-            ${rHtml}
-            <button onclick="togglePicker('${c.id}')" class="w-8 h-8 rounded-full bg-stone-50 flex items-center justify-center text-stone-400 font-bold hover:bg-stone-200 hover:text-[#b2533e] transition-colors pb-1 text-lg">+</button>
-            <div id="picker-${c.id}" class="hidden absolute bottom-full left-0 mb-2 flex flex-wrap gap-2 p-3 bg-white rounded-2xl border border-[#ebdcd0] shadow-xl z-10 w-72">
-              ${REACTIONS.map(e => `<button onclick="react('${c.id}','${e}',false); togglePicker('${c.id}')" class="w-10 h-10 flex items-center justify-center text-xl hover:bg-stone-100 rounded-xl transition-transform hover:scale-110">${e}</button>`).join('')}
-            </div>
-          </div>
-        `;
-        w.appendChild(div);
-      });
-    };
-
-    window.togglePicker = (id) => {
-      const p = document.getElementById(`picker-${id}`);
-      if(p.classList.contains('hidden')) {
-        document.querySelectorAll('div[id^="picker-"]').forEach(el => el.classList.add('hidden'));
-        p.classList.remove('hidden');
-      } else {
-        p.classList.add('hidden');
-      }
-    };
-
-    window.react = async (id, em, act) => {
-      const r = doc(db, "comments", id);
-      await updateDoc(r, { [`reactions.${em}`]: act ? arrayRemove(userId) : arrayUnion(userId) });
-    };
-
-    const translateWithDeepL = async (text, sourceLang) => {
-      const translations = {};
-      translations[sourceLang] = text;
-      
-      const promises = TARGET_LANGS.map(async (target) => {
-        if (target === sourceLang) return;
-        
-        let targetTag = target;
-        if (target === 'EN') targetTag = 'EN-US';
-        if (target === 'PT') targetTag = 'PT-BR';
-        
-        try {
-          const url = 'https://api-free.deepl.com/v2/translate';
-          const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
-          
-          const res = await fetch(proxyUrl, {
-            method: 'POST',
-            headers: {
-              'Authorization': `DeepL-Auth-Key ${DEEPL_KEY}`,
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              text: [text],
-              target_lang: targetTag
-            })
-          });
-          
-          const data = await res.json();
-          if (data && data.translations && data.translations.length > 0) {
-            translations[target] = data.translations[0].text;
-          }
-        } catch (err) {}
-      });
-      
-      await Promise.all(promises);
-      
-      ['KUR', 'AM'].forEach(lang => {
-        if (lang !== sourceLang && !translations[lang]) {
-          translations[lang] = translations['EN'] || text;
-        }
-      });
-      
-      return translations;
-    };
-
-    document.getElementById('commentForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const btn = document.getElementById('btnSubmitComment');
-      const loader = document.getElementById('loader');
-      const name = document.getElementById('formName').value;
-      const text = document.getElementById('formText').value;
-      
-      btn.disabled = true;
-      loader.classList.remove('hide');
-      
-      try {
-        const translatedObj = await translateWithDeepL(text, currentLang);
-        
-        await addDoc(collection(db, "comments"), {
-          name: name,
-          country: currentCountry,
-          originalLang: currentLang,
-          originalText: text,
-          translatedText: translatedObj,
-          timestamp: serverTimestamp(),
-          reactions: {}
-        });
-        
-        document.getElementById('formText').value = '';
-      } catch (err) {
-      } finally {
-        btn.disabled = false;
-        loader.classList.add('hide');
-      }
-    });
-
-    init();
-  </script>
-</body>
-</html>
+          <p class="text-base text-[#5c524a] font-medium leading-relaxed whitespace-pre-wrap">
