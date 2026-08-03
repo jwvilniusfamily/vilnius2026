@@ -18,10 +18,9 @@
     html {
       font-size: 16px;
       -webkit-text-size-adjust: 100%;
+      transition: font-size 0.3s ease;
     }
-    html.text-large {
-      font-size: 110%;
-    }
+    html.text-large { font-size: 18px; }
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background: var(--bg-gradient);
@@ -34,148 +33,118 @@
     .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4c4b1; border-radius: 10px; }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #b2533e; }
-    
-    .modal-overlay { backdrop-filter: blur(16px); background-color: rgba(250, 249, 246, 0.85); }
-    .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.5); }
-    .glass-input { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); border: 1px solid #ebdcd0; }
-    
+    .modal-overlay { backdrop-filter: blur(12px); background-color: rgba(250, 249, 246, 0.85); }
+    .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.6); }
+    .glass-input { background: rgba(255, 255, 255, 0.7); border: 1px solid #ebdcd0; }
     .hide { display: none !important; }
-    .fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    
-    @keyframes fadeIn { 
-      from { opacity: 0; transform: translateY(15px); } 
-      to { opacity: 1; transform: translateY(0); } 
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(100%); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes popOut {
-      from { opacity: 1; transform: translateY(0); }
-      to { opacity: 0; transform: translateY(100%); }
-    }
-    @keyframes drawCheck {
-      0% { stroke-dashoffset: 50; }
-      100% { stroke-dashoffset: 0; }
-    }
-    
-    .toast-enter { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    .toast-exit { animation: popOut 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    .animated-check { stroke-dasharray: 50; stroke-dashoffset: 50; animation: drawCheck 0.5s ease-out 0.2s forwards; }
+    .fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes popOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(100%); } }
+    .toast-enter { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .toast-exit { animation: popOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
   </style>
 </head>
 <body class="selection:bg-[#b2533e] selection:text-white overflow-hidden" id="bodyEl">
 
   <div id="toast-container" class="fixed bottom-6 left-0 right-0 flex flex-col items-center gap-3 z-[200] pointer-events-none"></div>
 
-  <div id="welcomeScreen" class="fixed inset-0 z-[100] modal-overlay flex flex-col items-center justify-center p-4 transition-opacity duration-700">
-    <div class="max-w-md w-full glass-card rounded-[2rem] shadow-[0_20px_60px_-15px_rgba(178,83,62,0.15)] p-8 space-y-6 relative overflow-hidden fade-in">
+  <div id="welcomeScreen" class="fixed inset-0 z-[100] modal-overlay flex flex-col items-center justify-center p-4 transition-opacity duration-500">
+    <div class="max-w-md w-full glass-card rounded-[2rem] shadow-2xl p-8 space-y-6 relative overflow-hidden fade-in">
       <div class="text-center space-y-3">
         <div class="relative inline-block">
-          <div class="absolute inset-0 bg-[#b2533e] blur-xl opacity-30 rounded-full"></div>
-          <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="relative h-20 w-20 rounded-full object-cover border-4 border-white shadow-lg mx-auto">
+          <div class="absolute inset-0 bg-[#b2533e] blur-xl opacity-20 rounded-full"></div>
+          <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="relative h-20 w-20 rounded-full object-cover border-4 border-white shadow-md mx-auto">
         </div>
         <h2 class="text-2xl font-extrabold tracking-tight text-[#2c2520]" id="wsTitle">VILNIUS FAMILY 2026</h2>
         <p class="text-sm font-medium text-[#8e7a68]" id="wsDesc">Sveiki atvykę! Pasirinkite nustatymus.</p>
       </div>
-      
       <div class="space-y-4">
         <div>
           <label class="block text-xs uppercase tracking-widest font-extrabold text-[#5c524a] mb-2 opacity-80" id="wsCountryLabel">Šalis</label>
-          <select id="wsCountry" class="w-full glass-input text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] focus:bg-white outline-none cursor-pointer font-semibold transition-all duration-300 shadow-sm"></select>
+          <select id="wsCountry" class="w-full glass-input text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-semibold transition-all shadow-sm"></select>
         </div>
         <div>
           <label class="block text-xs uppercase tracking-widest font-extrabold text-[#5c524a] mb-2 opacity-80" id="wsLangLabel">Kalba</label>
-          <select id="wsLang" class="w-full glass-input text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] focus:bg-white outline-none cursor-pointer font-semibold transition-all duration-300 shadow-sm">
-            <option value="LT">Lietuvių</option>
-            <option value="EN">English</option>
-            <option value="RU">Русский</option>
-            <option value="LV">Latviešu</option>
-            <option value="KUR">Kurdî</option>
-            <option value="AM">Հայերեն</option>
-            <option value="PT">Português</option>
-            <option value="ES">Español</option>
-            <option value="HE">עברית</option>
-            <option value="JA">日本語</option>
-            <option value="FR">Français</option>
-            <option value="SV">Svenska/Norsk</option>
+          <select id="wsLang" class="w-full glass-input text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-semibold transition-all shadow-sm">
+            <option value="LT">Lietuvių</option><option value="EN">English</option><option value="RU">Русский</option>
+            <option value="LV">Latviešu</option><option value="KUR">Kurdî</option><option value="AM">Հայերեն</option>
+            <option value="PT">Português</option><option value="ES">Español</option><option value="HE">עברית</option>
+            <option value="JA">日本語</option><option value="FR">Français</option><option value="SV">Svenska/Norsk</option>
           </select>
         </div>
         <div>
           <label class="block text-xs uppercase tracking-widest font-extrabold text-[#5c524a] mb-2 opacity-80" id="wsSizeLabel">Teksto dydis</label>
-          <select id="wsSize" class="w-full glass-input text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] focus:bg-white outline-none cursor-pointer font-semibold transition-all duration-300 shadow-sm">
-            <option value="normal" id="wsSizeNormal">Standartinis</option>
-            <option value="large" id="wsSizeLarge">Padidintas</option>
+          <select id="wsSize" class="w-full glass-input text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-semibold transition-all shadow-sm">
+            <option value="normal" id="wsSizeNormal">Standartinis</option><option value="large" id="wsSizeLarge">Padidintas</option>
           </select>
         </div>
       </div>
-      
       <div class="pt-4 space-y-5">
-        <div class="flex items-start gap-3 bg-white/50 p-4 rounded-2xl border border-white/60 shadow-sm">
+        <div class="flex items-start gap-3 bg-white/60 p-4 rounded-2xl border border-white shadow-sm">
           <input type="checkbox" id="wsAccept" class="mt-0.5 w-5 h-5 text-[#b2533e] bg-white border-[#ebdcd0] rounded cursor-pointer focus:ring-[#b2533e]">
           <label for="wsAccept" class="text-xs text-[#5c524a] cursor-pointer select-none leading-relaxed font-medium">
             <span id="wsAcceptText">Sutinku su</span>
-            <button onclick="openDoc('privacy')" class="text-[#b2533e] font-bold hover:underline transition-all" id="wsPrivacy">Privatumo politika</button>
+            <button onclick="openDoc('privacy')" class="text-[#b2533e] font-bold hover:underline" id="wsPrivacy">Privatumo politika</button>
             <span id="wsAnd">ir</span>
-            <button onclick="openDoc('terms')" class="text-[#b2533e] font-bold hover:underline transition-all" id="wsTerms">Naudojimo taisyklėmis</button>
+            <button onclick="openDoc('terms')" class="text-[#b2533e] font-bold hover:underline" id="wsTerms">Naudojimo taisyklėmis</button>
           </label>
         </div>
-        <button id="btnContinue" disabled class="w-full bg-gradient-to-r from-[#b2533e] to-[#9a4533] text-white py-4 rounded-2xl text-sm uppercase tracking-widest font-extrabold disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-300 shadow-[0_10px_20px_-10px_rgba(178,83,62,0.6)] hover:shadow-[0_15px_25px_-10px_rgba(178,83,62,0.8)] hover:-translate-y-0.5">Tęsti</button>
+        <button id="btnContinue" disabled class="w-full bg-gradient-to-r from-[#b2533e] to-[#9a4533] text-white py-4 rounded-2xl text-sm uppercase tracking-widest font-extrabold disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">Tęsti</button>
       </div>
     </div>
   </div>
 
-  <div id="docModal" class="fixed inset-0 z-[110] bg-black/40 backdrop-blur-md flex items-center justify-center p-4 hide transition-opacity duration-500">
-    <div class="max-w-2xl w-full bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col max-h-[85vh] fade-in transform scale-100">
+  <div id="docModal" class="fixed inset-0 z-[110] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hide transition-opacity duration-300">
+    <div class="max-w-2xl w-full bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col max-h-[85vh] fade-in">
       <div class="p-6 border-b border-[#ebdcd0] flex justify-between items-center bg-[#faf9f6]">
         <h3 class="font-extrabold text-xl text-[#2c2520]" id="docTitle">Dokumentas</h3>
-        <button onclick="closeDoc()" class="text-[#8e7a68] hover:text-[#b2533e] transition-colors duration-300 w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-sm">
+        <button onclick="closeDoc()" class="text-[#8e7a68] hover:text-[#b2533e] transition-colors w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-sm">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
       </div>
       <div class="p-8 overflow-y-auto custom-scrollbar text-base text-[#5c524a] space-y-5 leading-relaxed font-medium" id="docContent"></div>
       <div class="p-6 border-t border-[#ebdcd0] bg-[#faf9f6]">
-        <button onclick="closeDoc()" class="w-full bg-[#2c2520] text-white py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-[#1f1a16] shadow-md hover:shadow-lg transition-all duration-300" id="docBtnClose">Supratau</button>
+        <button onclick="closeDoc()" class="w-full bg-[#2c2520] text-white py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-[#1f1a16] shadow-md transition-all" id="docBtnClose">Supratau</button>
       </div>
     </div>
   </div>
 
-  <nav class="sticky top-0 z-40 bg-white/70 backdrop-blur-2xl border-b border-[#ebdcd0]/50 py-3 px-4 md:px-8 transition-all duration-500 shadow-sm">
+  <nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-[#ebdcd0]/50 py-3 px-4 md:px-8 transition-all shadow-sm">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <div class="flex items-center gap-3">
-        <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="h-11 w-11 rounded-full object-cover border-2 border-white shadow-md">
+        <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="h-11 w-11 rounded-full object-cover border-2 border-white shadow-sm">
         <div>
           <span class="font-extrabold text-sm tracking-wider text-[#2c2520] block uppercase">Vilnius Family</span>
           <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#b2533e] block">Congress 2026</span>
         </div>
       </div>
-      <button onclick="openSettings()" class="p-2.5 bg-white border border-[#ebdcd0] rounded-full text-[#2c2520] hover:bg-[#f5efe6] transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5">
+      <button onclick="openSettings()" class="p-2.5 bg-white border border-[#ebdcd0] rounded-full text-[#2c2520] hover:bg-[#f5efe6] transition-all shadow-sm hover:-translate-y-0.5">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
       </button>
     </div>
   </nav>
 
-  <header class="relative overflow-hidden py-20 md:py-28 px-4">
+  <header class="relative overflow-hidden py-16 md:py-24 px-4">
     <div class="max-w-4xl mx-auto text-center space-y-8 fade-in">
-      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-[#2c2520] leading-tight uppercase drop-shadow-sm">Vilnius Family <span class="text-[#b2533e]">2026</span></h1>
+      <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight text-[#2c2520] leading-tight uppercase drop-shadow-sm">Vilnius Family <span class="text-[#b2533e]">2026</span></h1>
       <p class="text-base md:text-lg text-[#5c524a] leading-relaxed max-w-3xl mx-auto font-medium" id="heroDesc"></p>
-      <div class="pt-8 flex flex-wrap justify-center gap-4">
-        <a href="#gallery" class="bg-gradient-to-r from-[#2c2520] to-[#1f1a16] text-white text-sm uppercase tracking-widest font-bold px-10 py-4 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300" id="btnExplore">Nuotraukos</a>
-        <a href="#comments" class="bg-white border-2 border-[#ebdcd0] text-[#2c2520] text-sm uppercase tracking-widest font-bold px-10 py-4 rounded-full hover:bg-[#f5efe6] hover:border-[#c7b198] hover:-translate-y-1 transition-all duration-300 shadow-sm" id="btnLeaveMessage">Laiškas</a>
+      <div class="pt-6 flex flex-wrap justify-center gap-4">
+        <a href="#gallery" class="bg-gradient-to-r from-[#2c2520] to-[#1f1a16] text-white text-sm uppercase tracking-widest font-bold px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" id="btnExplore">Nuotraukos</a>
+        <a href="#comments" class="bg-white border-2 border-[#ebdcd0] text-[#2c2520] text-sm uppercase tracking-widest font-bold px-10 py-4 rounded-full hover:bg-[#f5efe6] hover:border-[#c7b198] hover:-translate-y-1 transition-all shadow-sm" id="btnLeaveMessage">Laiškas</a>
       </div>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 md:px-8 py-10 space-y-24">
-    
-    <div class="bg-white/60 backdrop-blur-md border border-[#b2533e]/20 text-[#b2533e] text-center py-4 px-6 rounded-2xl text-sm font-bold shadow-sm flex items-center justify-center gap-3 fade-in mx-auto max-w-4xl">
+  <main class="max-w-7xl mx-auto px-4 md:px-8 py-8 space-y-20">
+    <div class="bg-white/70 backdrop-blur-md border border-[#b2533e]/20 text-[#b2533e] text-center py-4 px-6 rounded-2xl text-sm font-bold shadow-sm flex items-center justify-center gap-3 fade-in mx-auto max-w-4xl">
       <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
       <span id="privacyWarning"></span>
     </div>
 
     <section id="process-video" class="fade-in">
-      <div class="max-w-5xl mx-auto glass-card rounded-[2rem] p-4 md:p-6 shadow-xl">
-        <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-inner bg-black relative">
+      <div class="max-w-5xl mx-auto glass-card rounded-[2rem] p-4 md:p-6 shadow-lg">
+        <div class="aspect-video w-full rounded-2xl overflow-hidden bg-black relative shadow-inner">
           <video class="w-full h-full object-contain" controls playsinline preload="metadata" poster="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg">
             <source src="https://firebasestorage.googleapis.com/v0/b/jwvilniusfamily.firebasestorage.app/o/JW%20VILNIUS%20FAMILY%20VIDEO%20(1).mp4?alt=media&token=f4fb07b1-6cde-49b1-90cc-06e41ff32cc8" type="video/mp4">
           </video>
@@ -183,50 +152,50 @@
       </div>
     </section>
 
-    <section id="gallery" class="space-y-10 fade-in">
+    <section id="gallery" class="space-y-8 fade-in">
       <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-[#ebdcd0] pb-6">
         <h2 class="text-3xl font-extrabold text-[#2c2520]" id="galleryTitle">Darbo užkulisiai</h2>
-        <div class="flex gap-2 overflow-x-auto custom-scrollbar w-full md:w-auto pb-2 bg-white/50 p-1.5 rounded-2xl shadow-sm border border-[#ebdcd0]">
-          <button onclick="switchCategory('all')" id="catBtnAll" class="px-6 py-2.5 text-sm uppercase tracking-wider font-bold bg-[#b2533e] text-white rounded-xl shadow-md transition-all duration-300">Viskas</button>
-          <button onclick="switchCategory('posters')" id="catBtnPosters" class="px-6 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] rounded-xl hover:bg-white hover:text-[#b2533e] hover:shadow-sm transition-all duration-300">Plakatai</button>
-          <button onclick="switchCategory('clay')" id="catBtnClay" class="px-6 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] rounded-xl hover:bg-white hover:text-[#b2533e] hover:shadow-sm transition-all duration-300">Molis</button>
-          <button onclick="switchCategory('postcards')" id="catBtnCards" class="px-6 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] rounded-xl hover:bg-white hover:text-[#b2533e] hover:shadow-sm transition-all duration-300">Atvirukai</button>
+        <div class="flex gap-2 overflow-x-auto custom-scrollbar w-full md:w-auto pb-2 bg-white/60 p-1.5 rounded-2xl shadow-sm border border-[#ebdcd0]">
+          <button onclick="switchCategory('all')" id="catBtnAll" class="px-6 py-2.5 text-sm uppercase tracking-wider font-bold bg-[#b2533e] text-white rounded-xl shadow-md transition-all">Viskas</button>
+          <button onclick="switchCategory('posters')" id="catBtnPosters" class="px-6 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] rounded-xl hover:bg-white hover:text-[#b2533e] transition-all">Plakatai</button>
+          <button onclick="switchCategory('clay')" id="catBtnClay" class="px-6 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] rounded-xl hover:bg-white hover:text-[#b2533e] transition-all">Molis</button>
+          <button onclick="switchCategory('postcards')" id="catBtnCards" class="px-6 py-2.5 text-sm uppercase tracking-wider font-bold text-[#8e7a68] rounded-xl hover:bg-white hover:text-[#b2533e] transition-all">Atvirukai</button>
         </div>
       </div>
-      <div id="galleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 md:gap-8"></div>
+      <div id="galleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6"></div>
     </section>
 
-    <section id="comments" class="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20 pt-16 border-t border-[#ebdcd0] fade-in">
+    <section id="comments" class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 pt-12 border-t border-[#ebdcd0] fade-in">
       <div class="lg:col-span-5 space-y-8">
         <div class="space-y-3">
-          <h2 class="text-4xl font-extrabold text-[#2c2520]" id="commentsTitle">Laiškas</h2>
-          <p class="text-lg text-[#5c524a] leading-relaxed font-medium" id="commentsDesc"></p>
+          <h2 class="text-3xl font-extrabold text-[#2c2520]" id="commentsTitle">Laiškas</h2>
+          <p class="text-base text-[#5c524a] font-medium" id="commentsDesc"></p>
         </div>
-        <form id="commentForm" class="space-y-6 glass-card p-8 md:p-10 rounded-[2rem] shadow-xl transition-all duration-500 border border-white">
+        <form id="commentForm" class="space-y-6 glass-card p-8 rounded-[2rem] shadow-lg border border-white">
           <div>
             <label class="block text-xs uppercase tracking-widest font-extrabold text-[#5c524a] mb-2 opacity-80" id="labelName">Vardas</label>
-            <input type="text" id="formName" required class="w-full bg-white/70 backdrop-blur-sm border border-[#ebdcd0] py-4 px-5 rounded-xl focus:ring-2 focus:ring-[#b2533e] focus:bg-white outline-none font-medium transition-all duration-300 shadow-inner">
+            <input type="text" id="formName" required class="w-full bg-white/80 border border-[#ebdcd0] py-3.5 px-5 rounded-xl focus:ring-2 focus:ring-[#b2533e] focus:bg-white outline-none font-semibold transition-all shadow-inner">
           </div>
           <div>
             <label class="block text-xs uppercase tracking-widest font-extrabold text-[#5c524a] mb-2 opacity-80" id="labelMsg">Žinutė</label>
-            <textarea id="formText" rows="5" required class="w-full bg-white/70 backdrop-blur-sm border border-[#ebdcd0] py-4 px-5 rounded-xl focus:ring-2 focus:ring-[#b2533e] focus:bg-white outline-none resize-none font-medium transition-all duration-300 shadow-inner"></textarea>
+            <textarea id="formText" rows="5" required class="w-full bg-white/80 border border-[#ebdcd0] py-3.5 px-5 rounded-xl focus:ring-2 focus:ring-[#b2533e] focus:bg-white outline-none resize-none font-semibold transition-all shadow-inner"></textarea>
           </div>
-          <button type="submit" class="w-full bg-gradient-to-r from-[#2c2520] to-[#1f1a16] text-white py-4 rounded-xl text-sm uppercase tracking-widest font-extrabold hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex justify-center items-center gap-3" id="btnSubmitComment">
+          <button type="submit" class="w-full bg-gradient-to-r from-[#2c2520] to-[#1f1a16] text-white py-4 rounded-xl text-sm uppercase tracking-widest font-extrabold hover:shadow-xl hover:-translate-y-1 transition-all flex justify-center items-center gap-3" id="btnSubmitComment">
             <span>Siųsti</span>
             <div id="loader" class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin hide"></div>
           </button>
         </form>
       </div>
       
-      <div class="lg:col-span-7 space-y-8">
-        <div class="flex justify-between items-center bg-white/50 p-4 rounded-2xl border border-white shadow-sm">
+      <div class="lg:col-span-7 space-y-6">
+        <div class="flex justify-between items-center bg-white/60 p-4 rounded-2xl border border-white shadow-sm">
           <h3 class="font-extrabold text-2xl text-[#2c2520]" id="commentsSub">Atsiliepimai</h3>
           <span class="text-[11px] text-[#b2533e] bg-white px-4 py-2 rounded-full flex items-center gap-2 font-extrabold shadow-sm border border-[#ebdcd0]">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span id="labelTranslateOn">AI vertimas įjungtas</span>
           </span>
         </div>
-        <div id="commentsWrapper" class="space-y-6 max-h-[750px] overflow-y-auto pr-4 custom-scrollbar pb-10 scroll-smooth">
+        <div id="commentsWrapper" class="space-y-5 max-h-[700px] overflow-y-auto pr-3 custom-scrollbar pb-10">
           <div class="flex flex-col items-center justify-center py-20 text-[#8e7a68] animate-pulse font-medium gap-4 glass-card rounded-[2rem]" id="loadingText">
             <div class="w-10 h-10 border-4 border-[#c7b198] border-t-[#b2533e] rounded-full animate-spin"></div>
             <span>Kraunama...</span>
@@ -236,35 +205,35 @@
     </section>
   </main>
 
-  <footer class="mt-24 border-t border-[#ebdcd0] py-12 px-4 bg-white/50 backdrop-blur-xl text-center space-y-5 transition-all duration-500">
+  <footer class="mt-20 border-t border-[#ebdcd0] py-12 px-4 bg-white/40 backdrop-blur-xl text-center space-y-4">
     <div class="flex justify-center items-center gap-3">
-      <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="h-10 w-10 rounded-full object-cover border-2 border-white shadow-md">
+      <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="h-10 w-10 rounded-full object-cover border-2 border-white shadow-sm">
       <span class="font-extrabold text-[#2c2520] text-lg tracking-widest uppercase">Vilnius Family 2026</span>
     </div>
     <div class="text-xs font-bold text-[#8e7a68] tracking-widest uppercase">&copy; 2026 Vilnius, Lithuania.</div>
   </footer>
 
-  <div id="imageModal" class="fixed inset-0 z-[120] bg-black/95 backdrop-blur-sm flex-col justify-center items-center p-2 md:p-6 hide transition-opacity duration-500" onclick="closeImageModal()">
-    <button class="absolute top-6 right-6 text-white/70 hover:text-white bg-white/10 rounded-full w-14 h-14 flex items-center justify-center text-2xl z-50 transition-all duration-300 hover:scale-110 border border-white/20 hover:bg-[#b2533e]" onclick="closeImageModal()">
-      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+  <div id="imageModal" class="fixed inset-0 z-[120] bg-black/90 backdrop-blur-md flex-col justify-center items-center p-2 md:p-6 hide transition-opacity duration-300" onclick="closeImageModal()">
+    <button class="absolute top-6 right-6 text-white/70 hover:text-white bg-white/10 rounded-full w-12 h-12 flex items-center justify-center z-50 transition-all hover:bg-[#b2533e]" onclick="closeImageModal()">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
     </button>
-    <button class="absolute left-6 text-white bg-white/10 rounded-full w-16 h-16 flex items-center justify-center backdrop-blur-md z-50 transition-all duration-300 hover:bg-[#b2533e] hover:scale-110 border border-white/20" onclick="navigateModal(-1); event.stopPropagation();">
+    <button class="absolute left-4 md:left-8 text-white bg-white/10 rounded-full w-14 h-14 flex items-center justify-center z-50 transition-all hover:bg-[#b2533e]" onclick="navigateModal(-1); event.stopPropagation();">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
     </button>
     <div class="w-full h-[85vh] flex items-center justify-center px-4 overflow-hidden" onclick="event.stopPropagation()">
-      <img id="modalImg" src="" alt="Gallery" class="max-w-full max-h-full object-contain rounded-2xl shadow-2xl transition-transform duration-300 cursor-zoom-in" title="Slinkite ratuku, kad priartintumėte">
+      <img id="modalImg" src="" alt="Gallery" class="max-w-full max-h-full object-contain rounded-2xl shadow-2xl transition-transform duration-200 cursor-zoom-in">
     </div>
-    <button class="absolute right-6 text-white bg-white/10 rounded-full w-16 h-16 flex items-center justify-center backdrop-blur-md z-50 transition-all duration-300 hover:bg-[#b2533e] hover:scale-110 border border-white/20" onclick="navigateModal(1); event.stopPropagation();">
+    <button class="absolute right-4 md:right-8 text-white bg-white/10 rounded-full w-14 h-14 flex items-center justify-center z-50 transition-all hover:bg-[#b2533e]" onclick="navigateModal(1); event.stopPropagation();">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
     </button>
-    <div class="absolute bottom-8 z-50 fade-in">
-      <span id="modalIndexIndicator" class="text-sm font-extrabold text-[#2c2520] tracking-widest bg-white/90 backdrop-blur-md px-8 py-3 rounded-full shadow-2xl"></span>
+    <div class="absolute bottom-8 z-50">
+      <span id="modalIndexIndicator" class="text-sm font-extrabold text-[#2c2520] tracking-widest bg-white/90 px-6 py-2.5 rounded-full shadow-lg"></span>
     </div>
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, doc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp, doc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAvjMc8Y5IlLSY4ig2NuqGs563n3adgrJg",
@@ -278,11 +247,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const EXT_LANGS = {
-      'LT': 'lt', 'EN': 'en', 'RU': 'ru', 'LV': 'lv', 'KUR': 'ku', 
-      'AM': 'hy', 'PT': 'pt', 'ES': 'es', 'HE': 'iw', 'JA': 'ja', 
-      'FR': 'fr', 'SV': 'sv'
-    };
+    const EXT_LANGS = { 'LT': 'lt', 'EN': 'en', 'RU': 'ru', 'LV': 'lv', 'KUR': 'ku', 'AM': 'hy', 'PT': 'pt', 'ES': 'es', 'HE': 'iw', 'JA': 'ja', 'FR': 'fr', 'SV': 'sv' };
 
     const IMAGES = [
       { url: 'https://i.postimg.cc/tgKZznNy/IMG-0018-143-Edited.jpg', cat: 'posters' }, { url: 'https://i.postimg.cc/mD7cpZmC/IMG-0024-1-Edited.jpg', cat: 'posters' },
@@ -406,20 +371,10 @@
       const toast = document.createElement('div');
       toast.className = 'bg-[#2c2520] text-white px-6 py-4 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] text-sm font-extrabold tracking-wide flex items-center gap-3 border border-white/10 toast-enter';
       
-      let icon = '';
-      if (type === 'success') {
-        icon = `<svg class="w-6 h-6 text-emerald-400 animated-check" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>`;
-      } else {
-        icon = `<svg class="w-6 h-6 text-[#b2533e] animate-bounce" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>`;
-      }
-      
+      let icon = type === 'success' ? `<svg class="w-6 h-6 text-emerald-400 animated-check" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>` : `<svg class="w-6 h-6 text-[#b2533e] animate-bounce" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>`;
       toast.innerHTML = `${icon} <span>${msg}</span>`;
       container.appendChild(toast);
-      
-      setTimeout(() => {
-        toast.classList.replace('toast-enter', 'toast-exit');
-        setTimeout(() => toast.remove(), 600);
-      }, 3500);
+      setTimeout(() => { toast.classList.replace('toast-enter', 'toast-exit'); setTimeout(() => toast.remove(), 500); }, 3500);
     };
 
     const init = () => {
@@ -441,9 +396,8 @@
 
     const updateWSLang = (l) => {
       const t = TRANSLATIONS[l] || TRANSLATIONS['EN'];
-      ['wsTitle', 'wsDesc', 'wsCountryLabel', 'wsLangLabel', 'wsSizeLabel', 'wsSizeNormal', 'wsSizeLarge', 'btnContinue', 'wsPrivacy', 'wsTerms', 'wsAcceptText', 'wsAnd', 'privacyWarning', 'docTitle'].forEach(id => {
-        const el = document.getElementById(id);
-        if(el) el.textContent = t[id];
+      ['wsTitle', 'wsDesc', 'wsCountryLabel', 'wsLangLabel', 'wsSizeLabel', 'wsSizeNormal', 'wsSizeLarge', 'btnContinue', 'wsPrivacy', 'wsTerms', 'wsAcceptText', 'wsAnd'].forEach(id => {
+        const el = document.getElementById(id); if(el) el.textContent = t[id];
       });
     };
 
@@ -457,7 +411,17 @@
     });
 
     window.openSettings = () => { document.getElementById('welcomeScreen').classList.remove('hide'); document.getElementById('bodyEl').classList.add('overflow-hidden'); };
-    window.openDoc = (type) => { const l = document.getElementById('wsLang').value; const d = (DOCS[type][l] || DOCS[type]['EN']); document.getElementById('docTitle').textContent = d.title; document.getElementById('docContent').innerHTML = d.text; document.getElementById('docModal').classList.remove('hide'); };
+    
+    window.openDoc = (type) => {
+      const l = document.getElementById('wsLang').value;
+      const d = (DOCS[type][l] || DOCS[type]['EN']);
+      const t = TRANSLATIONS[l] || TRANSLATIONS['EN'];
+      document.getElementById('docTitle').textContent = d.title;
+      document.getElementById('docContent').innerHTML = d.text;
+      document.getElementById('docBtnClose').textContent = t.docBtnClose;
+      document.getElementById('docModal').classList.remove('hide');
+    };
+    
     window.closeDoc = () => document.getElementById('docModal').classList.add('hide');
 
     const applyPrefs = () => {
@@ -507,7 +471,7 @@
 
     let commentsData = [];
     const listenToComments = () => {
-      const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
+      const q = query(collection(db, "comments"), orderBy("timestamp", "desc"), limit(200));
       onSnapshot(q, (snap) => {
         commentsData = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         renderCommentsUI();
@@ -578,55 +542,23 @@
     };
 
     window.togglePicker = (id) => {
-      document.querySelectorAll('div[id^="picker-"]').forEach(el => {
-        if (el.id !== `picker-${id}`) {
-          el.classList.add('hidden');
-        }
-      });
-      const p = document.getElementById(`picker-${id}`);
-      if (p) {
-        p.classList.toggle('hidden');
-      }
+      document.querySelectorAll('div[id^="picker-"]').forEach(el => { if (el.id !== `picker-${id}`) el.classList.add('hidden'); });
+      const p = document.getElementById(`picker-${id}`); if (p) p.classList.toggle('hidden');
     };
 
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.picker-container')) {
-        document.querySelectorAll('div[id^="picker-"]').forEach(el => el.classList.add('hidden'));
-      }
-    });
+    document.addEventListener('click', (e) => { if (!e.target.closest('.picker-container')) document.querySelectorAll('div[id^="picker-"]').forEach(el => el.classList.add('hidden')); });
 
-    window.react = async (id, em, act) => {
-      const r = doc(db, "comments", id);
-      await updateDoc(r, { [`reactions.${em}`]: act ? arrayRemove(userId) : arrayUnion(userId) });
-    };
+    window.react = async (id, em, act) => { const r = doc(db, "comments", id); await updateDoc(r, { [`reactions.${em}`]: act ? arrayRemove(userId) : arrayUnion(userId) }); };
 
     document.getElementById('commentForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const btn = document.getElementById('btnSubmitComment');
-      const loader = document.getElementById('loader');
-      
-      btn.disabled = true;
-      loader.classList.remove('hide');
-      
+      const btn = document.getElementById('btnSubmitComment'), loader = document.getElementById('loader');
+      btn.disabled = true; loader.classList.remove('hide');
       try {
-        await addDoc(collection(db, "comments"), {
-          name: document.getElementById('formName').value,
-          country: currentCountry,
-          originalLang: currentLang,
-          originalText: document.getElementById('formText').value,
-          timestamp: serverTimestamp(),
-          reactions: {}
-        });
+        await addDoc(collection(db, "comments"), { name: document.getElementById('formName').value, country: currentCountry, originalLang: currentLang, originalText: document.getElementById('formText').value, timestamp: serverTimestamp(), reactions: {} });
         document.getElementById('formText').value = '';
-        
-        const t = TRANSLATIONS[currentLang] || TRANSLATIONS['EN'];
-        showToast(t.toastSent, 'send');
-        
-      } catch (err) {} 
-      finally {
-        btn.disabled = false;
-        loader.classList.add('hide');
-      }
+        const t = TRANSLATIONS[currentLang] || TRANSLATIONS['EN']; showToast(t.toastSent, 'success');
+      } catch (err) {} finally { btn.disabled = false; loader.classList.add('hide'); }
     });
 
     init();
