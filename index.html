@@ -4,28 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
   <title>VILNIUS FAMILY 2026</title>
-  
-  <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-5V7Z8JL2');
-  </script>
-
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5V7Z8JL2');</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-543545232"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-543545232');
-  </script>
-
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-543545232');</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
   <style>
     :root {
       --bg-color: #faf9f6;
@@ -33,17 +18,12 @@
       --text-color: #2c2520;
       --accent-color: #b2533e;
     }
-    
     html {
       font-size: 16px;
       -webkit-text-size-adjust: 100%;
-      transition: font-size 0.3s ease;
+      transition: font-size 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
-    html.text-large {
-      font-size: 110%;
-    }
-    
+    html.text-large { font-size: 110%; }
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background: var(--bg-gradient);
@@ -53,157 +33,79 @@
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
     }
-    
-    .break-words {
-      word-break: break-word;
-      overflow-wrap: break-word;
-    }
-    
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #d4c4b1;
-      border-radius: 10px;
-    }
-    
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: #b2533e;
-    }
-    
-    .modal-overlay {
-      backdrop-filter: blur(12px);
-      background-color: rgba(250, 249, 246, 0.85);
-    }
-    
-    .glass-card {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-    }
-    
-    .glass-input {
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid #ebdcd0;
-    }
-    
-    .hide {
-      display: none !important;
-    }
-    
-    .fade-in {
-      animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(100%); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes popOut {
-      from { opacity: 1; transform: translateY(0); }
-      to { opacity: 0; transform: translateY(100%); }
-    }
-    
-    @keyframes drawCheck {
-      0% { stroke-dashoffset: 50; }
-      100% { stroke-dashoffset: 0; }
-    }
-    
-    .toast-enter {
-      animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    
-    .toast-exit {
-      animation: popOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    
-    .animated-check {
-      stroke-dasharray: 50;
-      stroke-dashoffset: 50;
-      animation: drawCheck 0.4s ease-out forwards;
-    }
+    .break-words { word-break: break-word; overflow-wrap: break-word; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4c4b1; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #b2533e; }
+    .modal-overlay { backdrop-filter: blur(16px); background-color: rgba(250, 249, 246, 0.85); }
+    .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.6); }
+    .glass-input { background: rgba(255, 255, 255, 0.7); border: 1px solid #ebdcd0; }
+    .hide { display: none !important; }
+    .fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes popOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(100%); } }
+    @keyframes drawCheck { 0% { stroke-dashoffset: 50; } 100% { stroke-dashoffset: 0; } }
+    .toast-enter { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .toast-exit { animation: popOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .animated-check { stroke-dasharray: 50; stroke-dashoffset: 50; animation: drawCheck 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
   </style>
 </head>
 <body class="selection:bg-[#b2533e] selection:text-white" id="bodyEl">
-
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V7Z8JL2" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V7Z8JL2" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div id="toast-container" class="fixed bottom-6 left-0 right-0 flex flex-col items-center gap-3 z-[200] pointer-events-none w-full px-4"></div>
 
-  <div id="welcomeScreen" class="fixed inset-0 z-[100] modal-overlay flex flex-col items-center justify-center p-4 transition-opacity duration-500 overflow-y-auto">
-    <div class="max-w-md w-full glass-card rounded-[2rem] shadow-2xl p-6 md:p-8 space-y-6 relative overflow-hidden fade-in my-auto">
-      <div class="text-center space-y-3">
-        <div class="relative inline-block">
-          <div class="absolute inset-0 bg-[#b2533e] blur-xl opacity-20 rounded-full"></div>
-          <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="relative h-20 w-20 rounded-full object-cover border-4 border-white shadow-md mx-auto">
+  <div id="welcomeScreen" class="fixed inset-0 z-[100] modal-overlay overflow-y-auto transition-opacity duration-500">
+    <div class="min-h-full flex items-center justify-center p-4 py-12">
+      <div class="max-w-md w-full glass-card rounded-[2rem] shadow-2xl p-6 md:p-8 space-y-5 relative fade-in">
+        <div class="text-center space-y-3">
+          <div class="relative inline-block">
+            <div class="absolute inset-0 bg-[#b2533e] blur-xl opacity-20 rounded-full"></div>
+            <img src="https://i.postimg.cc/sXsbchSq/vilnius-family-2026.jpg" alt="Logo" class="relative h-20 w-20 rounded-full object-cover border-4 border-white shadow-md mx-auto">
+          </div>
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-[#2c2520] break-words" id="wsTitle">VILNIUS FAMILY 2026</h2>
+          <p class="text-sm font-medium text-[#8e7a68] break-words" id="wsDesc">Sveiki atvykę! Pasirinkite nustatymus.</p>
         </div>
-        <h2 class="text-2xl font-extrabold tracking-tight text-[#2c2520] break-words" id="wsTitle">VILNIUS FAMILY 2026</h2>
-        <p class="text-sm font-medium text-[#8e7a68] break-words" id="wsDesc">Sveiki atvykę! Pasirinkite nustatymus.</p>
-      </div>
-      
-      <div class="space-y-4 w-full">
-        <div>
-          <label class="block text-xs uppercase tracking-widest font-extrabold text-[#5c524a] mb-2 opacity-80 break-words" id="wsCountryLabel">Šalis</label>
-          <select id="wsCountry" class="w-full glass-input text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-semibold transition-all shadow-sm break-words"></select>
+        <div class="space-y-4 w-full">
+          <div>
+            <label class="block text-xs uppercase tracking-widest font-extrabold text-[#5c524a] mb-2 opacity-80 break-words" id="wsCountryLabel">Šalis</label>
+            <select id="wsCountry" class="w-full glass-input text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-semibold transition-all shadow-sm break-words"></select>
+          </div>
+          <div>
+            <label class="block text-xs uppercase tracking-widest font-extrabold text-[#5c524a] mb-2 opacity-80 break-words" id="wsLangLabel">Kalba</label>
+            <select id="wsLang" class="w-full glass-input text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-semibold transition-all shadow-sm break-words">
+              <option value="LT">Lietuvių</option><option value="EN">English</option><option value="RU">Русский</option>
+              <option value="LV">Latviešu</option><option value="KUR">Kurdî</option><option value="AM">Հայերեն</option>
+              <option value="PT">Português</option><option value="ES">Español</option><option value="HE">עברית</option>
+              <option value="JA">日本語</option><option value="FR">Français</option><option value="SV">Svenska/Norsk</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs uppercase tracking-widest font-extrabold text-[#5c524a] mb-2 opacity-80 break-words" id="wsSizeLabel">Teksto dydis</label>
+            <select id="wsSize" class="w-full glass-input text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-semibold transition-all shadow-sm break-words">
+              <option value="normal" id="wsSizeNormal">Standartinis</option><option value="large" id="wsSizeLarge">Padidintas</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <label class="block text-xs uppercase tracking-widest font-extrabold text-[#5c524a] mb-2 opacity-80 break-words" id="wsLangLabel">Kalba</label>
-          <select id="wsLang" class="w-full glass-input text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-semibold transition-all shadow-sm break-words">
-            <option value="LT">Lietuvių</option>
-            <option value="EN">English</option>
-            <option value="RU">Русский</option>
-            <option value="LV">Latviešu</option>
-            <option value="KUR">Kurdî</option>
-            <option value="AM">Հայերեն</option>
-            <option value="PT">Português</option>
-            <option value="ES">Español</option>
-            <option value="HE">עברית</option>
-            <option value="JA">日本語</option>
-            <option value="FR">Français</option>
-            <option value="SV">Svenska/Norsk</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs uppercase tracking-widest font-extrabold text-[#5c524a] mb-2 opacity-80 break-words" id="wsSizeLabel">Teksto dydis</label>
-          <select id="wsSize" class="w-full glass-input text-[#2c2520] py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#b2533e] outline-none cursor-pointer font-semibold transition-all shadow-sm break-words">
-            <option value="normal" id="wsSizeNormal">Standartinis</option>
-            <option value="large" id="wsSizeLarge">Padidintas</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="pt-4 space-y-5 w-full">
-        <label class="relative flex items-start gap-4 bg-white/60 p-4 rounded-2xl border border-white shadow-sm w-full transition-all hover:bg-white/90 cursor-pointer group">
-          <div class="relative flex items-center justify-center w-6 h-6 flex-shrink-0 mt-0.5">
-            <input type="checkbox" id="wsAccept" class="peer sr-only">
-            <div class="w-6 h-6 border-2 border-[#c7b198] rounded-md bg-white peer-checked:bg-[#b2533e] peer-checked:border-[#b2533e] transition-all duration-300 flex items-center justify-center shadow-sm">
-              <svg class="w-4 h-4 text-white opacity-0 peer-checked:opacity-100 transition-opacity duration-300 animated-check" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="stroke-width: 3px;">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
-              </svg>
+        <div class="pt-4 space-y-4 w-full">
+          <label class="relative flex items-start gap-4 bg-white/60 p-4 rounded-2xl border border-white shadow-sm w-full transition-all hover:bg-white/90 cursor-pointer group">
+            <div class="relative flex items-center justify-center w-6 h-6 flex-shrink-0 mt-0.5">
+              <input type="checkbox" id="wsAccept" class="peer sr-only">
+              <div class="w-6 h-6 border-2 border-[#c7b198] rounded-md bg-white peer-checked:bg-[#b2533e] peer-checked:border-[#b2533e] transition-all duration-300 flex items-center justify-center shadow-sm">
+                <svg class="w-4 h-4 text-white opacity-0 peer-checked:opacity-100 transition-opacity duration-300 animated-check" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="stroke-width: 3px;"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+              </div>
             </div>
-          </div>
-          <div class="text-sm md:text-base text-[#5c524a] select-none leading-relaxed font-medium break-words flex-1 group-hover:text-[#2c2520] transition-colors">
-            <span id="wsAcceptText">Sutinku su</span>
-            <button onclick="openDoc('privacy'); event.preventDefault(); event.stopPropagation();" class="text-[#b2533e] font-bold hover:underline relative z-20" id="wsPrivacy">Privatumo politika</button>
-            <span id="wsAnd">ir</span>
-            <button onclick="openDoc('terms'); event.preventDefault(); event.stopPropagation();" class="text-[#b2533e] font-bold hover:underline relative z-20" id="wsTerms">Naudojimo taisyklėmis</button>
-          </div>
-        </label>
-        <button id="btnContinue" disabled class="w-full bg-gradient-to-r from-[#b2533e] to-[#9a4533] text-white py-4.5 px-4 rounded-2xl text-sm md:text-base uppercase tracking-widest font-extrabold disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 break-words min-h-[56px]">Tęsti</button>
+            <div class="text-sm text-[#5c524a] select-none leading-relaxed font-medium break-words flex-1 group-hover:text-[#2c2520] transition-colors">
+              <span id="wsAcceptText">Sutinku su</span>
+              <button onclick="openDoc('privacy'); event.preventDefault(); event.stopPropagation();" class="text-[#b2533e] font-bold hover:underline relative z-20" id="wsPrivacy">Privatumo politika</button>
+              <span id="wsAnd">ir</span>
+              <button onclick="openDoc('terms'); event.preventDefault(); event.stopPropagation();" class="text-[#b2533e] font-bold hover:underline relative z-20" id="wsTerms">Naudojimo taisyklėmis</button>
+            </div>
+          </label>
+          <button id="btnContinue" disabled class="w-full bg-gradient-to-r from-[#b2533e] to-[#9a4533] text-white py-4 rounded-2xl text-sm uppercase tracking-widest font-extrabold disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 break-words">Tęsti</button>
+        </div>
       </div>
     </div>
   </div>
@@ -213,9 +115,7 @@
       <div class="p-5 md:p-6 border-b border-[#ebdcd0] flex justify-between items-center bg-[#faf9f6]">
         <h3 class="font-extrabold text-lg md:text-xl text-[#2c2520] break-words pr-4" id="docTitle">Dokumentas</h3>
         <button onclick="closeDoc()" class="text-[#8e7a68] hover:text-[#b2533e] transition-colors w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-sm flex-shrink-0">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
       </div>
       <div class="p-5 md:p-8 overflow-y-auto custom-scrollbar text-sm md:text-base text-[#5c524a] space-y-4 md:space-y-5 leading-relaxed font-medium break-words" id="docContent"></div>
@@ -235,19 +135,14 @@
         </div>
       </div>
       <button onclick="openSettings()" class="p-2 md:p-2.5 bg-white border border-[#ebdcd0] rounded-full text-[#2c2520] hover:bg-[#f5efe6] transition-all shadow-sm flex-shrink-0">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
       </button>
     </div>
   </nav>
 
   <header class="relative overflow-hidden py-12 md:py-24 px-4 w-full">
     <div class="max-w-4xl mx-auto text-center space-y-6 md:space-y-8 fade-in">
-      <h1 class="text-3xl sm:text-4xl md:text-7xl font-extrabold tracking-tight text-[#2c2520] leading-tight uppercase drop-shadow-sm break-words px-2">
-        Vilnius Family <span class="text-[#b2533e]">2026</span>
-      </h1>
+      <h1 class="text-3xl sm:text-4xl md:text-7xl font-extrabold tracking-tight text-[#2c2520] leading-tight uppercase drop-shadow-sm break-words px-2">Vilnius Family <span class="text-[#b2533e]">2026</span></h1>
       <p class="text-sm md:text-lg text-[#5c524a] leading-relaxed max-w-4xl mx-auto font-medium break-words px-2" id="heroDesc"></p>
       <div class="pt-4 md:pt-6 flex flex-col sm:flex-row justify-center gap-3 px-4">
         <a href="#gallery" class="w-full sm:w-auto bg-gradient-to-r from-[#2c2520] to-[#1f1a16] text-white text-sm uppercase tracking-widest font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all break-words" id="btnExplore">Nuotraukos</a>
@@ -258,9 +153,7 @@
 
   <main class="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-8 space-y-16 md:space-y-20 overflow-x-hidden w-full">
     <div class="bg-white/70 backdrop-blur-md border border-[#b2533e]/20 text-[#b2533e] text-center py-4 px-5 rounded-2xl text-xs md:text-sm font-bold shadow-sm flex items-center justify-center gap-3 fade-in mx-auto max-w-4xl w-full">
-      <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-      </svg>
+      <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
       <span id="privacyWarning" class="break-words text-left md:text-center"></span>
     </div>
 
@@ -294,9 +187,7 @@
           <p class="text-sm md:text-base text-[#5c524a] font-medium break-words" id="commentsDesc"></p>
         </div>
         <div class="text-center py-3 px-4 rounded-xl bg-[#b2533e]/10 border border-[#b2533e]/20 text-[#b2533e] text-xs md:text-sm font-bold shadow-sm w-full flex items-center justify-center gap-2">
-          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
           <span id="deadlineText" class="break-words text-left md:text-center"></span>
         </div>
         <form id="commentForm" class="space-y-5 md:space-y-6 glass-card p-6 md:p-8 rounded-[2rem] shadow-lg border border-white w-full">
@@ -374,6 +265,8 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+
+    const EXT_LANGS = { 'LT': 'lt', 'EN': 'en', 'RU': 'ru', 'LV': 'lv', 'KUR': 'ku', 'AM': 'hy', 'PT': 'pt', 'ES': 'es', 'HE': 'iw', 'JA': 'ja', 'FR': 'fr', 'SV': 'sv' };
 
     const IMAGES = [
       { url: 'https://i.postimg.cc/tgKZznNy/IMG-0018-143-Edited.jpg', cat: 'posters' }, { url: 'https://i.postimg.cc/mD7cpZmC/IMG-0024-1-Edited.jpg', cat: 'posters' },
@@ -625,55 +518,14 @@
 
     let commentsData = [];
     const listenToComments = () => {
-      const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
+      const q = query(collection(db, "comments"), orderBy("timestamp", "desc"), limit(200));
       onSnapshot(q, (snap) => {
         commentsData = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         renderCommentsUI();
       });
     };
 
-    const translateWithDeepL = async (text, sourceLang) => {
-      const translations = {};
-      translations[sourceLang] = text;
-      const supportedTargets = ['LT', 'EN', 'RU', 'LV', 'PT', 'ES', 'JA', 'FR', 'SV'];
-      
-      const promises = supportedTargets.map(async (target) => {
-        if (target === sourceLang) return;
-        let targetTag = target;
-        if (target === 'EN') targetTag = 'EN-US';
-        if (target === 'PT') targetTag = 'PT-BR';
-        
-        try {
-          const params = new URLSearchParams();
-          params.append('auth_key', '28ecb458-b261-46cf-bfce-a421ffa0ca00:fx');
-          params.append('text', text);
-          params.append('target_lang', targetTag);
-          
-          const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://api-free.deepl.com/v2/translate');
-          
-          const res = await fetch(proxyUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: params.toString()
-          });
-          
-          const data = await res.json();
-          if (data && data.translations && data.translations.length > 0) {
-            translations[target] = data.translations[0].text;
-          }
-        } catch (err) {}
-      });
-      
-      await Promise.all(promises);
-      
-      ['KUR', 'AM', 'HE'].forEach(lang => {
-        if (lang !== sourceLang && !translations[lang]) {
-          translations[lang] = translations['EN'] || text;
-        }
-      });
-      
-      return translations;
-    };
+    const EXT_LANGS = { 'LT': 'lt', 'EN': 'en', 'RU': 'ru', 'LV': 'lv', 'KUR': 'ku', 'AM': 'hy', 'PT': 'pt', 'ES': 'es', 'HE': 'iw', 'JA': 'ja', 'FR': 'fr', 'SV': 'sv' };
 
     const renderCommentsUI = () => {
       const w = document.getElementById('commentsWrapper'); w.innerHTML = '';
@@ -690,7 +542,14 @@
         
         let translatedStr = null;
         if (c.translatedText && typeof c.translatedText === 'object') {
-          translatedStr = c.translatedText[currentLang];
+          const targetCode = EXT_LANGS[currentLang];
+          const possibleCodes = [currentLang, currentLang.toLowerCase(), targetCode, targetCode?.toLowerCase(), 'iw', 'he'];
+          for (let code of possibleCodes) {
+            if (code && c.translatedText[code]) {
+              translatedStr = c.translatedText[code];
+              break;
+            }
+          }
         }
         
         const rawText = translatedStr ? translatedStr : c.originalText;
@@ -767,13 +626,11 @@
       if (textEl) textEl.classList.add('opacity-0');
       
       try {
-        const translatedObj = await translateWithDeepL(text, currentLang);
         await addDoc(collection(db, "comments"), {
           name: name,
           country: currentCountry,
           originalLang: currentLang,
           originalText: text,
-          translatedText: translatedObj,
           timestamp: serverTimestamp(),
           reactions: {}
         });
