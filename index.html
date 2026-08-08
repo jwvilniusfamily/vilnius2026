@@ -223,7 +223,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-analytics.js";
+    import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-analytics.js";
     import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, doc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -239,6 +239,8 @@
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
+
+    logEvent(analytics, 'page_view');
 
     const GOOGLE_LANGS = {
       'LT': 'lt', 'EN': 'en', 'RU': 'ru', 'LV': 'lv', 'KUR': 'ku', 
@@ -392,6 +394,12 @@
       localStorage.setItem('vf2026_prefs', JSON.stringify(prefs));
       document.getElementById('welcomeScreen').classList.add('hide'); 
       document.getElementById('bodyEl').classList.remove('overflow-hidden'); 
+      
+      logEvent(analytics, 'select_content', {
+        content_type: 'language_preference',
+        item_id: prefs.lang
+      });
+      
       applyPrefs();
     });
 
@@ -636,6 +644,12 @@
           timestamp: serverTimestamp(),
           reactions: {}
         });
+        
+        logEvent(analytics, 'post_comment', {
+          country: currentCountry,
+          language: currentLang
+        });
+        
         document.getElementById('formText').value = '';
       } catch (err) {
         console.error("Error adding document: ", err);
